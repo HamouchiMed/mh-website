@@ -1,4 +1,4 @@
-import { collection, config, fields } from "@keystatic/core";
+import { collection, config, fields, singleton } from "@keystatic/core";
 import { services } from "./src/content/services";
 
 // Content editor available at /keystatic.
@@ -38,9 +38,49 @@ export default config({
   storage: useGithub ? { kind: "github", repo: "HamouchiMed/mh-website" } : { kind: "local" },
   ui: {
     brand: { name: "MH Group" },
-    navigation: { Contenu: ["posts", "projects"], Confiance: ["testimonials", "clients"] },
+    navigation: { Contenu: ["posts", "projects"], Confiance: ["testimonials", "clients"], Studio: ["studio", "team"] },
+  },
+  singletons: {
+    studio: singleton({
+      label: "Studio (showreel, chiffres)",
+      path: "content/studio",
+      format: { data: "json" },
+      schema: {
+        showreel: fields.file({
+          label: "Vidéo showreel (MP4, 20–40 s)",
+          description: "Ajoute un bouton « Voir le showreel » sur la page d'accueil.",
+          directory: "public/media",
+          publicPath: "/media/",
+        }),
+        showreelPoster: fields.image({ label: "Image d'aperçu de la vidéo", directory: "public/media", publicPath: "/media/" }),
+        stats: fields.array(
+          fields.object({
+            value: fields.text({ label: "Valeur (ex. 40+)" }),
+            label: localized("Libellé"),
+          }),
+          {
+            label: "Chiffres clés",
+            description: "Uniquement des chiffres réels. La section s'affiche dès qu'il y en a au moins un.",
+            itemLabel: (p) => p.fields.value.value,
+          },
+        ),
+      },
+    }),
   },
   collections: {
+    team: collection({
+      label: "Équipe",
+      slugField: "name",
+      path: "content/team/*",
+      format: { data: "json" },
+      columns: ["name", "order"],
+      schema: {
+        name: fields.slug({ name: { label: "Nom" } }),
+        order: fields.integer({ label: "Ordre", defaultValue: 10 }),
+        role: localized("Poste", { required: true }),
+        photo: fields.image({ label: "Photo (portrait)", directory: "public/team", publicPath: "/team/" }),
+      },
+    }),
     posts: collection({
       label: "Blog",
       slugField: "title",
@@ -79,6 +119,26 @@ export default config({
         client: fields.text({ label: "Client (optionnel)" }),
         year: fields.text({ label: "Année (optionnel)" }),
         url: fields.url({ label: "Site en ligne (optionnel)" }),
+        cover: fields.image({
+          label: "Couverture (4:3, idéalement 1600×1200)",
+          description: "Image principale : maquette, capture d'écran ou visuel du projet.",
+          directory: "public/work",
+          publicPath: "/work/",
+        }),
+        gallery: fields.array(
+          fields.object({
+            image: fields.image({ label: "Capture", directory: "public/work", publicPath: "/work/" }),
+            device: fields.select({
+              label: "Format",
+              options: [
+                { label: "Ordinateur", value: "desktop" },
+                { label: "Téléphone", value: "mobile" },
+              ],
+              defaultValue: "desktop",
+            }),
+          }),
+          { label: "Captures d'écran", itemLabel: (p) => p.fields.device.value },
+        ),
         category: localized("Catégorie", { required: true }),
         summary: localized("Résumé", { multiline: true, required: true }),
         challenge: localized("Le défi", { multiline: true }),

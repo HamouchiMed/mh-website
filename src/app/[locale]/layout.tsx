@@ -11,10 +11,11 @@ import Cursor from "@/components/Cursor";
 import Effects from "@/components/Effects";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Liquid from "@/components/Liquid";
 import { IntroLoader, introScript, WhatsAppButton } from "@/components/Overlays";
 import { JsonLd } from "@/components/ui";
 import { services, serviceSlugMap } from "@/content/services";
-import { getPostSlugMap } from "@/lib/content";
+import { getPostSlugMap, getProjects } from "@/lib/content";
 import { readex } from "@/lib/fonts";
 import { dir, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
@@ -62,6 +63,7 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
   const maps = { services: serviceSlugMap(), posts: await getPostSlugMap() };
+  const previews = (await getProjects()).filter((p) => p.cover).map((p) => ({ src: p.cover as string }));
 
   const organization = {
     "@context": "https://schema.org",
@@ -114,12 +116,13 @@ export default async function LocaleLayout({
       </head>
       <body className="min-h-screen overflow-x-clip">
         <IntroLoader tagline={t.meta.tagline} />
-        <Header locale={locale} nav={t.nav} maps={maps} />
+        <Header locale={locale} nav={t.nav} sound={t.sound} maps={maps} previews={previews} />
         <main id="main">{children}</main>
         <Footer locale={locale} />
         <WhatsAppButton t={t.whatsapp} />
         <Effects />
         <Cursor />
+        <Liquid />
         <Analytics />
         <SpeedInsights />
       </body>

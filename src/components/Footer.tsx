@@ -4,7 +4,7 @@ import { services } from "@/content/services";
 import { cityFolder, getDictionary, type Locale } from "@/lib/i18n";
 import { activeSocials, site } from "@/lib/site";
 import { Logo } from "./Header";
-import { Arrow, Label } from "./ui";
+import { Arrow, Label, RollText } from "./ui";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -12,9 +12,9 @@ export default function Footer({ locale }: { locale: Locale }) {
   const cityBase = `/${locale}/${cityFolder[locale]}`;
 
   return (
-    <footer className="relative overflow-hidden bg-ink text-paper">
-      <section aria-labelledby="footer-cta" className="container-x border-b border-line-dark pb-20 pt-24 md:pb-28 md:pt-36">
-        <Label className="text-paper/60">{t.cta.label}</Label>
+    <footer data-theme="dark" data-scene="cta" className="relative overflow-hidden">
+      <section aria-labelledby="footer-cta" className="container-x border-b border-line pb-20 pt-24 md:pb-28 md:pt-36">
+        <Label className="text-muted">{t.cta.label}</Label>
         <Link href={`/${locale}/contact`} id="footer-cta" className="group mt-6 flex items-end justify-between gap-6" data-reveal>
           <span className="display text-[clamp(4rem,16vw,15rem)] transition-colors duration-500 group-hover:text-accent">
             {t.cta.title}
@@ -26,9 +26,9 @@ export default function Footer({ locale }: { locale: Locale }) {
             <Arrow />
           </span>
         </Link>
-        <p className="mt-8 text-paper/60">
+        <p className="mt-8 text-muted">
           {t.cta.or}{" "}
-          <a href={`mailto:${site.email}`} className="text-paper underline decoration-paper/30 underline-offset-4 hover:decoration-accent">
+          <a href={`mailto:${site.email}`} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-accent">
             {site.email}
           </a>
         </p>
@@ -37,7 +37,7 @@ export default function Footer({ locale }: { locale: Locale }) {
       <div className="container-x grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-4">
           <Logo />
-          <p className="mt-5 max-w-xs text-paper/60">{t.footer.tagline}</p>
+          <p className="mt-5 max-w-xs text-muted">{t.footer.tagline}</p>
           {activeSocials.length > 0 && (
             <ul className="mt-6 flex flex-wrap gap-2" aria-label={t.footer.follow}>
               {activeSocials.map(([name, url]) => (
@@ -46,7 +46,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full border border-line-dark px-4 py-1.5 text-sm capitalize hover:border-paper"
+                    className="rounded-full border border-line px-4 py-1.5 text-sm capitalize hover:border-ink"
                   >
                     {name}
                   </a>
@@ -56,7 +56,7 @@ export default function Footer({ locale }: { locale: Locale }) {
           )}
         </div>
         <nav aria-label={t.footer.navigation} className="md:col-span-2">
-          <h2 className="eyebrow text-paper/50">{t.footer.navigation}</h2>
+          <h2 className="eyebrow text-muted">{t.footer.navigation}</h2>
           <ul className="mt-5 space-y-2.5">
             {[
               [`/${locale}`, t.nav.home],
@@ -64,23 +64,24 @@ export default function Footer({ locale }: { locale: Locale }) {
               [`/${locale}/work`, t.nav.work],
               [`/${locale}/pricing`, t.nav.pricing],
               [`/${locale}/blog`, t.nav.blog],
+              [`/${locale}/lab`, t.nav.lab],
               [`/${locale}/about`, t.nav.about],
               [`/${locale}/contact`, t.nav.contact],
             ].map(([href, label]) => (
               <li key={href}>
-                <Link href={href} className="text-paper/80 transition-colors hover:text-paper">
-                  {label}
+                <Link href={href} className="text-ink/80 transition-colors hover:text-ink">
+                  <RollText text={label} />
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
         <nav aria-label={t.footer.services} className="md:col-span-3">
-          <h2 className="eyebrow text-paper/50">{t.footer.services}</h2>
+          <h2 className="eyebrow text-muted">{t.footer.services}</h2>
           <ul className="mt-5 space-y-2.5">
             {services.map((s) => (
               <li key={s.id}>
-                <Link href={`/${locale}/services/${s[locale].slug}`} className="text-paper/80 transition-colors hover:text-paper">
+                <Link href={`/${locale}/services/${s[locale].slug}`} className="text-ink/80 transition-colors hover:text-ink">
                   {s[locale].title}
                 </Link>
               </li>
@@ -88,16 +89,16 @@ export default function Footer({ locale }: { locale: Locale }) {
           </ul>
         </nav>
         <div className="md:col-span-3">
-          <h2 className="eyebrow text-paper/50">{t.footer.contact}</h2>
-          <ul className="mt-5 space-y-2.5 text-paper/80">
+          <h2 className="eyebrow text-muted">{t.footer.contact}</h2>
+          <ul className="mt-5 space-y-2.5 text-ink/80">
             <li>
-              <a href={`mailto:${site.email}`} className="hover:text-paper">
+              <a href={`mailto:${site.email}`} className="hover:text-ink">
                 {site.email}
               </a>
             </li>
             {site.phone && (
               <li>
-                <a href={`tel:${site.phone}`} dir="ltr" className="hover:text-paper">
+                <a href={`tel:${site.phone}`} dir="ltr" className="hover:text-ink">
                   {site.phone}
                 </a>
               </li>
@@ -107,17 +108,17 @@ export default function Footer({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <nav aria-label={t.footer.cities} className="container-x border-t border-line-dark py-8">
-        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-paper/60">
-          <li className="eyebrow text-paper/40">{t.footer.cities}</li>
+      <nav aria-label={t.footer.cities} className="container-x border-t border-line py-8">
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+          <li className="eyebrow text-muted/70">{t.footer.cities}</li>
           <li>
-            <Link href={cityBase} className="hover:text-paper">
+            <Link href={cityBase} className="hover:text-ink">
               {t.footer.allCities}
             </Link>
           </li>
           {cities.map((c) => (
             <li key={c.slug}>
-              <Link href={`${cityBase}/${c.slug}`} className="hover:text-paper">
+              <Link href={`${cityBase}/${c.slug}`} className="hover:text-ink">
                 {c.name[locale]}
               </Link>
             </li>
@@ -125,18 +126,18 @@ export default function Footer({ locale }: { locale: Locale }) {
         </ul>
       </nav>
 
-      <div className="container-x flex flex-col gap-3 border-t border-line-dark py-8 text-sm text-paper/50 md:flex-row md:items-center md:justify-between">
+      <div className="container-x flex flex-col gap-3 border-t border-line py-8 text-sm text-muted md:flex-row md:items-center md:justify-between">
         <p>
           © {year} {site.name}. {t.footer.rights}
         </p>
         <ul className="flex flex-wrap gap-x-5 gap-y-2">
           <li>
-            <Link href={`/${locale}/legal`} className="hover:text-paper">
+            <Link href={`/${locale}/legal`} className="hover:text-ink">
               {t.footer.legal}
             </Link>
           </li>
           <li>
-            <Link href={`/${locale}/privacy`} className="hover:text-paper">
+            <Link href={`/${locale}/privacy`} className="hover:text-ink">
               {t.footer.privacy}
             </Link>
           </li>

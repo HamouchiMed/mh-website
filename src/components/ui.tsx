@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment, type ComponentProps, type CSSProperties, type ReactNode } from "react";
 
@@ -13,25 +14,79 @@ export function Arrow({ className = "" }: { className?: string }) {
   );
 }
 
+// Letters (words for Arabic, which must stay joined) roll up on hover of the
+// closest link or button. The copy that rolls in is a text-shadow, so the text
+// exists only once in the DOM for search engines and screen readers.
+export function RollText({ text, className = "" }: { text: string; className?: string }) {
+  const arabic = /[\u0600-\u06FF]/.test(text);
+  const parts = arabic ? text.split(/(\s+)/) : Array.from(text);
+  return (
+    <span className={`roll ${className}`}>
+      {parts.map((part, i) =>
+        part.trim() === "" ? (
+          <span key={i} className="roll-space">
+            {part}
+          </span>
+        ) : (
+          <span key={i} className="roll-char" style={{ "--i": i } as CSSProperties}>
+            {part}
+          </span>
+        ),
+      )}
+    </span>
+  );
+}
+
 type PillProps = ComponentProps<typeof Link> & { variant?: "accent" | "ink" | "outline" | "light" };
 
+// Base colours + the colour that fills in from the pointer on hover.
 const pillStyles = {
-  accent: "bg-accent text-white hover:bg-ink",
-  ink: "bg-ink text-paper hover:bg-accent",
-  outline: "border border-current hover:bg-ink hover:text-paper hover:border-ink",
-  light: "bg-paper text-ink hover:bg-accent hover:text-white",
+  accent: { base: "bg-accent text-white", fill: "bg-ink", text: "" },
+  ink: { base: "bg-ink text-paper", fill: "bg-accent", text: "" },
+  outline: { base: "border border-current", fill: "bg-ink", text: "group-hover:text-paper group-hover:border-ink" },
+  light: { base: "bg-paper text-ink", fill: "bg-accent", text: "group-hover:text-white" },
 };
 
 export function Pill({ variant = "accent", className = "", children, ...props }: PillProps) {
+  const style = pillStyles[variant];
   return (
     <Link
       {...props}
       data-magnetic
-      className={`group inline-flex items-center gap-3 rounded-full px-6 py-3.5 text-[15px] font-medium transition-colors duration-300 ${pillStyles[variant]} ${className}`}
+      data-fill
+      className={`group relative isolate inline-flex items-center gap-3 overflow-hidden rounded-full px-6 py-3.5 text-[15px] font-medium transition-colors duration-500 ${style.base} ${style.text} ${className}`}
     >
-      <span>{children}</span>
+      <span aria-hidden="true" className={`pill-fill ${style.fill}`} />
+      {typeof children === "string" ? <RollText text={children} /> : <span>{children}</span>}
       <Arrow className={arrowHover} />
     </Link>
+  );
+}
+
+// Project image with the liquid hover effect (see Liquid.tsx); falls back to
+// the generative cover when no image is set.
+export function ProjectMedia({
+  src,
+  alt,
+  palette,
+  index = 0,
+  sizes = "(min-width: 768px) 50vw, 100vw",
+  preload = false,
+  className = "",
+}: {
+  src?: string | null;
+  alt: string;
+  palette: [string, string, string];
+  index?: number;
+  sizes?: string;
+  preload?: boolean;
+  className?: string;
+}) {
+  if (!src) return <Cover palette={palette} index={index} />;
+  return (
+    <div data-liquid className={`relative aspect-[4/3] overflow-hidden rounded-[28px] bg-paper-2 ${className}`}>
+      <Image src={src} alt={alt} fill sizes={sizes} preload={preload} className="object-cover" />
+    </div>
   );
 }
 
@@ -92,27 +147,6 @@ export function ScrollText({ text, className = "" }: { text: string; className?:
         </span>
       ))}
     </p>
-  );
-}
-
-export function Marquee({ items, className = "" }: { items: string[]; className?: string }) {
-  const row = (hidden: boolean) => (
-    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
-      {items.map((item) => (
-        <li key={item} className="flex items-center whitespace-nowrap">
-          <span className="px-6 md:px-10">{item}</span>
-          <span aria-hidden="true" className="text-[0.5em]">✦</span>
-        </li>
-      ))}
-    </ul>
-  );
-  return (
-    <div dir="ltr" className={`overflow-hidden ${className}`}>
-      <div className="marquee-track flex w-max">
-        {row(false)}
-        {row(true)}
-      </div>
-    </div>
   );
 }
 

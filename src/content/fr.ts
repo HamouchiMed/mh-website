@@ -12,6 +12,7 @@ export const fr = {
     work: "Réalisations",
     pricing: "Offres",
     blog: "Blog",
+    lab: "Lab",
     about: "Agence",
     contact: "Contact",
     cities: "Villes",
@@ -43,6 +44,7 @@ export const fr = {
     label: "Réalisations",
     title: "Projets sélectionnés",
     link: "Toutes les réalisations",
+    hint: "Continuez à défiler",
   },
   process: {
     label: "Méthode",
@@ -226,6 +228,32 @@ export const fr = {
       location: "Localisation",
       locationValue: "Maroc — nous travaillons à distance partout dans le monde",
     },
+  },
+  sound: {
+    on: "Couper le son",
+    off: "Activer le son",
+  },
+  lab: {
+    metaTitle: "Lab — expériences interactives WebGL",
+    metaDescription:
+      "Le laboratoire de MH Group : expériences interactives en WebGL et en temps réel — liquide, particules, verre. Bougez la souris ou touchez l'écran.",
+    label: "Lab",
+    h1: "Le laboratoire. On expérimente, vous jouez.",
+    lead: "Des expériences interactives en temps réel, codées à la main, qui montrent ce que le web peut faire. Bougez la souris ou touchez l'écran.",
+    hint: "Interagissez",
+    experiments: [
+      { id: "liquid", title: "Trace liquide", text: "Des métaballes suivent votre curseur et fusionnent comme du mercure." },
+      { id: "particles", title: "Particules", text: "Des milliers de particules dessinent notre logo. Approchez le curseur, puis cliquez." },
+      { id: "glass", title: "Verre", text: "Une sphère de verre réfracte la lumière avec une dispersion chromatique. Déplacez-la." },
+    ],
+    cta: "Un projet interactif en tête ?",
+  },
+  studio: {
+    showreel: "Voir le showreel",
+    close: "Fermer",
+    teamLabel: "L'équipe",
+    teamTitle: "Les personnes derrière vos projets.",
+    statsLabel: "En chiffres",
   },
   whatsapp: {
     label: "Discuter sur WhatsApp",
@@ -428,6 +456,7 @@ export const fr = {
     title: "Page introuvable",
     text: "La page que vous cherchez n'existe pas ou a été déplacée.",
     back: "Retour à l'accueil",
+    hint: "Bougez la souris : même perdue, la page reste vivante.",
   },
 };
 

@@ -37,6 +37,8 @@ export function localizeProject(p: Project, locale: Locale) {
     year: p.year,
     url: p.url,
     palette: p.palette,
+    cover: p.cover,
+    gallery: p.gallery.filter((g) => g.image),
     tags: p.tags,
     stack: p.stack,
     services: p.services,
@@ -148,4 +150,18 @@ export const getTestimonials = cache(async () => {
 export const getClients = cache(async () => {
   const entries = await reader.collections.clients.all();
   return entries.map(({ slug, entry }) => ({ slug, ...entry }));
+});
+
+export const getStudio = cache(async () => {
+  const studio = await reader.singletons.studio.read();
+  return {
+    showreel: studio?.showreel ?? null,
+    showreelPoster: studio?.showreelPoster ?? null,
+    stats: (studio?.stats ?? []).filter((s) => s.value),
+  };
+});
+
+export const getTeam = cache(async () => {
+  const entries = await reader.collections.team.all();
+  return entries.map(({ slug, entry }) => ({ slug, ...entry })).sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 });

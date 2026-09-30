@@ -40,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { paths: perLocale((l) => `/${cityFolder[l]}`), priority: 0.8, changeFrequency: "monthly" },
     ...cities.map((c) => ({ paths: perLocale((l) => `/${cityFolder[l]}/${c.slug}`), priority: 0.7, changeFrequency: "monthly" as const })),
     { paths: all("/about"), priority: 0.6, changeFrequency: "monthly" },
+    { paths: all("/lab"), priority: 0.5, changeFrequency: "monthly" },
     { paths: all("/contact"), priority: 0.8, changeFrequency: "monthly" },
     { paths: all("/legal"), priority: 0.2, changeFrequency: "yearly" },
     { paths: all("/privacy"), priority: 0.2, changeFrequency: "yearly" },

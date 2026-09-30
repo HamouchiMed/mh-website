@@ -14,6 +14,7 @@ export const en: Dictionary = {
     work: "Work",
     pricing: "Packages",
     blog: "Blog",
+    lab: "Lab",
     about: "About",
     contact: "Contact",
     cities: "Cities",
@@ -45,6 +46,7 @@ export const en: Dictionary = {
     label: "Work",
     title: "Selected projects",
     link: "All projects",
+    hint: "Keep scrolling",
   },
   process: {
     label: "Process",
@@ -228,6 +230,32 @@ export const en: Dictionary = {
       location: "Location",
       locationValue: "Morocco — working remotely worldwide",
     },
+  },
+  sound: {
+    on: "Mute sound",
+    off: "Turn sound on",
+  },
+  lab: {
+    metaTitle: "Lab — interactive WebGL experiments",
+    metaDescription:
+      "MH Group's lab: real-time interactive WebGL experiments — liquid, particles, glass. Move your mouse or touch the screen.",
+    label: "Lab",
+    h1: "The lab. We experiment, you play.",
+    lead: "Hand-coded, real-time interactive experiments that show what the web can do. Move your mouse or touch the screen.",
+    hint: "Interact",
+    experiments: [
+      { id: "liquid", title: "Liquid trail", text: "Metaballs follow your cursor and merge like mercury." },
+      { id: "particles", title: "Particles", text: "Thousands of particles draw our logo. Bring your cursor close, then click." },
+      { id: "glass", title: "Glass", text: "A glass sphere bends light with chromatic dispersion. Move it around." },
+    ],
+    cta: "Have an interactive project in mind?",
+  },
+  studio: {
+    showreel: "Watch the showreel",
+    close: "Close",
+    teamLabel: "The team",
+    teamTitle: "The people behind your projects.",
+    statsLabel: "In numbers",
   },
   whatsapp: {
     label: "Chat on WhatsApp",
@@ -430,5 +458,6 @@ export const en: Dictionary = {
     title: "Page not found",
     text: "The page you are looking for doesn't exist or has moved.",
     back: "Back to home",
+    hint: "Move your mouse: even when lost, this page stays alive.",
   },
 };

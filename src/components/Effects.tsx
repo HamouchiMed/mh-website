@@ -4,9 +4,13 @@ import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-// Global motion layer: smooth scrolling, scroll-triggered reveals and the
-// scroll-linked text highlight. Everything degrades to native behaviour when
-// the visitor prefers reduced motion.
+const pageColors = { light: "#edeef1", dark: "#0b0b12", accent: "#2e3bff" } as const;
+type PageTheme = keyof typeof pageColors;
+
+// Global motion layer: smooth scrolling, scroll-triggered reveals, the
+// scroll-linked text highlight and the page colour that follows the section in
+// the middle of the viewport. Everything degrades to native behaviour when the
+// visitor prefers reduced motion.
 export default function Effects() {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
@@ -57,10 +61,43 @@ export default function Effects() {
       window.addEventListener("resize", update);
     }
 
+    // Page theme: the [data-theme] section crossing the middle of the screen
+    // sets the page background (sections themselves turn transparent).
+    const root = document.documentElement;
+    const themed = Array.from(document.querySelectorAll<HTMLElement>("#main [data-theme], footer[data-theme]"));
+    let current: PageTheme | null = null;
+    let ticking = false;
+    const applyTheme = () => {
+      ticking = false;
+      const mid = window.innerHeight / 2;
+      const hit = themed.find((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= mid && r.bottom >= mid;
+      });
+      const next = hit?.dataset.theme;
+      const theme: PageTheme = next && next in pageColors ? (next as PageTheme) : "light";
+      if (theme === current) return;
+      current = theme;
+      root.dataset.pageTheme = theme;
+      root.style.setProperty("--page-bg", pageColors[theme]);
+    };
+    const onThemeScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(applyTheme);
+      }
+    };
+    applyTheme();
+    root.classList.add("themed");
+    window.addEventListener("scroll", onThemeScroll, { passive: true });
+    window.addEventListener("resize", onThemeScroll);
+
     return () => {
       io.disconnect();
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onThemeScroll);
+      window.removeEventListener("resize", onThemeScroll);
     };
   }, [pathname]);
 

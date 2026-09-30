@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { PageHero, Process } from "@/components/sections";
+import { Stats, Team } from "@/components/StudioBlocks";
 import { Label, Pill, ScrollText } from "@/components/ui";
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata, samePath } from "@/lib/seo";
@@ -57,6 +58,9 @@ export default async function AboutPage({ params }: Props) {
           <Pill href={`/${locale}/contact`}>{t.nav.cta}</Pill>
         </div>
       </section>
+
+      <Stats locale={locale} />
+      <Team locale={locale} />
 
       <Process locale={locale} />
     </>

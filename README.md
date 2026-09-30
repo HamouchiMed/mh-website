@@ -1,9 +1,23 @@
 # MH Group — agency website
 
 Trilingual (FR / EN / AR), SEO-first agency site built with Next.js 16, React 19
-and Tailwind CSS 4, inspired by lusion.co: real-time WebGL hero, intro loader,
-page transitions, smooth scrolling, magnetic buttons, a "View" cursor and 3D
-tilt on project covers.
+and Tailwind CSS 4, inspired by lusion.co:
+
+- one real-time WebGL scene behind the home page that changes shape, size and
+  colour for every section as you scroll (`SceneCanvas.tsx`, presets per
+  `data-scene`);
+- page colour that follows the section in view — light, dark or blue
+  (`data-theme` on a section; tokens swap automatically);
+- liquid WebGL ripple on project images (`Liquid.tsx`, any `[data-liquid]`);
+- pinned, sideways-scrolling work gallery on the home page;
+- rolling letters on links and buttons, buttons that fill from the pointer,
+  magnetic buttons, a "View" cursor, scroll-speed marquee;
+- full-screen menu with image previews, intro loader, page transitions;
+- `/lab` with three interactive experiments (liquid, particles, glass);
+- interactive 3D 404 page and optional UI sounds (off by default).
+
+Everything falls back to a static, readable page for `prefers-reduced-motion`,
+touch screens and browsers without WebGL.
 
 ## Run it
 
@@ -32,8 +46,9 @@ English lives under `/en`, Arabic (right-to-left) under `/ar`.
 
 ### With the content editor (no code)
 
-Blog articles, projects, testimonials and client logos are edited at
-**`/keystatic`**:
+Blog articles, projects (cover image + screenshots), testimonials, client
+logos, team members and the Studio settings (showreel video, key figures) are
+edited at **`/keystatic`**:
 
 - **Locally:** `npm run dev`, open http://localhost:3000/keystatic, edit, then
   commit the changed files in `content/`.
@@ -48,7 +63,9 @@ Blog articles, projects, testimonials and client logos are edited at
      redeploy. Edits made on `/keystatic` are then committed to GitHub and
      Vercel redeploys automatically.
 
-Testimonials and client logos stay hidden until you add real ones.
+Testimonials, client logos, the team, key figures and the showreel button all
+stay hidden until you add real ones. Project covers are 4:3 images (ideally
+1600×1200); the current ones are generated placeholders.
 
 ### In code
 

@@ -18,15 +18,17 @@
 }
 
 @layer base {
+  /* The page colour lives on <html> (the canvas root) so the fixed 3D scene,
+     which sits at a negative z-index, can render above it and below content. */
   html {
-    background: var(--color-paper);
+    background-color: var(--page-bg, var(--color-paper));
+    transition: background-color 0.8s var(--ease-out-expo);
     color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   body {
-    background: var(--color-paper);
     font-family: var(--font-sans);
   }
   ::selection {
@@ -44,6 +46,42 @@
   summary::-webkit-details-marker {
     display: none;
   }
+}
+
+/* ---------- Section themes ----------
+   Tokens are swapped inside dark and accent sections, so the same utilities
+   (text-ink, bg-paper, text-muted, border-line…) adapt automatically. Once JS
+   runs, sections turn transparent and the whole page background transitions
+   to the theme of the section in the middle of the viewport (Effects.tsx). */
+[data-theme="dark"],
+html[data-page-theme="dark"] .theme-follow {
+  --color-ink: #edeef1;
+  --color-paper: #0b0b12;
+  --color-paper-2: #16161f;
+  --color-muted: #9b9dad;
+  --color-line: rgb(237 238 241 / 0.14);
+}
+[data-theme="accent"],
+html[data-page-theme="accent"] .theme-follow {
+  --color-ink: #ffffff;
+  --color-paper: #2e3bff;
+  --color-paper-2: #2330e6;
+  --color-muted: rgb(255 255 255 / 0.74);
+  --color-line: rgb(255 255 255 / 0.28);
+  --color-accent: #0b0b12;
+  --color-accent-soft: #ffffff;
+}
+[data-theme] {
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  transition: background-color 0.8s var(--ease-out-expo);
+}
+html.themed [data-theme] {
+  background-color: transparent;
+}
+.theme-follow {
+  color: var(--color-ink);
+  transition: color 0.6s var(--ease-out-expo);
 }
 
 /* Arabic: Readex Pro for all text, no negative tracking, looser leading. */
@@ -127,15 +165,6 @@ html[lang="ar"] {
   transition: opacity 0.2s linear;
 }
 
-.marquee-track {
-  animation: marquee 32s linear infinite;
-}
-@keyframes marquee {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 .grain::after {
   content: "";
   position: absolute;
@@ -144,6 +173,111 @@ html[lang="ar"] {
   opacity: 0.18;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Rolling letters ---------- */
+.roll {
+  display: inline-flex;
+  height: 1.3em;
+  overflow: hidden;
+  line-height: 1.3em;
+  vertical-align: bottom;
+}
+.roll-char {
+  display: inline-block;
+  text-shadow: 0 1.3em 0 currentColor;
+  transition: transform 0.6s var(--ease-out-expo);
+  transition-delay: calc(var(--i) * 16ms);
+}
+.roll-space {
+  white-space: pre;
+}
+:is(a, button):is(:hover, :focus-visible) .roll-char {
+  transform: translate3d(0, -1.3em, 0);
+}
+
+/* ---------- Direction-aware button fill ---------- */
+.pill-fill {
+  position: absolute;
+  left: var(--fx, 50%);
+  top: var(--fy, 50%);
+  z-index: -1;
+  width: var(--fd, 0px);
+  height: var(--fd, 0px);
+  border-radius: 9999px;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s var(--ease-out-expo);
+  pointer-events: none;
+}
+[data-fill].is-filled .pill-fill {
+  transform: translate(-50%, -50%) scale(1);
+}
+@media (hover: none) {
+  .pill-fill {
+    display: none;
+  }
+}
+
+/* ---------- Full-screen menu ---------- */
+.site-menu {
+  visibility: hidden;
+  clip-path: circle(0px at var(--mx, 95%) var(--my, 36px));
+  transition:
+    clip-path 0.8s var(--ease-out-expo),
+    visibility 0s linear 0.8s;
+}
+html.themed .site-menu[data-theme] {
+  background-color: #0b0b12;
+}
+.site-menu.is-open {
+  visibility: visible;
+  clip-path: circle(150vmax at var(--mx, 95%) var(--my, 36px));
+  transition:
+    clip-path 1s var(--ease-out-expo),
+    visibility 0s;
+}
+.menu-item > a {
+  transform: translate3d(0, 105%, 0);
+  transition: transform 0.8s var(--ease-out-expo);
+}
+.site-menu.is-open .menu-item > a {
+  transform: none;
+  transition-delay: calc(var(--i) * 45ms + 180ms);
+}
+
+/* ---------- Sound toggle ---------- */
+.sound-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+.sound-bars span {
+  width: 2px;
+  height: 3px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: height 0.3s;
+}
+.sound-bars.is-on span {
+  animation: sound-bar 0.8s ease-in-out infinite alternate;
+}
+.sound-bars.is-on span:nth-child(2) {
+  animation-delay: -0.25s;
+}
+.sound-bars.is-on span:nth-child(3) {
+  animation-delay: -0.5s;
+}
+.sound-bars.is-on span:nth-child(4) {
+  animation-delay: -0.7s;
+}
+@keyframes sound-bar {
+  from {
+    height: 3px;
+  }
+  to {
+    height: 14px;
+  }
 }
 
 /* ---------- Cursor ---------- */
@@ -385,9 +519,18 @@ html.intro-play.js [data-reveal] {
     transform: none;
     transition: none;
   }
-  .word-mask > span,
-  .marquee-track {
+  .word-mask > span {
     animation: none;
+  }
+  .roll-char,
+  .pill-fill,
+  .site-menu,
+  .menu-item > a {
+    transition: none;
+  }
+  .sound-bars.is-on span {
+    animation: none;
+    height: 10px;
   }
   .scroll-word {
     opacity: 1;

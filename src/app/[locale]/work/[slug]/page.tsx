@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { delay } from "@/components/sections";
-import { Arrow, arrowHover, Cover, JsonLd, Label, Pill, SplitHeadline } from "@/components/ui";
+import Image from "next/image";
+import { Arrow, arrowHover, JsonLd, Label, Pill, ProjectMedia, SplitHeadline } from "@/components/ui";
 import { services } from "@/content/services";
 import { getProject, getProjects, localizeProject } from "@/lib/content";
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
@@ -89,9 +90,15 @@ export default async function CaseStudy({ params }: Props) {
       </section>
 
       <section className="container-x" data-reveal>
-        <div className="group">
-          <Cover palette={p.palette} index={index} />
-        </div>
+        <ProjectMedia
+          src={p.cover}
+          alt={`${p.name} — ${p.category}`}
+          palette={p.palette}
+          index={index}
+          sizes="(min-width: 1600px) 1500px, 100vw"
+          preload
+          className="md:aspect-[16/9]"
+        />
       </section>
 
       <section className="container-x py-16 md:py-24">
@@ -172,6 +179,37 @@ export default async function CaseStudy({ params }: Props) {
           </div>
         )}
       </section>
+
+      {p.gallery.length > 0 && (
+        <section aria-label={p.name} data-theme="dark" className="py-20 md:py-28">
+          <ul className="container-x grid items-end gap-8 md:grid-cols-12">
+            {p.gallery.map((g, i) =>
+              g.device === "mobile" ? (
+                <li key={i} className="md:col-span-4" data-reveal style={delay((i % 3) * 90)}>
+                  <div className="mx-auto w-full max-w-[320px] rounded-[44px] border-[10px] border-[#1c1c24] bg-[#1c1c24] shadow-2xl">
+                    <div data-liquid className="relative aspect-[9/19.5] overflow-hidden rounded-[34px]">
+                      <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="320px" className="object-cover object-top" />
+                    </div>
+                  </div>
+                </li>
+              ) : (
+                <li key={i} className="md:col-span-8" data-reveal style={delay((i % 3) * 90)}>
+                  <div className="overflow-hidden rounded-2xl border border-line bg-[#1c1c24] shadow-2xl">
+                    <div aria-hidden="true" className="flex items-center gap-1.5 px-4 py-3">
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                    </div>
+                    <div data-liquid className="relative aspect-[16/10] overflow-hidden">
+                      <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover object-top" />
+                    </div>
+                  </div>
+                </li>
+              ),
+            )}
+          </ul>
+        </section>
+      )}
 
       {next.slug !== p.slug && (
         <section className="border-t border-line">
