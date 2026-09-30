@@ -1,0 +1,74 @@
+{
+  "name": "SOUBAI Location Sahara",
+  "order": 2,
+  "featured": true,
+  "client": "SOUBAI Location",
+  "year": "",
+  "url": "https://soubaicar.com",
+  "category": {
+    "fr": "Site web · Location de voitures",
+    "en": "Website · Car rental",
+    "ar": "موقع ويب · كراء السيارات"
+  },
+  "summary": {
+    "fr": "Site rapide et optimisé SEO pour une agence de location de voitures et de 4×4 à Laâyoune, Boujdour et Dakhla, avec réservation directe par WhatsApp ou appel.",
+    "en": "A fast, SEO-optimised website for a car and 4×4 rental agency in Laâyoune, Boujdour and Dakhla, with direct booking by WhatsApp or phone.",
+    "ar": "موقع سريع ومحسّن لمحركات البحث لوكالة كراء السيارات وسيارات الدفع الرباعي في العيون وبوجدور والداخلة، مع حجز مباشر عبر واتساب أو الهاتف."
+  },
+  "challenge": {
+    "fr": "L'agence devait être trouvée sur Google par les voyageurs et les professionnels du Sud, puis transformer ces visites en réservations — le plus souvent depuis un smartphone.",
+    "en": "The agency needed to be found on Google by travellers and professionals in southern Morocco, then turn those visits into bookings — mostly from a smartphone.",
+    "ar": "كانت الوكالة بحاجة إلى الظهور على Google أمام المسافرين والمهنيين في الجنوب، ثم تحويل هذه الزيارات إلى حجوزات، غالبًا من الهاتف الذكي."
+  },
+  "solution": {
+    "fr": "Un site Next.js ultra-rapide, pensé mobile-first : catalogue de la flotte (de l'économique au 4×4) avec tarifs, présentation des villes, avis clients et boutons WhatsApp / appel toujours accessibles. Le SEO est intégré dès le départ : H1 unique, métadonnées, Open Graph et données structurées AutoRental.",
+    "en": "A lightning-fast, mobile-first Next.js site: fleet catalogue (from economy to 4×4) with rates, city sections, customer reviews and always-visible WhatsApp / call buttons. SEO is built in from day one: a single H1, metadata, Open Graph and AutoRental structured data.",
+    "ar": "موقع Next.js فائق السرعة مصمم أولًا للهواتف: كتالوج الأسطول (من الاقتصادية إلى الدفع الرباعي) مع الأسعار، تقديم المدن، آراء العملاء، وأزرار واتساب والاتصال في المتناول دائمًا. تحسين محركات البحث مدمج منذ البداية: عنوان H1 واحد، بيانات وصفية، Open Graph وبيانات منظمة من نوع AutoRental."
+  },
+  "features": {
+    "fr": [
+      "Catalogue de la flotte avec tarifs",
+      "Réservation par WhatsApp ou appel en un geste",
+      "Présentation des villes : Laâyoune, Boujdour, Dakhla",
+      "Avis clients et éléments de confiance",
+      "SEO technique et données structurées AutoRental",
+      "Design responsive et images optimisées"
+    ],
+    "en": [
+      "Fleet catalogue with rates",
+      "One-tap booking by WhatsApp or phone",
+      "City sections: Laâyoune, Boujdour, Dakhla",
+      "Customer reviews and trust signals",
+      "Technical SEO and AutoRental structured data",
+      "Responsive design and optimised images"
+    ],
+    "ar": [
+      "كتالوج الأسطول مع الأسعار",
+      "حجز بلمسة واحدة عبر واتساب أو الهاتف",
+      "تقديم المدن: العيون، بوجدور، الداخلة",
+      "آراء العملاء وعناصر الثقة",
+      "تحسين تقني لمحركات البحث وبيانات منظمة AutoRental",
+      "تصميم متجاوب وصور محسّنة"
+    ]
+  },
+  "services": [
+    "web",
+    "seo"
+  ],
+  "stack": [
+    "Next.js 16",
+    "React 19",
+    "TypeScript",
+    "Tailwind CSS"
+  ],
+  "tags": [
+    "Web",
+    "SEO",
+    "Booking"
+  ],
+  "palette": [
+    "#FF8A3D",
+    "#FFD2A8",
+    "#7A2E12"
+  ]
+}

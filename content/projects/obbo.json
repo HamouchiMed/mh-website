@@ -1,0 +1,72 @@
+{
+  "name": "Obbo",
+  "order": 6,
+  "featured": false,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Landing page · Application anti-gaspillage",
+    "en": "Landing page · Anti-food-waste app",
+    "ar": "صفحة هبوط · تطبيق لمكافحة هدر الطعام"
+  },
+  "summary": {
+    "fr": "Landing page pour Obbo, une application qui permet de récupérer à prix réduit les invendus des boulangeries, pâtisseries et restaurants de quartier.",
+    "en": "A landing page for Obbo, an app that lets people pick up unsold food from neighbourhood bakeries, pastry shops and restaurants at a reduced price.",
+    "ar": "صفحة هبوط لتطبيق Obbo الذي يتيح اقتناء المنتجات غير المباعة من المخابز ومحلات الحلويات والمطاعم القريبة بأثمنة مخفضة."
+  },
+  "challenge": {
+    "fr": "Expliquer un nouveau concept en quelques secondes et donner envie de télécharger l'application, tout en valorisant son impact écologique.",
+    "en": "Explain a new concept in seconds and make people want to download the app, while highlighting its environmental impact.",
+    "ar": "شرح فكرة جديدة في ثوانٍ وتحفيز الزوار على تحميل التطبيق، مع إبراز أثره البيئي."
+  },
+  "solution": {
+    "fr": "Une landing page animée et colorée : hero percutant, aperçu de l'expérience dans l'app (paniers surprises, commerces à proximité, réservation), mission anti-gaspi et indicateurs d'impact.",
+    "en": "A vibrant, animated landing page: a punchy hero, a preview of the in-app experience (surprise bags, nearby shops, reservations), the anti-waste mission and impact indicators.",
+    "ar": "صفحة هبوط ملونة ومتحركة: واجهة رئيسية قوية، لمحة عن تجربة الاستخدام داخل التطبيق (سلال مفاجئة، محلات قريبة، الحجز)، مهمة مكافحة الهدر، ومؤشرات الأثر."
+  },
+  "features": {
+    "fr": [
+      "Hero animé et message clair",
+      "Aperçu de l'expérience utilisateur",
+      "Section mission et impact écologique",
+      "Indicateurs d'impact",
+      "Animations au scroll",
+      "Design responsive"
+    ],
+    "en": [
+      "Animated hero with a clear message",
+      "Preview of the user experience",
+      "Mission and environmental impact section",
+      "Impact indicators",
+      "Scroll animations",
+      "Responsive design"
+    ],
+    "ar": [
+      "واجهة رئيسية متحركة برسالة واضحة",
+      "لمحة عن تجربة المستخدم",
+      "قسم المهمة والأثر البيئي",
+      "مؤشرات الأثر",
+      "حركات عند التمرير",
+      "تصميم متجاوب"
+    ]
+  },
+  "services": [
+    "design",
+    "web"
+  ],
+  "stack": [
+    "HTML",
+    "Tailwind CSS",
+    "JavaScript"
+  ],
+  "tags": [
+    "Landing",
+    "Design"
+  ],
+  "palette": [
+    "#FF3D7F",
+    "#FFC2D6",
+    "#3A0A1F"
+  ]
+}

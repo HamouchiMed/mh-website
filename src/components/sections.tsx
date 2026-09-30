@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { projects } from "@/content/projects";
 import { services } from "@/content/services";
+import { getProjects, localizeProject } from "@/lib/content";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { Arrow, Cover, Label, SplitHeadline } from "./ui";
+import { Arrow, arrowHover, Cover, Label, SplitHeadline } from "./ui";
 
-const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
+export const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
 export function PageHero({ label, title, lead }: { label: string; title: string; lead?: string }) {
   return (
@@ -21,11 +21,20 @@ export function PageHero({ label, title, lead }: { label: string; title: string;
   );
 }
 
-export function ServicesList({ locale, headingLevel = "h3" }: { locale: Locale; headingLevel?: "h2" | "h3" }) {
+export function ServicesList({
+  locale,
+  headingLevel = "h3",
+  only,
+}: {
+  locale: Locale;
+  headingLevel?: "h2" | "h3";
+  only?: string[];
+}) {
   const H = headingLevel;
+  const list = only ? services.filter((s) => only.includes(s.id)) : services;
   return (
     <ul className="border-t border-line">
-      {services.map((s, i) => (
+      {list.map((s, i) => (
         <li key={s.id} className="border-b border-line" data-reveal style={delay(i * 60)}>
           <Link
             href={`/${locale}/services/${s[locale].slug}`}
@@ -35,15 +44,17 @@ export function ServicesList({ locale, headingLevel = "h3" }: { locale: Locale; 
               aria-hidden="true"
               className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-accent transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-y-100"
             />
-            <span className="eyebrow text-muted transition-colors group-hover:text-white/70 md:pl-4">0{i + 1}</span>
+            <span className="eyebrow text-muted transition-colors group-hover:text-white/70 md:ps-4">
+              0{services.indexOf(s) + 1}
+            </span>
             <H className="text-[clamp(1.6rem,3.4vw,3rem)] font-medium tracking-[-0.03em] transition-colors group-hover:text-white">
               {s[locale].title}
             </H>
             <p className="col-span-3 max-w-md text-muted transition-colors group-hover:text-white/80 md:col-span-1">
               {s[locale].short}
             </p>
-            <span className="col-start-3 row-start-1 grid h-12 w-12 place-items-center rounded-full border border-line text-xl transition-all duration-500 group-hover:rotate-45 group-hover:border-white group-hover:bg-white group-hover:text-accent md:col-start-auto md:row-start-auto md:mr-4">
-              <Arrow />
+            <span className="col-start-3 row-start-1 grid h-12 w-12 place-items-center rounded-full border border-line text-xl transition-all duration-500 group-hover:border-white group-hover:bg-white group-hover:text-accent md:col-start-auto md:row-start-auto md:me-4">
+              <Arrow className={arrowHover} />
             </span>
           </Link>
         </li>
@@ -52,18 +63,22 @@ export function ServicesList({ locale, headingLevel = "h3" }: { locale: Locale; 
   );
 }
 
-export function ProjectsGrid({ locale, limit }: { locale: Locale; limit?: number }) {
-  const list = limit ? projects.slice(0, limit) : projects;
+export async function ProjectsGrid({ locale, featuredOnly = false, exclude }: { locale: Locale; featuredOnly?: boolean; exclude?: string }) {
+  const t = getDictionary(locale).workDetail;
+  const all = await getProjects();
+  const list = all
+    .filter((p) => (!featuredOnly || p.featured) && p.slug !== exclude)
+    .map((p) => localizeProject(p, locale));
   return (
     <ul className="grid gap-x-6 gap-y-14 md:grid-cols-2">
-      {list.map((p, i) => {
-        const inner = (
-          <>
-            <Cover palette={p.palette} index={i} />
+      {list.map((p, i) => (
+        <li key={p.slug} className={`group ${i % 2 === 1 ? "md:mt-24" : ""}`} data-reveal style={delay((i % 2) * 120)}>
+          <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.view}>
+            <Cover palette={p.palette} index={all.findIndex((x) => x.slug === p.slug)} />
             <div className="mt-5 flex items-start justify-between gap-4">
               <div>
                 <h3 className="text-2xl font-medium tracking-[-0.02em]">{p.name}</h3>
-                <p className="mt-1 text-muted">{p.category[locale]}</p>
+                <p className="mt-1 text-muted">{p.category}</p>
               </div>
               <ul className="flex flex-wrap justify-end gap-1.5">
                 {p.tags.map((tag) => (
@@ -73,20 +88,9 @@ export function ProjectsGrid({ locale, limit }: { locale: Locale; limit?: number
                 ))}
               </ul>
             </div>
-          </>
-        );
-        return (
-          <li key={p.id} className={`group ${i % 2 === 1 ? "md:mt-24" : ""}`} data-reveal style={delay((i % 2) * 120)}>
-            {p.url ? (
-              <a href={p.url} target="_blank" rel="noopener noreferrer" className="block">
-                {inner}
-              </a>
-            ) : (
-              inner
-            )}
-          </li>
-        );
-      })}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }
@@ -146,11 +150,30 @@ export function SectionHeader({
         </h2>
       </div>
       {link && (
-        <Link href={link.href} className="group inline-flex shrink-0 items-center gap-2 text-[15px] font-medium underline decoration-line underline-offset-8 hover:decoration-accent">
+        <Link
+          href={link.href}
+          className="group inline-flex shrink-0 items-center gap-2 text-[15px] font-medium underline decoration-line underline-offset-8 hover:decoration-accent"
+        >
           {link.label}
-          <Arrow className="transition-transform duration-300 group-hover:rotate-45" />
+          <Arrow className={arrowHover} />
         </Link>
       )}
     </div>
+  );
+}
+
+export function FaqSection({ id, label, title, children }: { id: string; label?: string; title: string; children: React.ReactNode }) {
+  return (
+    <section aria-labelledby={id} className="container-x py-24 md:py-36">
+      <div className="grid gap-10 md:grid-cols-12">
+        <div className="md:col-span-4">
+          {label && <Label className="text-muted">{label}</Label>}
+          <h2 id={id} className="display mt-6 text-[clamp(2.25rem,4.5vw,4rem)]" data-reveal>
+            {title}
+          </h2>
+        </div>
+        <div className="md:col-span-8">{children}</div>
+      </div>
+    </section>
   );
 }

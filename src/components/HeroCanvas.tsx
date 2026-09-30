@@ -112,7 +112,8 @@ void main() {
 }
 `;
 
-export default function HeroCanvas({ className = "" }: { className?: string }) {
+// `mirror` moves the cluster to the left for right-to-left layouts.
+export default function HeroCanvas({ className = "", mirror = false }: { className?: string; mirror?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -169,7 +170,7 @@ export default function HeroCanvas({ className = "" }: { className?: string }) {
       gl.uniform2f(uRes, canvas.width, canvas.height);
       // Desktop: cluster sits to the right of the headline. Mobile: top centre.
       if (aspect > 1.1) {
-        center.x = aspect * WORLD * 0.52;
+        center.x = aspect * WORLD * 0.52 * (mirror ? -1 : 1);
         center.y = 0.3;
         blobScale = 1;
       } else {
@@ -244,7 +245,7 @@ export default function HeroCanvas({ className = "" }: { className?: string }) {
       document.removeEventListener("visibilitychange", onVisibility);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, []);
+  }, [mirror]);
 
   return (
     <canvas

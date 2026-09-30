@@ -1,0 +1,74 @@
+{
+  "name": "SmartWathiqa",
+  "order": 3,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Plateforme web · Gestion documentaire",
+    "en": "Web platform · Document management",
+    "ar": "منصة ويب · إدارة الوثائق"
+  },
+  "summary": {
+    "fr": "Plateforme de gestion électronique des documents (GED) pour les organisations : classement, partage, circuits de validation et traçabilité complète.",
+    "en": "An electronic document management platform for organisations: filing, sharing, approval workflows and a full audit trail.",
+    "ar": "منصة للتدبير الإلكتروني للوثائق موجهة للمؤسسات: التصنيف، المشاركة، مسارات المصادقة، والتتبع الكامل."
+  },
+  "challenge": {
+    "fr": "Des documents dispersés entre e-mails, clés USB et dossiers partagés : difficile de retrouver la bonne version, de savoir qui a validé quoi et de contrôler les accès.",
+    "en": "Documents scattered across emails, USB sticks and shared folders: hard to find the right version, know who approved what, or control access.",
+    "ar": "وثائق متناثرة بين البريد الإلكتروني والأقراص المحمولة والمجلدات المشتركة: يصعب العثور على النسخة الصحيحة، ومعرفة من صادق على ماذا، والتحكم في صلاحيات الوصول."
+  },
+  "solution": {
+    "fr": "Une application web avec des espaces adaptés à chaque rôle — employé, directeur, administrateur. Les documents sont classés par catégories et tags, partagés en quelques clics et soumis à un circuit d'approbation. Chaque action est enregistrée dans un journal d'audit.",
+    "en": "A web application with role-based spaces — employee, director, administrator. Documents are organised with categories and tags, shared in a few clicks and routed through an approval workflow. Every action is recorded in an audit log.",
+    "ar": "تطبيق ويب بفضاءات مخصصة لكل دور: الموظف، المدير، والمسؤول. تُصنَّف الوثائق حسب الفئات والوسوم، وتُشارك ببضع نقرات، وتمر عبر مسار للمصادقة، مع تسجيل كل عملية في سجل للتدقيق."
+  },
+  "features": {
+    "fr": [
+      "Espaces par rôle : employé, directeur, administrateur",
+      "Catégories, tags et favoris",
+      "Partage de documents entre utilisateurs",
+      "File d'approbation et de validation",
+      "Historique et journal d'audit",
+      "Tableaux de bord et alertes"
+    ],
+    "en": [
+      "Role-based spaces: employee, director, administrator",
+      "Categories, tags and favourites",
+      "Document sharing between users",
+      "Approval and validation queue",
+      "History and audit log",
+      "Dashboards and alerts"
+    ],
+    "ar": [
+      "فضاءات حسب الدور: موظف، مدير، مسؤول",
+      "فئات ووسوم ومفضلة",
+      "مشاركة الوثائق بين المستخدمين",
+      "قائمة انتظار للمصادقة والتحقق",
+      "السجل التاريخي وسجل التدقيق",
+      "لوحات قيادة وتنبيهات"
+    ]
+  },
+  "services": [
+    "software",
+    "design"
+  ],
+  "stack": [
+    "JavaScript",
+    "Tailwind CSS",
+    "Node.js",
+    "Express",
+    "PostgreSQL"
+  ],
+  "tags": [
+    "SaaS",
+    "Dashboard"
+  ],
+  "palette": [
+    "#0FB9A0",
+    "#C6FFF1",
+    "#0A3B4F"
+  ]
+}

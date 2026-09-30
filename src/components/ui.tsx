@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { Fragment, type ComponentProps, type CSSProperties, type ReactNode } from "react";
 
+// Diagonal arrow, mirrored in right-to-left layouts.
+// Hover rotation for arrows inside a `group` (reversed in RTL).
+export const arrowHover = "transition-transform duration-300 group-hover:rotate-45 rtl:group-hover:-rotate-45";
+
 export function Arrow({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={`h-[1em] w-[1em] ${className}`}>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={`h-[1em] w-[1em] rtl:-scale-x-100 ${className}`}>
       <path d="M5 19 19 5M8 5h11v11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -22,10 +26,11 @@ export function Pill({ variant = "accent", className = "", children, ...props }:
   return (
     <Link
       {...props}
+      data-magnetic
       className={`group inline-flex items-center gap-3 rounded-full px-6 py-3.5 text-[15px] font-medium transition-colors duration-300 ${pillStyles[variant]} ${className}`}
     >
       <span>{children}</span>
-      <Arrow className="transition-transform duration-300 group-hover:rotate-45" />
+      <Arrow className={arrowHover} />
     </Link>
   );
 }
@@ -102,7 +107,7 @@ export function Marquee({ items, className = "" }: { items: string[]; className?
     </ul>
   );
   return (
-    <div className={`overflow-hidden ${className}`}>
+    <div dir="ltr" className={`overflow-hidden ${className}`}>
       <div className="marquee-track flex w-max">
         {row(false)}
         {row(true)}
@@ -143,7 +148,8 @@ export function Cover({ palette, index = 0 }: { palette: [string, string, string
   return (
     <div
       aria-hidden="true"
-      className="grain relative aspect-[4/3] overflow-hidden rounded-[28px]"
+      data-tilt
+      className="tilt grain relative aspect-[4/3] overflow-hidden rounded-[28px]"
       style={{
         background: `radial-gradient(120% 90% at ${20 + ((index * 23) % 60)}% ${15 + ((index * 37) % 50)}%, ${b} 0%, transparent 55%),
           radial-gradient(90% 80% at ${80 - ((index * 19) % 50)}% 85%, ${a} 0%, transparent 60%),
@@ -159,6 +165,7 @@ export function Cover({ palette, index = 0 }: { palette: [string, string, string
           }}
         />
       </div>
+      <div className="tilt-glare" />
     </div>
   );
 }

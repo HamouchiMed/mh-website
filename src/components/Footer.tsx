@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { cities } from "@/content/cities";
 import { services } from "@/content/services";
-import { getDictionary, type Locale } from "@/lib/i18n";
+import { cityFolder, getDictionary, type Locale } from "@/lib/i18n";
 import { activeSocials, site } from "@/lib/site";
 import { Logo } from "./Header";
 import { Arrow, Label } from "./ui";
@@ -8,21 +9,20 @@ import { Arrow, Label } from "./ui";
 export default function Footer({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const year = new Date().getFullYear();
+  const cityBase = `/${locale}/${cityFolder[locale]}`;
 
   return (
     <footer className="relative overflow-hidden bg-ink text-paper">
       <section aria-labelledby="footer-cta" className="container-x border-b border-line-dark pb-20 pt-24 md:pb-28 md:pt-36">
         <Label className="text-paper/60">{t.cta.label}</Label>
-        <Link
-          href={`/${locale}/contact`}
-          id="footer-cta"
-          className="group mt-6 flex items-end justify-between gap-6"
-          data-reveal
-        >
+        <Link href={`/${locale}/contact`} id="footer-cta" className="group mt-6 flex items-end justify-between gap-6" data-reveal>
           <span className="display text-[clamp(4rem,16vw,15rem)] transition-colors duration-500 group-hover:text-accent">
             {t.cta.title}
           </span>
-          <span className="mb-[3%] grid aspect-square w-[clamp(64px,10vw,150px)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.5rem,3vw,3rem)] text-white transition-transform duration-500 group-hover:rotate-45">
+          <span
+            data-magnetic
+            className="mb-[3%] grid aspect-square w-[clamp(64px,10vw,150px)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.5rem,3vw,3rem)] text-white transition-transform duration-500 group-hover:rotate-45 rtl:group-hover:-rotate-45"
+          >
             <Arrow />
           </span>
         </Link>
@@ -38,6 +38,22 @@ export default function Footer({ locale }: { locale: Locale }) {
         <div className="md:col-span-4">
           <Logo />
           <p className="mt-5 max-w-xs text-paper/60">{t.footer.tagline}</p>
+          {activeSocials.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-2" aria-label={t.footer.follow}>
+              {activeSocials.map(([name, url]) => (
+                <li key={name}>
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-line-dark px-4 py-1.5 text-sm capitalize hover:border-paper"
+                  >
+                    {name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <nav aria-label={t.footer.navigation} className="md:col-span-2">
           <h2 className="eyebrow text-paper/50">{t.footer.navigation}</h2>
@@ -46,6 +62,8 @@ export default function Footer({ locale }: { locale: Locale }) {
               [`/${locale}`, t.nav.home],
               [`/${locale}/services`, t.nav.services],
               [`/${locale}/work`, t.nav.work],
+              [`/${locale}/pricing`, t.nav.pricing],
+              [`/${locale}/blog`, t.nav.blog],
               [`/${locale}/about`, t.nav.about],
               [`/${locale}/contact`, t.nav.contact],
             ].map(([href, label]) => (
@@ -79,32 +97,51 @@ export default function Footer({ locale }: { locale: Locale }) {
             </li>
             {site.phone && (
               <li>
-                <a href={`tel:${site.phone}`} className="hover:text-paper">
+                <a href={`tel:${site.phone}`} dir="ltr" className="hover:text-paper">
                   {site.phone}
                 </a>
               </li>
             )}
             <li>{t.contactPage.info.locationValue}</li>
           </ul>
-          {activeSocials.length > 0 && (
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label={t.footer.follow}>
-              {activeSocials.map(([name, url]) => (
-                <li key={name}>
-                  <a href={url} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line-dark px-4 py-1.5 text-sm capitalize hover:border-paper">
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
       </div>
+
+      <nav aria-label={t.footer.cities} className="container-x border-t border-line-dark py-8">
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-paper/60">
+          <li className="eyebrow text-paper/40">{t.footer.cities}</li>
+          <li>
+            <Link href={cityBase} className="hover:text-paper">
+              {t.footer.allCities}
+            </Link>
+          </li>
+          {cities.map((c) => (
+            <li key={c.slug}>
+              <Link href={`${cityBase}/${c.slug}`} className="hover:text-paper">
+                {c.name[locale]}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <div className="container-x flex flex-col gap-3 border-t border-line-dark py-8 text-sm text-paper/50 md:flex-row md:items-center md:justify-between">
         <p>
           © {year} {site.name}. {t.footer.rights}
         </p>
-        <p>{t.footer.made}</p>
+        <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          <li>
+            <Link href={`/${locale}/legal`} className="hover:text-paper">
+              {t.footer.legal}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${locale}/privacy`} className="hover:text-paper">
+              {t.footer.privacy}
+            </Link>
+          </li>
+          <li>{t.footer.made}</li>
+        </ul>
       </div>
     </footer>
   );

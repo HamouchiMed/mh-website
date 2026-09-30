@@ -1,4 +1,5 @@
 import { GeistSans } from "geist/font/sans";
+import "./globals.css";
 import Link from "next/link";
 import { fr } from "@/content/fr";
 import { en } from "@/content/en";

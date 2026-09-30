@@ -1,0 +1,72 @@
+{
+  "name": "Talent Dakhla",
+  "order": 4,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Site web · Talents locaux",
+    "en": "Website · Local talent",
+    "ar": "موقع ويب · المواهب المحلية"
+  },
+  "summary": {
+    "fr": "Site qui célèbre les talents locaux de Dakhla — art, sport, technologie, musique et entrepreneuriat — et fait découvrir les lieux où ils s'expriment.",
+    "en": "A website celebrating Dakhla's local talent — art, sport, technology, music and entrepreneurship — and the places where it comes to life.",
+    "ar": "موقع يحتفي بمواهب مدينة الداخلة في الفن والرياضة والتكنولوجيا والموسيقى وريادة الأعمال، ويعرّف بالأماكن التي تتألق فيها."
+  },
+  "challenge": {
+    "fr": "Les talents de la région manquaient d'une vitrine commune pour être découverts par le public, les organisateurs d'événements et les partenaires.",
+    "en": "The region's talent lacked a shared showcase to be discovered by the public, event organisers and partners.",
+    "ar": "كانت مواهب الجهة تفتقر إلى واجهة مشتركة تُمكّن الجمهور ومنظمي الفعاليات والشركاء من اكتشافها."
+  },
+  "solution": {
+    "fr": "Un site multi-pages organisé par univers (art, sport, tech, musique, entrepreneuriat), avec des biographies, un filtre par catégorie, une sélection de lieux à visiter à Dakhla et un appel à proposer de nouveaux talents.",
+    "en": "A multi-page site organised by field (art, sport, tech, music, entrepreneurship), with biographies, a category filter, a selection of places to visit in Dakhla and a call for new talent submissions.",
+    "ar": "موقع متعدد الصفحات منظم حسب المجالات (الفن، الرياضة، التكنولوجيا، الموسيقى، ريادة الأعمال)، يضم سيرًا ذاتية، وتصفية حسب الفئة، ومختارات من الأماكن التي تستحق الزيارة في الداخلة، ودعوة لاقتراح مواهب جديدة."
+  },
+  "features": {
+    "fr": [
+      "Pages par univers : art, sport, tech, musique, entrepreneuriat",
+      "Filtre des talents par catégorie",
+      "Pages biographie",
+      "Lieux à découvrir à Dakhla",
+      "Appel à proposer un talent",
+      "Design responsive"
+    ],
+    "en": [
+      "Pages by field: art, sport, tech, music, entrepreneurship",
+      "Talent filter by category",
+      "Biography pages",
+      "Places to discover in Dakhla",
+      "Call for new talent",
+      "Responsive design"
+    ],
+    "ar": [
+      "صفحات حسب المجال: فن، رياضة، تكنولوجيا، موسيقى، ريادة أعمال",
+      "تصفية المواهب حسب الفئة",
+      "صفحات السير الذاتية",
+      "أماكن للاكتشاف في الداخلة",
+      "دعوة لاقتراح موهبة",
+      "تصميم متجاوب"
+    ]
+  },
+  "services": [
+    "web",
+    "design"
+  ],
+  "stack": [
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "tags": [
+    "Web",
+    "Culture"
+  ],
+  "palette": [
+    "#B24BFF",
+    "#F2C6FF",
+    "#2A0F55"
+  ]
+}

@@ -11,6 +11,16 @@ export const site = {
   phone: "",
   whatsapp: "",
   country: "MA",
+  // Shown on the legal notice page. Empty values display "À compléter".
+  // TODO: fill in once the company details are final.
+  legal: {
+    companyName: "",
+    legalForm: "",
+    address: "",
+    ice: "",
+    rc: "",
+    director: "",
+  },
   // Full profile URLs. Empty entries are not rendered.
   socials: {
     instagram: "",

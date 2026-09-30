@@ -1,0 +1,72 @@
+{
+  "name": "SIRH",
+  "order": 5,
+  "featured": false,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Logiciel · Ressources humaines",
+    "en": "Software · Human resources",
+    "ar": "برنامج · الموارد البشرية"
+  },
+  "summary": {
+    "fr": "Système d'information RH qui centralise la gestion des employés, des départements, des présences, des congés et de la paie.",
+    "en": "An HR information system centralising employees, departments, attendance, leave and payroll.",
+    "ar": "نظام معلومات للموارد البشرية يجمع تدبير الموظفين والأقسام والحضور والعطل والأجور في مكان واحد."
+  },
+  "challenge": {
+    "fr": "Fichiers Excel, demandes de congé papier, pointage manuel : la gestion RH prenait un temps considérable et générait des erreurs.",
+    "en": "Spreadsheets, paper leave requests and manual time tracking: HR admin took a lot of time and caused errors.",
+    "ar": "ملفات Excel، طلبات عطل ورقية، وتسجيل يدوي للحضور: كان تدبير الموارد البشرية يستهلك وقتًا طويلًا ويتسبب في أخطاء."
+  },
+  "solution": {
+    "fr": "Une application web modulaire avec un tableau de bord central et des modules dédiés : fiches employés, départements, suivi des présences, gestion des congés, paie et rapports, reposant sur une API Node.js / Express et une base MySQL.",
+    "en": "A modular web application with a central dashboard and dedicated modules — employee records, departments, attendance, leave management, payroll and reports — powered by a Node.js / Express API and a MySQL database.",
+    "ar": "تطبيق ويب معياري بلوحة قيادة مركزية ووحدات مخصصة: ملفات الموظفين، الأقسام، تتبع الحضور، تدبير العطل، الأجور والتقارير، يعتمد على واجهة برمجية Node.js / Express وقاعدة بيانات MySQL."
+  },
+  "features": {
+    "fr": [
+      "Tableau de bord RH",
+      "Gestion des employés et des départements",
+      "Suivi des présences",
+      "Demandes et validation des congés",
+      "Module de paie",
+      "Rapports et paramètres"
+    ],
+    "en": [
+      "HR dashboard",
+      "Employee and department management",
+      "Attendance tracking",
+      "Leave requests and approval",
+      "Payroll module",
+      "Reports and settings"
+    ],
+    "ar": [
+      "لوحة قيادة للموارد البشرية",
+      "تدبير الموظفين والأقسام",
+      "تتبع الحضور",
+      "طلبات العطل والمصادقة عليها",
+      "وحدة الأجور",
+      "التقارير والإعدادات"
+    ]
+  },
+  "services": [
+    "software"
+  ],
+  "stack": [
+    "JavaScript",
+    "Node.js",
+    "Express",
+    "MySQL"
+  ],
+  "tags": [
+    "SaaS",
+    "Dashboard"
+  ],
+  "palette": [
+    "#1B1B24",
+    "#5C6BFF",
+    "#D9DEFF"
+  ]
+}

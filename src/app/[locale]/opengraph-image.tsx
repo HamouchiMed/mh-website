@@ -13,7 +13,9 @@ export function generateStaticParams() {
 // Social preview card shared by every page of a language.
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = getDictionary(isLocale(locale) ? locale : "fr");
+  // The image renderer can't shape Arabic script, so Arabic pages reuse the
+  // French card (widely read in Morocco); the page itself stays in Arabic.
+  const t = getDictionary(isLocale(locale) && locale !== "ar" ? locale : "fr");
 
   return new ImageResponse(
     (

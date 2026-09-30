@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Dictionary } from "@/content/fr";
-import { localeLabels, locales, localizePath, type Locale } from "@/lib/i18n";
+import { localeLabels, localeNames, locales, localizePath, type Locale, type PathMaps } from "@/lib/locales";
 import { site } from "@/lib/site";
-import { Arrow } from "./ui";
+import { Arrow, arrowHover } from "./ui";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`flex items-center gap-2.5 ${className}`}>
+    <span dir="ltr" className={`flex items-center gap-2.5 ${className}`}>
       <span aria-hidden="true" className="grid h-9 w-9 place-items-center rounded-full bg-accent text-[13px] font-semibold tracking-tight text-white">
         MH
       </span>
@@ -19,7 +19,7 @@ export function Logo({ className = "" }: { className?: string }) {
   );
 }
 
-export default function Header({ locale, nav }: { locale: Locale; nav: Dictionary["nav"] }) {
+export default function Header({ locale, nav, maps }: { locale: Locale; nav: Dictionary["nav"]; maps: PathMaps }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -40,21 +40,24 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Dictionar
   const links = [
     { href: `/${locale}/services`, label: nav.services },
     { href: `/${locale}/work`, label: nav.work },
+    { href: `/${locale}/pricing`, label: nav.pricing },
+    { href: `/${locale}/blog`, label: nav.blog },
     { href: `/${locale}/about`, label: nav.about },
     { href: `/${locale}/contact`, label: nav.contact },
   ];
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   const langSwitch = (
-    <div className="flex items-center gap-1 text-sm" aria-label={nav.language}>
+    <div className="flex items-center gap-1 text-sm" role="group" aria-label={nav.language}>
       {locales.map((l) => (
         <Link
           key={l}
-          href={localizePath(pathname, l)}
+          href={localizePath(pathname, l, maps)}
           hrefLang={l}
           lang={l}
+          title={localeNames[l]}
           aria-current={l === locale ? "true" : undefined}
-          className={`rounded-full px-2.5 py-1 transition-colors ${l === locale ? "bg-ink text-paper" : "hover:bg-ink/10"}`}
+          className={`grid h-8 min-w-8 place-items-center rounded-full px-2.5 transition-colors ${l === locale ? "bg-ink text-paper" : "hover:bg-ink/10"}`}
         >
           {localeLabels[l]}
         </Link>
@@ -64,7 +67,10 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Dictionar
 
   return (
     <>
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+      >
         {nav.skip}
       </a>
       <header
@@ -77,13 +83,13 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Dictionar
             <Logo />
           </Link>
 
-          <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label="Main" className="hidden items-center gap-0.5 xl:flex">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-[15px] transition-colors ${
+                className={`rounded-full px-3.5 py-2 text-[15px] transition-colors ${
                   isActive(link.href) ? "bg-ink/[0.07]" : "hover:bg-ink/[0.07]"
                 }`}
               >
@@ -96,17 +102,18 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Dictionar
             <div className="hidden sm:block">{langSwitch}</div>
             <Link
               href={`/${locale}/contact`}
+              data-magnetic
               className="group hidden items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[15px] font-medium text-white transition-colors hover:bg-ink md:inline-flex"
             >
               {nav.cta}
-              <Arrow className="transition-transform duration-300 group-hover:rotate-45" />
+              <Arrow className={arrowHover} />
             </Link>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              className="relative z-10 flex h-11 items-center gap-2 rounded-full bg-ink px-5 text-[15px] font-medium text-paper lg:hidden"
+              className="relative z-10 flex h-11 items-center gap-2 rounded-full bg-ink px-5 text-[15px] font-medium text-paper xl:hidden"
             >
               {open ? nav.close : nav.menu}
               <span aria-hidden="true" className="flex w-4 flex-col gap-1">
@@ -118,24 +125,16 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Dictionar
         </div>
       </header>
 
-      <div
-        id="mobile-menu"
-        hidden={!open}
-        className="fixed inset-0 z-40 flex flex-col bg-paper pt-[88px] lg:hidden"
-      >
-        <nav aria-label="Mobile" className="container-x flex flex-1 flex-col justify-center gap-2">
+      <div id="mobile-menu" hidden={!open} className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-paper pt-[88px] xl:hidden">
+        <nav aria-label="Mobile" className="container-x flex flex-1 flex-col justify-center gap-1 py-6">
           {links.map((link, i) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="display flex items-baseline gap-4 py-2 text-[clamp(2.5rem,12vw,4.5rem)]"
-            >
+            <Link key={link.href} href={link.href} className="display flex items-baseline gap-4 py-1.5 text-[clamp(2.25rem,10vw,4rem)]">
               <span className="eyebrow text-muted">0{i + 1}</span>
               {link.label}
             </Link>
           ))}
         </nav>
-        <div className="container-x flex items-center justify-between border-t border-line py-6">
+        <div className="container-x flex items-center justify-between gap-4 border-t border-line py-6">
           {langSwitch}
           <a href={`mailto:${site.email}`} className="text-sm underline underline-offset-4">
             {site.email}

@@ -1,16 +1,22 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import "lenis/dist/lenis.css";
+import "../globals.css";
 import Cursor from "@/components/Cursor";
 import Effects from "@/components/Effects";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { IntroLoader, introScript, WhatsAppButton } from "@/components/Overlays";
 import { JsonLd } from "@/components/ui";
-import { services } from "@/content/services";
-import { getDictionary, isLocale, locales } from "@/lib/i18n";
+import { services, serviceSlugMap } from "@/content/services";
+import { getPostSlugMap } from "@/lib/content";
+import { readex } from "@/lib/fonts";
+import { dir, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
 import { activeSocials, site } from "@/lib/site";
 
@@ -34,6 +40,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     formatDetection: { telephone: false },
     icons: { apple: "/logo.png" },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+    // Google Search Console: set GOOGLE_SITE_VERIFICATION on Vercel.
+    verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
   };
 }
 
@@ -53,6 +61,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
+  const maps = { services: serviceSlugMap(), posts: await getPostSlugMap() };
 
   const organization = {
     "@context": "https://schema.org",
@@ -92,18 +101,27 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={dir(locale)}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${readex.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Enables reveal animations only when JS runs; content is visible without it. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add('js');${introScript}` }} />
         <JsonLd data={organization} />
       </head>
       <body className="min-h-screen overflow-x-clip">
-        <Header locale={locale} nav={t.nav} />
+        <IntroLoader tagline={t.meta.tagline} />
+        <Header locale={locale} nav={t.nav} maps={maps} />
         <main id="main">{children}</main>
         <Footer locale={locale} />
+        <WhatsAppButton t={t.whatsapp} />
         <Effects />
         <Cursor />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

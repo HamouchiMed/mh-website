@@ -40,7 +40,12 @@ export default async function ContactPage({ params }: Props) {
       <section className="container-x pb-24 md:pb-40">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-8" data-reveal>
-            <ContactForm t={c.form} serviceOptions={services.map((s) => s[locale].title)} />
+            <ContactForm
+              t={c.form}
+              locale={locale}
+              serviceOptions={services.map((s) => ({ id: s.id, label: s[locale].title }))}
+              packages={t.pricingPage.plans.map((p) => ({ id: p.id, label: p.name }))}
+            />
           </div>
           <aside className="lg:col-span-4">
             <dl className="divide-y divide-line border-y border-line">
@@ -56,7 +61,13 @@ export default async function ContactPage({ params }: Props) {
                 <div className="py-6">
                   <dt className="eyebrow text-muted">{c.info.whatsapp}</dt>
                   <dd className="mt-2 text-xl font-medium">
-                    <a href={`https://wa.me/${site.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-4 hover:decoration-accent">
+                    <a
+                      href={`https://wa.me/${site.whatsapp.replace(/\D/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      dir="ltr"
+                      className="underline decoration-line underline-offset-4 hover:decoration-accent"
+                    >
                       {site.whatsapp}
                     </a>
                   </dd>

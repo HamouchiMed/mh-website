@@ -1,56 +1,101 @@
 # MH Group — agency website
 
-Bilingual (FR/EN), SEO-first agency site built with Next.js 16, React 19 and
-Tailwind CSS 4. Visual direction inspired by lusion.co: a real-time WebGL hero
-(raymarched metaballs that follow the cursor), smooth scrolling, masked
-headline reveals and scroll-linked text.
+Trilingual (FR / EN / AR), SEO-first agency site built with Next.js 16, React 19
+and Tailwind CSS 4, inspired by lusion.co: real-time WebGL hero, intro loader,
+page transitions, smooth scrolling, magnetic buttons, a "View" cursor and 3D
+tilt on project covers.
 
 ## Run it
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000 → redirects to /fr
-npm run build && npm start   # production build (all pages are static)
+npm run dev                  # http://localhost:3000 → redirects to /fr
+npm run build && npm start   # production build
 ```
+
+## What's on the site
+
+| Page | URL (FR) |
+| --- | --- |
+| Home | `/fr` |
+| Services + 6 service pages | `/fr/services`, `/fr/services/creation-site-web` … |
+| Work + case studies | `/fr/work`, `/fr/work/bricol-clic` … |
+| Packages (on quote) | `/fr/pricing` |
+| Blog + articles | `/fr/blog`, `/fr/blog/seo-local-maroc` … |
+| City pages (12 cities + hub) | `/fr/agence-web`, `/fr/agence-web/casablanca` … (EN: `/en/web-agency/…`) |
+| About, Contact | `/fr/about`, `/fr/contact` |
+| Legal notice, Privacy (loi 09-08) | `/fr/legal`, `/fr/privacy` |
+
+English lives under `/en`, Arabic (right-to-left) under `/ar`.
 
 ## Edit your content
 
+### With the content editor (no code)
+
+Blog articles, projects, testimonials and client logos are edited at
+**`/keystatic`**:
+
+- **Locally:** `npm run dev`, open http://localhost:3000/keystatic, edit, then
+  commit the changed files in `content/`.
+- **Online (on the live site):** connect Keystatic to GitHub once:
+  1. Run the site locally with `npm run dev` and open `/keystatic`.
+  2. Temporarily set `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=placeholder` in
+     `.env.local`, restart, and follow Keystatic's "Create GitHub App" screen.
+     It creates the app and writes `KEYSTATIC_GITHUB_CLIENT_ID`,
+     `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET` and
+     `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` to `.env.local`.
+  3. Copy those four values to Vercel → Settings → Environment Variables and
+     redeploy. Edits made on `/keystatic` are then committed to GitHub and
+     Vercel redeploys automatically.
+
+Testimonials and client logos stay hidden until you add real ones.
+
+### In code
+
 | What | Where |
 | --- | --- |
-| Brand name, email, phone/WhatsApp, socials, site URL | `src/lib/site.ts` |
-| All page copy (FR / EN) | `src/content/fr.ts`, `src/content/en.ts` |
-| Services + their SEO landing pages | `src/content/services.ts` |
-| Portfolio projects | `src/content/projects.ts` |
-| Colours, fonts | `src/app/globals.css` (`@theme`) |
+| Email, WhatsApp, phone, socials, legal details (ICE, RC…) | `src/lib/site.ts` |
+| Page text (FR / EN / AR) | `src/content/fr.ts`, `en.ts`, `ar.ts` |
+| Services (FR/EN) + Arabic | `src/content/services.ts`, `services.ar.ts` |
+| City pages | `src/content/cities.ts` |
+| Colours, fonts, animations | `src/app/globals.css` |
 
-Before launch, replace the placeholder email in `src/lib/site.ts` and check
-the project list — both are marked `TODO`.
+**Before launch:** replace the placeholder email and fill in the WhatsApp
+number and legal details in `src/lib/site.ts` (all marked `TODO`). The
+WhatsApp button appears automatically once a number is set.
 
 ## Deploy (Vercel)
 
-1. Import the repo on vercel.com (framework is detected automatically).
-2. Add the env var `NEXT_PUBLIC_SITE_URL` = your final domain, e.g. `https://mh-group.ma`.
-3. Connect the domain, then submit `https://<domain>/sitemap.xml` in Google Search Console.
+1. Import the repo on vercel.com (Next.js is detected automatically).
+2. Environment variables:
 
-## What's built in for SEO
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Final domain, e.g. `https://mh-group.ma` |
+| `RESEND_API_KEY` | Contact form emails ([resend.com](https://resend.com), free tier) |
+| `CONTACT_TO_EMAIL` | Inbox receiving messages (defaults to the email in `site.ts`) |
+| `CONTACT_FROM_EMAIL` | Verified sender, e.g. `MH Group <site@mh-group.ma>` |
+| `GOOGLE_SITE_VERIFICATION` | Google Search Console verification code |
+| Keystatic variables | See "Content editor" above |
+
+Without `RESEND_API_KEY` the contact form falls back to opening the visitor's
+email app. Until you verify your domain in Resend, messages can only be sent to
+the email address of your Resend account.
+
+3. Enable **Analytics** and **Speed Insights** in the Vercel project (they're
+   cookieless and already wired in).
+4. Connect the domain, then submit `https://<domain>/sitemap.xml` in Google
+   Search Console.
+
+## SEO built in
 
 - Static HTML for every page, one `<h1>` each, semantic sections.
-- Per-page titles/descriptions, canonical URLs and `hreflang` (fr, en, x-default).
-- Keyword-rich, translated service URLs (`/fr/services/creation-site-web`, `/en/services/web-development`).
-- JSON-LD: ProfessionalService + WebSite, Service, BreadcrumbList, FAQPage, ContactPage.
-- `sitemap.xml` with language alternates, `robots.txt`, web manifest, generated Open Graph images.
-- Performance: the 3D hero is ~200 lines of plain WebGL (no three.js), renders
-  below native resolution, pauses off-screen, and falls back to a static
-  frame for `prefers-reduced-motion`. Reveal animations only hide content
-  when JS runs, so crawlers always see the text.
-
-## Structure
-
-```
-src/app/[locale]/          pages (home, services, services/[slug], work, about, contact)
-src/app/sitemap.ts         sitemap with hreflang alternates
-src/components/HeroCanvas  WebGL hero
-src/components/Effects     smooth scroll (Lenis), reveals, scroll-text
-src/content/               all copy, services and projects
-src/lib/seo.ts             metadata helper (canonical, hreflang, OG)
-```
+- Per-page titles/descriptions, canonical URLs and `hreflang` (fr, en, ar, x-default).
+- Translated, keyword-rich URLs for services, blog posts and city pages.
+- JSON-LD: ProfessionalService, WebSite, Service, OfferCatalog, CreativeWork,
+  BlogPosting, BreadcrumbList, FAQPage, City areaServed.
+- `sitemap.xml` with language alternates, `robots.txt`, web manifest,
+  generated Open Graph images.
+- Performance: the 3D hero is a single WebGL shader (no three.js), rendered
+  below native resolution, paused off-screen and static for
+  `prefers-reduced-motion`. The intro loader and page transitions are pure CSS.

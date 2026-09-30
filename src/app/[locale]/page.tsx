@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
+import { LatestPosts, Trust } from "@/components/blocks";
 import HeroCanvas from "@/components/HeroCanvas";
-import { Process, ProjectsGrid, SectionHeader, ServicesList } from "@/components/sections";
+import { FaqSection, Process, ProjectsGrid, SectionHeader, ServicesList } from "@/components/sections";
 import { Faq, JsonLd, Label, Marquee, Pill, ScrollText, SplitHeadline } from "@/components/ui";
 import { services } from "@/content/services";
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
@@ -44,15 +45,15 @@ export default async function Home({ params }: Props) {
       <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-20 bg-[radial-gradient(60%_60%_at_75%_35%,rgba(46,59,255,0.16),transparent_70%),radial-gradient(40%_40%_at_10%_90%,rgba(255,122,69,0.10),transparent_70%)]"
+          className="absolute inset-0 -z-20 bg-[radial-gradient(60%_60%_at_75%_35%,rgba(46,59,255,0.16),transparent_70%),radial-gradient(40%_40%_at_10%_90%,rgba(255,122,69,0.10),transparent_70%)] rtl:-scale-x-100"
         />
-        <HeroCanvas className="absolute inset-0 -z-10 h-full w-full" />
+        <HeroCanvas className="absolute inset-0 -z-10 h-full w-full" mirror={locale === "ar"} />
 
         <div className="container-x flex flex-1 flex-col justify-end pb-10 pt-32 md:pb-14">
           <Label className="text-muted">{t.hero.eyebrow}</Label>
           <SplitHeadline
             text={t.hero.title}
-            className="display mt-6 max-w-[14ch] text-[clamp(2.9rem,8.4vw,9rem)] [text-wrap:balance]"
+            className="display mt-6 max-w-[14ch] text-[clamp(2.9rem,8.4vw,9rem)] [text-wrap:balance] rtl:max-w-[16ch] rtl:text-[clamp(2.5rem,6.2vw,6.5rem)]"
           />
           <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12 md:items-end">
             <p
@@ -126,8 +127,10 @@ export default async function Home({ params }: Props) {
           title={t.workSection.title}
           link={{ href: `/${locale}/work`, label: t.workSection.link }}
         />
-        <ProjectsGrid locale={locale} limit={4} />
+        <ProjectsGrid locale={locale} featuredOnly />
       </section>
+
+      <Trust locale={locale} />
 
       <Process locale={locale} />
 
@@ -145,20 +148,11 @@ export default async function Home({ params }: Props) {
         </ul>
       </section>
 
-      {/* FAQ */}
-      <section aria-labelledby="faq-title" className="container-x pb-24 md:pb-40">
-        <div className="grid gap-10 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <Label className="text-muted">{t.faq.label}</Label>
-            <h2 id="faq-title" className="display mt-6 text-[clamp(2.25rem,4.5vw,4rem)]" data-reveal>
-              {t.faq.title}
-            </h2>
-          </div>
-          <div className="md:col-span-8">
-            <Faq items={t.faq.items} />
-          </div>
-        </div>
-      </section>
+      <LatestPosts locale={locale} />
+
+      <FaqSection id="faq-title" label={t.faq.label} title={t.faq.title}>
+        <Faq items={t.faq.items} />
+      </FaqSection>
     </>
   );
 }

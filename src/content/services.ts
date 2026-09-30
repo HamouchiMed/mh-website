@@ -1,4 +1,5 @@
-import type { Locale } from "@/lib/i18n";
+import { locales, type Locale, type SlugMap } from "@/lib/locales";
+import { servicesAr } from "./services.ar";
 
 type Faq = { q: string; a: string };
 
@@ -20,7 +21,8 @@ export type Service = {
 } & Record<Locale, ServiceCopy>;
 
 // Each service gets its own landing page per language, with a keyword-rich slug.
-export const services: Service[] = [
+// French and English copy lives here; Arabic copy is in services.ar.ts.
+const base: Omit<Service, "ar">[] = [
   {
     id: "web",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Three.js", "Headless CMS"],
@@ -431,6 +433,18 @@ export const services: Service[] = [
   },
 ];
 
+export const services: Service[] = base.map((s) => ({ ...s, ar: servicesAr[s.id] }));
+
 export function findServiceBySlug(locale: Locale, slug: string) {
   return services.find((s) => s[locale].slug === slug);
+}
+
+// `${locale}/${slug}` → slug in every language, for the language switcher.
+export function serviceSlugMap(): SlugMap {
+  const map: SlugMap = {};
+  for (const s of services) {
+    const slugs = Object.fromEntries(locales.map((l) => [l, s[l].slug])) as Record<Locale, string>;
+    for (const l of locales) map[`${l}/${s[l].slug}`] = slugs;
+  }
+  return map;
 }

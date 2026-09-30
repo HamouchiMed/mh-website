@@ -1,0 +1,76 @@
+{
+  "name": "Bricol.clic",
+  "order": 1,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Application mobile · Marketplace de services",
+    "en": "Mobile app · Services marketplace",
+    "ar": "تطبيق جوال · منصة خدمات"
+  },
+  "summary": {
+    "fr": "Application mobile qui met en relation les particuliers avec des artisans et prestataires vérifiés : plomberie, électricité, peinture, ménage, climatisation et bien plus.",
+    "en": "A mobile app connecting households with verified craftspeople and service providers — plumbing, electrical work, painting, cleaning, air conditioning and more.",
+    "ar": "تطبيق جوال يربط الأفراد بحرفيين ومقدمي خدمات موثوقين: السباكة، الكهرباء، الصباغة، التنظيف، التكييف وغيرها."
+  },
+  "challenge": {
+    "fr": "Trouver rapidement un artisan fiable reste compliqué : bouche-à-oreille, numéros introuvables, aucune visibilité sur les avis ou les disponibilités. Côté prestataires, il est difficile de se faire connaître et de suivre ses missions.",
+    "en": "Finding a reliable tradesperson quickly is still hard: word of mouth, missing phone numbers and no visibility on reviews or availability. Providers, on their side, struggle to get known and keep track of their jobs.",
+    "ar": "لا يزال العثور بسرعة على حرفي موثوق أمرًا صعبًا: الاعتماد على المعارف، أرقام هواتف مفقودة، وغياب أي رؤية للتقييمات أو أوقات التوفر. أما مقدمو الخدمات فيجدون صعوبة في التعريف بأنفسهم وتتبع مهامهم."
+  },
+  "solution": {
+    "fr": "Nous avons conçu une application iOS et Android avec deux parcours. Les clients recherchent un service, comparent les profils et réservent en un clic. Les prestataires disposent d'un espace dédié pour gérer leurs services, leurs missions et leurs revenus. Une vérification d'identité intégrée, avec capture de la CIN via la caméra, renforce la confiance.",
+    "en": "We designed an iOS and Android app with two journeys. Customers search for a service, compare profiles and book in one tap. Providers get a dedicated space to manage their services, jobs and earnings. Built-in identity verification, capturing the national ID card with the camera, builds trust on both sides.",
+    "ar": "صممنا تطبيقًا لنظامي iOS وAndroid بمسارين. يبحث العملاء عن الخدمة، ويقارنون الملفات الشخصية، ويحجزون بنقرة واحدة. ويحصل مقدمو الخدمات على فضاء خاص لإدارة خدماتهم ومهامهم ومداخيلهم. كما يعزز التحقق المدمج من الهوية، عبر تصوير البطاقة الوطنية بالكاميرا، الثقة بين الطرفين."
+  },
+  "features": {
+    "fr": [
+      "Recherche par catégorie : plomberie, électricité, peinture, ménage, déménagement, climatisation…",
+      "Profils prestataires détaillés et favoris",
+      "Réservation en un clic et suivi des missions",
+      "Espace prestataire avec tableau de bord financier",
+      "Vérification d'identité par capture de la CIN",
+      "API Node.js / Express et base PostgreSQL"
+    ],
+    "en": [
+      "Search by category: plumbing, electrical, painting, cleaning, moving, air conditioning…",
+      "Detailed provider profiles and favourites",
+      "One-tap booking and job tracking",
+      "Provider space with a financial dashboard",
+      "Identity verification with ID card capture",
+      "Node.js / Express API and PostgreSQL database"
+    ],
+    "ar": [
+      "البحث حسب الفئة: سباكة، كهرباء، صباغة، تنظيف، نقل، تكييف…",
+      "ملفات مفصلة لمقدمي الخدمات وقائمة المفضلة",
+      "حجز بنقرة واحدة وتتبع المهام",
+      "فضاء خاص بمقدم الخدمة مع لوحة مالية",
+      "التحقق من الهوية بتصوير البطاقة الوطنية",
+      "واجهة برمجية Node.js / Express وقاعدة بيانات PostgreSQL"
+    ]
+  },
+  "services": [
+    "mobile",
+    "software",
+    "design"
+  ],
+  "stack": [
+    "React Native",
+    "Expo",
+    "Node.js",
+    "Express",
+    "PostgreSQL"
+  ],
+  "tags": [
+    "Mobile",
+    "Marketplace",
+    "API"
+  ],
+  "palette": [
+    "#2E3BFF",
+    "#8FA2FF",
+    "#FF7A45"
+  ]
+}

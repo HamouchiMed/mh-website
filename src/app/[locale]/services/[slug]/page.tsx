@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Process } from "@/components/sections";
-import { Arrow, Faq, JsonLd, Label, Pill, SplitHeadline } from "@/components/ui";
+import { Arrow, arrowHover, Faq, JsonLd, Label, Pill, SplitHeadline } from "@/components/ui";
 import { findServiceBySlug, services } from "@/content/services";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
@@ -79,7 +79,7 @@ export default async function ServicePage({ params }: Props) {
       <section className="relative isolate overflow-hidden">
         <div
           aria-hidden="true"
-          className="absolute -right-[14%] -top-[18%] -z-10 aspect-square w-[50vw] max-w-[820px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff_0%,#8fa2ff_18%,#2e3bff_55%,#0b0b12_100%)] opacity-90 blur-[2px]"
+          className="absolute -end-[14%] -top-[18%] -z-10 aspect-square w-[50vw] max-w-[820px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff_0%,#8fa2ff_18%,#2e3bff_55%,#0b0b12_100%)] opacity-90 blur-[2px]"
         />
         <div className="container-x pb-16 pt-32 md:pb-24 md:pt-44">
           <nav aria-label="Breadcrumb">
@@ -176,7 +176,7 @@ export default async function ServicePage({ params }: Props) {
                   className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-line px-5 py-5 transition-colors hover:border-accent hover:bg-accent hover:text-white"
                 >
                   <span className="font-medium">{o[locale].title}</span>
-                  <Arrow className="transition-transform duration-300 group-hover:rotate-45" />
+                  <Arrow className={arrowHover} />
                 </Link>
               </li>
             ))}
