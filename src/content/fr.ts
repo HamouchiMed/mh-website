@@ -39,12 +39,12 @@ export const fr = {
     label: "Services",
     title: "Tout ce qu'il faut pour lancer et faire grandir votre produit digital.",
     link: "Tous les services",
+    more: "En savoir plus",
   },
   workSection: {
     label: "Réalisations",
     title: "Projets sélectionnés",
     link: "Toutes les réalisations",
-    hint: "Continuez à défiler",
   },
   process: {
     label: "Méthode",
@@ -228,10 +228,6 @@ export const fr = {
       location: "Localisation",
       locationValue: "Maroc — nous travaillons à distance partout dans le monde",
     },
-  },
-  sound: {
-    on: "Couper le son",
-    off: "Activer le son",
   },
   lab: {
     metaTitle: "Lab — expériences interactives WebGL",
@@ -456,7 +452,6 @@ export const fr = {
     title: "Page introuvable",
     text: "La page que vous cherchez n'existe pas ou a été déplacée.",
     back: "Retour à l'accueil",
-    hint: "Bougez la souris : même perdue, la page reste vivante.",
   },
 };
 

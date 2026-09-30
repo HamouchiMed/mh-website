@@ -83,11 +83,11 @@ export default function ContactForm({
 
   if (status === "sent") {
     return (
-      <div role="status" className="rounded-[28px] border border-line bg-white/60 p-10 md:p-14">
+      <div role="status" className="rounded-2xl border border-line bg-white/60 p-10 md:p-14">
         <span aria-hidden="true" className="grid h-14 w-14 place-items-center rounded-full bg-accent text-2xl text-white">
           ✓
         </span>
-        <h2 ref={successRef} tabIndex={-1} className="display mt-8 text-4xl outline-none md:text-5xl">
+        <h2 ref={successRef} tabIndex={-1} className="h-section mt-6 outline-none">
           {t.successTitle}
         </h2>
         <p className="mt-4 text-lg text-muted">{t.successText}</p>
@@ -167,7 +167,6 @@ export default function ContactForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          data-magnetic
           className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-4 text-[15px] font-medium text-white transition-colors hover:bg-ink disabled:opacity-60"
         >
           {status === "sending" ? t.sending : t.submit}

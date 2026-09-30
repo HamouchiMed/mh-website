@@ -21,7 +21,7 @@ export default async function PrivacyPage({ params }: Props) {
   return (
     <>
       <PageHero label={p.label} title={p.h1} />
-      <section className="container-x pb-24 md:pb-36">
+      <section className="container-x pb-20 md:pb-28">
         <div className="prose-mh max-w-[72ch]">
           <p>{fill(p.intro)}</p>
           {p.sections.map((section) => (

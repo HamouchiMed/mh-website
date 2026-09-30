@@ -77,10 +77,6 @@ export default async function ServicePage({ params }: Props) {
       <JsonLd data={jsonLd} />
 
       <section className="relative isolate overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute -end-[14%] -top-[18%] -z-10 aspect-square w-[50vw] max-w-[820px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff_0%,#8fa2ff_18%,#2e3bff_55%,#0b0b12_100%)] opacity-90 blur-[2px]"
-        />
         <div className="container-x pb-16 pt-32 md:pb-24 md:pt-44">
           <nav aria-label="Breadcrumb">
             <ol className="eyebrow flex flex-wrap items-center gap-2 text-muted">
@@ -102,8 +98,8 @@ export default async function ServicePage({ params }: Props) {
             </ol>
           </nav>
           <p className="eyebrow mt-10 text-accent">0{index + 1}</p>
-          <SplitHeadline text={s.h1} className="display mt-4 max-w-[17ch] text-[clamp(2.5rem,6.5vw,6.5rem)] [text-wrap:balance]" />
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/75 md:text-xl" data-reveal style={{ "--delay": "300ms" } as CSSProperties}>
+          <SplitHeadline text={s.h1} className="h-page mt-4 max-w-[22ch] [text-wrap:balance]" />
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-reveal style={{ "--delay": "300ms" } as CSSProperties}>
             {s.lead}
           </p>
           <div className="mt-10" data-reveal style={{ "--delay": "450ms" } as CSSProperties}>
@@ -112,25 +108,25 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section aria-labelledby="deliverables" className="container-x py-20 md:py-32">
+      <section aria-labelledby="deliverables" className="container-x py-16 md:py-24">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Label as="h2" id="deliverables" className="text-muted">
               {t.serviceDetail.deliverables}
             </Label>
           </div>
-          <ul className="grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2 md:col-span-8">
+          <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 md:col-span-8">
             {s.deliverables.map((d, i) => (
-              <li key={d} className="flex items-start gap-5 bg-paper p-7 md:p-9" data-reveal style={{ "--delay": `${(i % 2) * 80}ms` } as CSSProperties}>
+              <li key={d} className="flex items-start gap-5 bg-paper p-6 md:p-7" data-reveal style={{ "--delay": `${(i % 2) * 80}ms` } as CSSProperties}>
                 <span className="font-mono text-sm text-accent">0{i + 1}</span>
-                <span className="text-xl font-medium tracking-[-0.02em]">{d}</span>
+                <span className="text-lg font-medium">{d}</span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section aria-labelledby="stack" className="container-x pb-20 md:pb-32">
+      <section aria-labelledby="stack" className="container-x pb-16 md:pb-24">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Label as="h2" id="stack" className="text-muted">
@@ -149,10 +145,10 @@ export default async function ServicePage({ params }: Props) {
 
       <Process locale={locale} title={t.serviceDetail.process} />
 
-      <section aria-labelledby="service-faq" className="container-x py-24 md:py-36">
+      <section aria-labelledby="service-faq" className="container-x py-20 md:py-28">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
-            <h2 id="service-faq" className="display text-[clamp(2.25rem,4.5vw,4rem)]">
+            <h2 id="service-faq" className="h-section">
               {t.serviceDetail.faq}
             </h2>
           </div>
@@ -162,7 +158,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section aria-labelledby="others" className="container-x pb-24 md:pb-36">
+      <section aria-labelledby="others" className="container-x pb-20 md:pb-28">
         <Label as="h2" id="others" className="text-muted">
           {t.serviceDetail.others}
         </Label>

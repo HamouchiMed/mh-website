@@ -56,16 +56,16 @@ export function CitiesHub({ locale, folder }: { locale: Locale; folder: string }
     <>
       <JsonLd data={jsonLd} />
       <PageHero label={t.cities.label} title={t.cities.h1} lead={t.cities.lead} />
-      <section aria-labelledby="city-list" className="container-x pb-24 md:pb-36">
+      <section aria-labelledby="city-list" className="container-x pb-20 md:pb-28">
         <Label as="h2" id="city-list" className="text-muted">
           {t.cities.listTitle}
         </Label>
-        <ul className="mt-8 grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {cities.map((c, i) => (
             <li key={c.slug} data-reveal style={delay((i % 3) * 60)}>
               <Link href={`${base}/${c.slug}`} className="group flex h-full items-center justify-between gap-4 bg-paper p-7 transition-colors hover:bg-accent hover:text-white md:p-9">
                 <span>
-                  <span className="block text-2xl font-medium tracking-[-0.02em] md:text-3xl">{c.name[locale]}</span>
+                  <span className="block text-lg font-semibold">{c.name[locale]}</span>
                   <span className="mt-1 block text-sm text-muted transition-colors group-hover:text-white/70">{c.region[locale]}</span>
                 </span>
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-white">
@@ -82,7 +82,7 @@ export function CitiesHub({ locale, folder }: { locale: Locale; folder: string }
           </Link>
         </p>
       </section>
-      <section aria-labelledby="hub-services" className="container-x pb-24 md:pb-36">
+      <section aria-labelledby="hub-services" className="container-x pb-20 md:pb-28">
         <Label as="h2" id="hub-services" className="mb-8 text-muted">
           {t.servicesSection.label}
         </Label>
@@ -133,10 +133,6 @@ export function CityPage({ locale, folder, slug }: { locale: Locale; folder: str
     <>
       <JsonLd data={jsonLd} />
       <section className="relative isolate overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute -end-[12%] -top-[16%] -z-10 aspect-square w-[48vw] max-w-[780px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff_0%,#8fa2ff_18%,#2e3bff_55%,#0b0b12_100%)] opacity-90"
-        />
         <div className="container-x pb-16 pt-32 md:pb-24 md:pt-44">
           <nav aria-label="Breadcrumb">
             <ol className="eyebrow flex flex-wrap items-center gap-2 text-muted">
@@ -151,8 +147,8 @@ export function CityPage({ locale, folder, slug }: { locale: Locale; folder: str
               </li>
             </ol>
           </nav>
-          <h1 className="display mt-8 max-w-[14ch] text-[clamp(2.75rem,7vw,7rem)] [text-wrap:balance]">{f(c.h1)}</h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/75 md:text-xl" data-reveal style={delay(200)}>
+          <h1 className="h-page mt-6 max-w-[20ch] [text-wrap:balance]">{f(c.h1)}</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-reveal style={delay(200)}>
             {f(c.lead)}
           </p>
           <div className="mt-10" data-reveal style={delay(320)}>
@@ -166,32 +162,32 @@ export function CityPage({ locale, folder, slug }: { locale: Locale; folder: str
           <div className="md:col-span-3">
             <Label className="text-muted">{f(c.label)}</Label>
           </div>
-          <p className="text-[clamp(1.4rem,2.6vw,2.4rem)] font-medium leading-[1.25] tracking-[-0.02em] md:col-span-9" data-reveal>
+          <p className="text-intro md:col-span-9" data-reveal>
             {city.intro[locale]}
           </p>
         </div>
       </section>
 
-      <section aria-labelledby="sectors" className="container-x pb-20 md:pb-32">
+      <section aria-labelledby="sectors" className="container-x pb-16 md:pb-24">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Label as="h2" id="sectors" className="text-muted">
               {f(c.sectorsTitle)}
             </Label>
           </div>
-          <ul className="grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2 md:col-span-8">
+          <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 md:col-span-8">
             {city.sectors[locale].map((s, i) => (
-              <li key={s} className="flex items-start gap-5 bg-paper p-7 md:p-9" data-reveal style={delay((i % 2) * 80)}>
+              <li key={s} className="flex items-start gap-5 bg-paper p-6 md:p-7" data-reveal style={delay((i % 2) * 80)}>
                 <span className="font-mono text-sm text-accent">0{i + 1}</span>
-                <span className="text-xl font-medium tracking-[-0.02em]">{s}</span>
+                <span className="text-lg font-medium">{s}</span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section aria-labelledby="city-services" className="container-x pb-24 md:pb-36">
-        <h2 id="city-services" className="display mb-12 text-[clamp(2.25rem,5vw,4.5rem)]" data-reveal>
+      <section aria-labelledby="city-services" className="container-x pb-20 md:pb-28">
+        <h2 id="city-services" className="h-section mb-10" data-reveal>
           {f(c.servicesTitle)}
         </h2>
         <ServicesList locale={locale} />
@@ -203,7 +199,7 @@ export function CityPage({ locale, folder, slug }: { locale: Locale; folder: str
         <Faq items={faqs} />
       </FaqSection>
 
-      <nav aria-labelledby="other-cities" className="container-x pb-24 md:pb-36">
+      <nav aria-labelledby="other-cities" className="container-x pb-20 md:pb-28">
         <Label as="h2" id="other-cities" className="text-muted">
           {c.otherCities}
         </Label>

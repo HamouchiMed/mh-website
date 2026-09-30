@@ -83,7 +83,7 @@ export default async function PostPage({ params }: Props) {
               <li className="text-accent">{post.category}</li>
             </ol>
           </nav>
-          <h1 className="display mt-8 max-w-[22ch] text-[clamp(2.4rem,5.5vw,5rem)] [text-wrap:balance]">{post.title}</h1>
+          <h1 className="h-page mt-6 max-w-[24ch] [text-wrap:balance]">{post.title}</h1>
           <p className="mt-8 max-w-3xl text-xl leading-relaxed text-ink/75" data-reveal style={delay(200)}>
             {post.description}
           </p>
@@ -107,15 +107,15 @@ export default async function PostPage({ params }: Props) {
       </article>
 
       <section className="container-x py-20 md:py-28">
-        <div className="mx-auto flex max-w-[72ch] flex-col items-start gap-6 rounded-[28px] bg-ink p-8 text-paper md:p-12">
+        <div className="mx-auto flex max-w-[72ch] flex-col items-start gap-6 rounded-2xl bg-ink p-8 text-paper md:p-12">
           <p className="eyebrow text-paper/60">{t.cta.label}</p>
-          <p className="display text-4xl md:text-5xl">{t.cta.title}</p>
+          <p className="h-section">{t.cta.title}</p>
           <Pill href={`/${locale}/contact`}>{t.cta.button}</Pill>
         </div>
       </section>
 
       {related.length > 0 && (
-        <section aria-labelledby="related" className="container-x pb-24 md:pb-36">
+        <section aria-labelledby="related" className="container-x pb-20 md:pb-28">
           <Label as="h2" id="related" className="text-muted">
             {t.blog.related}
           </Label>

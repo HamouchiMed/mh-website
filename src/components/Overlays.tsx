@@ -1,26 +1,5 @@
 import type { Dictionary } from "@/content/fr";
 import { site } from "@/lib/site";
-import { Logo } from "./Header";
-
-// First-visit intro: a 0 → 100 counter, then the panel slides away. Pure CSS
-// driven by the `intro-play` class that an inline script adds once per session
-// (never for reduced motion), so it costs no JavaScript bundle.
-export function IntroLoader({ tagline }: { tagline: string }) {
-  return (
-    <div className="intro-loader" aria-hidden="true">
-      <div className="container-x flex h-full flex-col justify-between py-6">
-        <Logo />
-        <div className="flex items-end justify-between gap-6">
-          <span className="intro-count display" />
-          <span className="eyebrow mb-4 hidden text-paper/60 sm:block">{tagline}</span>
-        </div>
-      </div>
-      <div className="intro-bar" />
-    </div>
-  );
-}
-
-export const introScript = `try{var d=document.documentElement;if(!sessionStorage.getItem('mh-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-play');sessionStorage.setItem('mh-intro','1');setTimeout(function(){d.classList.remove('intro-play')},2600)}}catch(e){}`;
 
 export function WhatsAppButton({ t }: { t: Dictionary["whatsapp"] }) {
   if (!site.whatsapp) return null;
@@ -31,7 +10,6 @@ export function WhatsAppButton({ t }: { t: Dictionary["whatsapp"] }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.label}
-      data-magnetic
       className="group fixed bottom-5 end-5 z-40 flex h-14 items-center gap-2 rounded-full bg-[#25D366] ps-4 pe-4 text-white shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)] transition-[padding] duration-300 hover:pe-5 md:bottom-8 md:end-8"
     >
       <svg viewBox="0 0 32 32" aria-hidden="true" className="h-6 w-6 fill-current">

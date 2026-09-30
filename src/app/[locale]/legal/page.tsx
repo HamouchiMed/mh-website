@@ -32,7 +32,7 @@ export default async function LegalPage({ params }: Props) {
   return (
     <>
       <PageHero label={l.label} title={l.h1} />
-      <section className="container-x pb-24 md:pb-36">
+      <section className="container-x pb-20 md:pb-28">
         <div className="prose-mh max-w-[72ch]">
           <h2>{s.publisher}</h2>
           <dl className="grid gap-x-8 gap-y-3 sm:grid-cols-[220px_1fr]">

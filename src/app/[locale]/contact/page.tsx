@@ -37,7 +37,7 @@ export default async function ContactPage({ params }: Props) {
     <>
       <JsonLd data={jsonLd} />
       <PageHero label={c.label} title={c.h1} lead={c.lead} />
-      <section className="container-x pb-24 md:pb-40">
+      <section className="container-x pb-20 md:pb-28">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-8" data-reveal>
             <ContactForm

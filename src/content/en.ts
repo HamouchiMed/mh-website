@@ -41,12 +41,12 @@ export const en: Dictionary = {
     label: "Services",
     title: "Everything you need to launch and grow your digital product.",
     link: "All services",
+    more: "Learn more",
   },
   workSection: {
     label: "Work",
     title: "Selected projects",
     link: "All projects",
-    hint: "Keep scrolling",
   },
   process: {
     label: "Process",
@@ -230,10 +230,6 @@ export const en: Dictionary = {
       location: "Location",
       locationValue: "Morocco — working remotely worldwide",
     },
-  },
-  sound: {
-    on: "Mute sound",
-    off: "Turn sound on",
   },
   lab: {
     metaTitle: "Lab — interactive WebGL experiments",
@@ -458,6 +454,5 @@ export const en: Dictionary = {
     title: "Page not found",
     text: "The page you are looking for doesn't exist or has moved.",
     back: "Back to home",
-    hint: "Move your mouse: even when lost, this page stays alive.",
   },
 };

@@ -21,13 +21,13 @@ export function PostCard({ post, locale, index = 0, showLang = false }: { post: 
       <Link
         href={`/${post.lang}/blog/${post.slug}`}
         hrefLang={post.lang}
-        className="group flex h-full flex-col rounded-[28px] border border-line bg-white/40 p-7 transition-colors duration-500 hover:border-accent hover:bg-white md:p-9"
+        className="group flex h-full flex-col rounded-2xl border border-line bg-white/40 p-7 transition-colors duration-500 hover:border-accent hover:bg-white md:p-9"
       >
         <div className="flex items-center justify-between gap-3">
           <span className="eyebrow text-accent">{post.category}</span>
           {showLang && <span className="rounded-full border border-line px-2.5 py-0.5 text-xs">{localeNames[post.lang]}</span>}
         </div>
-        <h3 lang={post.lang} className="mt-8 text-2xl font-medium leading-tight tracking-[-0.02em] md:text-[1.75rem]">
+        <h3 lang={post.lang} className="h-card mt-6">
           {post.title}
         </h3>
         <p lang={post.lang} className="mt-4 line-clamp-3 text-muted">
@@ -51,7 +51,7 @@ export async function LatestPosts({ locale }: { locale: Locale }) {
   if (!posts.length) return null;
   const t = getDictionary(locale).blog;
   return (
-    <section aria-labelledby="latest-posts" className="container-x pb-24 md:pb-40">
+    <section aria-labelledby="latest-posts" className="container-x pb-20 md:pb-28">
       <SectionHeader id="latest-posts" label={t.latestLabel} title={t.latestTitle} link={{ href: `/${locale}/blog`, label: t.all }} />
       <ul className="grid gap-5 md:grid-cols-3">
         {posts.map((p, i) => (
@@ -68,17 +68,17 @@ export async function Trust({ locale }: { locale: Locale }) {
   if (!testimonials.length && !clients.length) return null;
   const t = getDictionary(locale).trust;
   return (
-    <section aria-labelledby="trust-title" className="container-x pb-24 md:pb-40">
+    <section aria-labelledby="trust-title" className="container-x pb-20 md:pb-28">
       {testimonials.length > 0 && (
         <>
           <SectionHeader id="trust-title" label={t.testimonialsLabel} title={t.testimonialsTitle} />
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((item, i) => (
-              <li key={item.slug} className="flex flex-col rounded-[28px] bg-ink p-8 text-paper md:p-10" data-reveal style={delay(i * 80)}>
-                <span aria-hidden="true" className="display text-6xl text-accent">
+              <li key={item.slug} className="flex flex-col rounded-2xl bg-ink p-8 text-paper md:p-10" data-reveal style={delay(i * 80)}>
+                <span aria-hidden="true" className="text-4xl leading-none text-accent">
                   “
                 </span>
-                <blockquote className="mt-2 text-lg leading-relaxed md:text-xl">{pick(item.quote, locale)}</blockquote>
+                <blockquote className="mt-2 leading-relaxed">{pick(item.quote, locale)}</blockquote>
                 <p className="mt-auto pt-8 font-medium">
                   {item.author}
                   {item.role && <span className="block text-sm font-normal text-paper/60">{item.role}</span>}
@@ -93,7 +93,7 @@ export async function Trust({ locale }: { locale: Locale }) {
           <Label as={testimonials.length ? "p" : "h2"} id={testimonials.length ? undefined : "trust-title"} className="text-muted">
             {t.clientsLabel}
           </Label>
-          <ul className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-3 lg:grid-cols-6">
+          <ul className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-6">
             {clients.map((c) => {
               const logo = c.logo ? (
                 <Image src={c.logo} alt={c.name} width={160} height={64} className="h-10 w-auto object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0" />

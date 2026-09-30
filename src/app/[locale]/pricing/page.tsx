@@ -47,7 +47,7 @@ export default async function PricingPage({ params }: Props) {
       <JsonLd data={jsonLd} />
       <PageHero label={p.label} title={p.h1} lead={p.lead} />
 
-      <section aria-label={p.label} className="container-x pb-24 md:pb-36">
+      <section aria-label={p.label} className="container-x pb-20 md:pb-28">
         <ul className="grid gap-5 lg:grid-cols-3">
           {p.plans.map((plan, i) => {
             const popular = plan.id === "business";
@@ -56,7 +56,7 @@ export default async function PricingPage({ params }: Props) {
                 key={plan.id}
                 data-reveal
                 style={delay(i * 100)}
-                className={`relative flex flex-col rounded-[32px] p-8 md:p-10 ${
+                className={`relative flex flex-col rounded-2xl p-6 md:p-8 ${
                   popular ? "bg-ink text-paper lg:-translate-y-4" : "border border-line bg-white/40"
                 }`}
               >
@@ -64,10 +64,10 @@ export default async function PricingPage({ params }: Props) {
                   <span className="absolute end-8 top-8 rounded-full bg-accent px-3 py-1 text-xs font-medium text-white">{p.popular}</span>
                 )}
                 <p className={`eyebrow ${popular ? "text-accent-soft" : "text-accent"}`}>0{i + 1}</p>
-                <h2 className="display mt-6 text-5xl">{plan.name}</h2>
+                <h2 className="mt-5 text-2xl font-semibold">{plan.name}</h2>
                 <p className={`mt-4 min-h-[3.5rem] ${popular ? "text-paper/70" : "text-muted"}`}>{plan.tagline}</p>
                 <div className={`mt-8 border-t pt-8 ${popular ? "border-line-dark" : "border-line"}`}>
-                  <p className="text-3xl font-medium tracking-[-0.02em]">{p.price}</p>
+                  <p className="text-2xl font-semibold">{p.price}</p>
                   <p className={`mt-1 text-sm ${popular ? "text-paper/60" : "text-muted"}`}>{p.priceNote}</p>
                 </div>
                 <ul className="mt-8 space-y-3.5">
@@ -80,8 +80,7 @@ export default async function PricingPage({ params }: Props) {
                 </ul>
                 <Link
                   href={`/${locale}/contact?package=${plan.id}`}
-                  data-magnetic
-                  className={`group mt-10 inline-flex items-center justify-between gap-3 rounded-full px-6 py-4 text-[15px] font-medium transition-colors ${
+                    className={`group mt-10 inline-flex items-center justify-between gap-3 rounded-full px-6 py-4 text-[15px] font-medium transition-colors ${
                     popular ? "bg-accent text-white hover:bg-paper hover:text-ink" : "bg-ink text-paper hover:bg-accent"
                   }`}
                 >
@@ -99,7 +98,7 @@ export default async function PricingPage({ params }: Props) {
               {p.includedTitle}
             </Label>
           </div>
-          <ul className="grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2 md:col-span-8">
+          <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 md:col-span-8">
             {p.included.map((item, i) => (
               <li key={item} className="flex items-start gap-4 bg-paper p-6 md:p-7">
                 <span className="font-mono text-sm text-accent">0{i + 1}</span>

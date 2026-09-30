@@ -22,7 +22,7 @@ export default async function WorkPage({ params }: Props) {
   return (
     <>
       <PageHero label={t.workPage.label} title={t.workPage.h1} lead={t.workPage.lead} />
-      <section aria-label={t.workPage.label} className="container-x pb-24 md:pb-40">
+      <section aria-label={t.workPage.label} className="container-x pb-20 md:pb-28">
         <ProjectsGrid locale={locale} />
       </section>
     </>

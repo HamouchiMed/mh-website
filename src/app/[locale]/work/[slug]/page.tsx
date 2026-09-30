@@ -83,8 +83,8 @@ export default async function CaseStudy({ params }: Props) {
           </ol>
         </nav>
         <p className="eyebrow mt-10 text-accent">{p.category}</p>
-        <SplitHeadline text={p.name} className="display mt-4 text-[clamp(3rem,10vw,10rem)]" />
-        <p className="mt-8 max-w-3xl text-xl leading-relaxed text-ink/75 md:text-2xl" data-reveal style={delay(300)}>
+        <SplitHeadline text={p.name} className="h-page mt-4" />
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted" data-reveal style={delay(300)}>
           {p.summary}
         </p>
       </section>
@@ -135,7 +135,6 @@ export default async function CaseStudy({ params }: Props) {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-magnetic
                 className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-[15px] font-medium text-paper transition-colors hover:bg-accent"
               >
                 {w.visit}
@@ -152,7 +151,7 @@ export default async function CaseStudy({ params }: Props) {
             <Label as="h2" className="text-muted">
               {w.challenge}
             </Label>
-            <p className="mt-6 text-2xl font-medium leading-snug tracking-[-0.02em] md:text-3xl">{p.challenge}</p>
+            <p className="text-intro mt-4">{p.challenge}</p>
           </div>
         )}
         {p.solution && (
@@ -160,7 +159,7 @@ export default async function CaseStudy({ params }: Props) {
             <Label as="h2" className="text-muted">
               {w.solution}
             </Label>
-            <p className="mt-6 text-lg leading-relaxed text-ink/80 md:text-xl">{p.solution}</p>
+            <p className="mt-4 text-lg leading-relaxed text-muted">{p.solution}</p>
           </div>
         )}
         {p.features.length > 0 && (
@@ -168,9 +167,9 @@ export default async function CaseStudy({ params }: Props) {
             <Label as="h2" className="text-muted">
               {w.features}
             </Label>
-            <ul className="mt-8 grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
               {p.features.map((f, i) => (
-                <li key={f} className="flex items-start gap-5 bg-paper p-7 md:p-9" data-reveal style={delay((i % 3) * 70)}>
+                <li key={f} className="flex items-start gap-5 bg-paper p-6 md:p-7" data-reveal style={delay((i % 3) * 70)}>
                   <span className="font-mono text-sm text-accent">0{i + 1}</span>
                   <span className="text-lg font-medium tracking-[-0.01em]">{f}</span>
                 </li>
@@ -187,7 +186,7 @@ export default async function CaseStudy({ params }: Props) {
               g.device === "mobile" ? (
                 <li key={i} className="md:col-span-4" data-reveal style={delay((i % 3) * 90)}>
                   <div className="mx-auto w-full max-w-[320px] rounded-[44px] border-[10px] border-[#1c1c24] bg-[#1c1c24] shadow-2xl">
-                    <div data-liquid className="relative aspect-[9/19.5] overflow-hidden rounded-[34px]">
+                    <div className="relative aspect-[9/19.5] overflow-hidden rounded-[34px]">
                       <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="320px" className="object-cover object-top" />
                     </div>
                   </div>
@@ -200,7 +199,7 @@ export default async function CaseStudy({ params }: Props) {
                       <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                       <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                     </div>
-                    <div data-liquid className="relative aspect-[16/10] overflow-hidden">
+                    <div className="relative aspect-[16/10] overflow-hidden">
                       <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover object-top" />
                     </div>
                   </div>
@@ -216,11 +215,10 @@ export default async function CaseStudy({ params }: Props) {
           <Link
             href={`/${locale}/work/${next.slug}`}
             className="group container-x flex flex-col gap-4 py-20 md:flex-row md:items-end md:justify-between md:py-28"
-            data-cursor-label={w.view}
           >
             <div>
               <p className="eyebrow text-muted">{w.next}</p>
-              <p className="display mt-4 text-[clamp(2.75rem,8vw,7rem)] transition-colors duration-500 group-hover:text-accent">
+              <p className="h-section mt-3 transition-colors group-hover:text-accent">
                 {next.name}
               </p>
             </div>

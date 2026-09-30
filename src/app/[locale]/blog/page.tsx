@@ -55,7 +55,7 @@ export default async function BlogPage({ params }: Props) {
     <>
       <JsonLd data={jsonLd} />
       <PageHero label={t.blog.label} title={t.blog.h1} lead={t.blog.lead} />
-      <section className="container-x pb-24 md:pb-40">
+      <section className="container-x pb-20 md:pb-28">
         {posts.length > 0 ? (
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((p, i) => (
@@ -64,7 +64,7 @@ export default async function BlogPage({ params }: Props) {
           </ul>
         ) : (
           <>
-            <p className="rounded-[28px] border border-line bg-white/40 p-8 text-lg text-muted">{t.blog.empty}</p>
+            <p className="rounded-2xl border border-line bg-white/40 p-8 text-lg text-muted">{t.blog.empty}</p>
             {others.length > 0 && (
               <>
                 <Label as="h2" className="mt-16 text-muted">

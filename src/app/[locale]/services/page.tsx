@@ -34,15 +34,15 @@ export default async function ServicesPage({ params }: Props) {
     <>
       <JsonLd data={breadcrumb} />
       <PageHero label={t.servicesPage.label} title={t.servicesPage.h1} lead={t.servicesPage.lead} />
-      <section aria-label={t.nav.services} className="container-x pb-24 md:pb-40">
+      <section aria-label={t.nav.services} className="container-x pb-20 md:pb-28">
         <ServicesList locale={locale} headingLevel="h2" />
       </section>
       <Process locale={locale} />
-      <section aria-labelledby="faq-title" className="container-x py-24 md:py-40">
+      <section aria-labelledby="faq-title" className="container-x py-20 md:py-28">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Label className="text-muted">{t.faq.label}</Label>
-            <h2 id="faq-title" className="display mt-6 text-[clamp(2.25rem,4.5vw,4rem)]">
+            <h2 id="faq-title" className="h-section mt-5">
               {t.faq.title}
             </h2>
           </div>

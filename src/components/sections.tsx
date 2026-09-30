@@ -1,22 +1,18 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { services } from "@/content/services";
 import { getProjects, localizeProject } from "@/lib/content";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { Arrow, arrowHover, Label, ProjectMedia, SplitHeadline } from "./ui";
+import { Arrow, arrowHover, Label, ProjectMedia } from "./ui";
 
 export const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
 export function PageHero({ label, title, lead }: { label: string; title: string; lead?: string }) {
   return (
-    <section className="container-x pb-16 pt-36 md:pb-24 md:pt-48">
+    <section className="container-x pb-12 pt-32 md:pb-16 md:pt-40">
       <Label className="text-muted">{label}</Label>
-      <SplitHeadline text={title} className="display mt-6 max-w-[16ch] text-[clamp(2.75rem,7.5vw,7.5rem)]" />
-      {lead && (
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted md:text-xl" data-reveal style={delay(300)}>
-          {lead}
-        </p>
-      )}
+      <h1 className="h-page mt-5 max-w-[22ch] [text-wrap:balance]">{title}</h1>
+      {lead && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{lead}</p>}
     </section>
   );
 }
@@ -32,29 +28,21 @@ export function ServicesList({
 }) {
   const H = headingLevel;
   const list = only ? services.filter((s) => only.includes(s.id)) : services;
+  const more = getDictionary(locale).servicesSection.more;
   return (
-    <ul className="border-t border-line">
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {list.map((s, i) => (
-        <li key={s.id} className="border-b border-line" data-reveal style={delay(i * 60)}>
+        <li key={s.id} data-reveal style={delay((i % 3) * 60)}>
           <Link
             href={`/${locale}/services/${s[locale].slug}`}
-            className="group relative isolate grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 overflow-hidden py-7 md:grid-cols-[80px_1.1fr_1fr_auto] md:gap-x-8 md:py-10"
+            className="group flex h-full flex-col rounded-2xl border border-line bg-white/60 p-6 transition-colors hover:border-ink/25 hover:bg-white md:p-7"
           >
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-accent transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-y-100"
-            />
-            <span className="eyebrow text-muted transition-colors group-hover:text-white/70 md:ps-4">
-              0{services.indexOf(s) + 1}
-            </span>
-            <H className="text-[clamp(1.6rem,3.4vw,3rem)] font-medium tracking-[-0.03em] transition-colors group-hover:text-white">
-              {s[locale].title}
-            </H>
-            <p className="col-span-3 max-w-md text-muted transition-colors group-hover:text-white/80 md:col-span-1">
-              {s[locale].short}
-            </p>
-            <span className="col-start-3 row-start-1 grid h-12 w-12 place-items-center rounded-full border border-line text-xl transition-all duration-500 group-hover:border-white group-hover:bg-white group-hover:text-accent md:col-start-auto md:row-start-auto md:me-4">
-              <Arrow className={arrowHover} />
+            <span className="font-mono text-xs text-muted">0{services.indexOf(s) + 1}</span>
+            <H className="h-card mt-6">{s[locale].title}</H>
+            <p className="mt-3 text-[15px] leading-relaxed text-muted">{s[locale].short}</p>
+            <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-accent">
+              {more}
+              <Arrow className={`text-[0.8em] ${arrowHover}`} />
             </span>
           </Link>
         </li>
@@ -64,25 +52,24 @@ export function ServicesList({
 }
 
 export async function ProjectsGrid({ locale, featuredOnly = false, exclude }: { locale: Locale; featuredOnly?: boolean; exclude?: string }) {
-  const t = getDictionary(locale).workDetail;
   const all = await getProjects();
   const list = all
     .filter((p) => (!featuredOnly || p.featured) && p.slug !== exclude)
     .map((p) => localizeProject(p, locale));
   return (
-    <ul className="grid gap-x-6 gap-y-14 md:grid-cols-2">
+    <ul className="grid gap-x-6 gap-y-12 md:grid-cols-2">
       {list.map((p, i) => (
-        <li key={p.slug} className={`group ${i % 2 === 1 ? "md:mt-24" : ""}`} data-reveal style={delay((i % 2) * 120)}>
-          <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.view}>
+        <li key={p.slug} className="group" data-reveal style={delay((i % 2) * 80)}>
+          <Link href={`/${locale}/work/${p.slug}`} className="block">
             <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} index={all.findIndex((x) => x.slug === p.slug)} />
-            <div className="mt-5 flex items-start justify-between gap-4">
+            <div className="mt-4 flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-2xl font-medium tracking-[-0.02em]">{p.name}</h3>
-                <p className="mt-1 text-muted">{p.category}</p>
+                <h3 className="h-card">{p.name}</h3>
+                <p className="mt-1 text-[15px] text-muted">{p.category}</p>
               </div>
               <ul className="flex flex-wrap justify-end gap-1.5">
                 {p.tags.map((tag) => (
-                  <li key={tag} className="rounded-full border border-line px-3 py-1 text-xs">
+                  <li key={tag} className="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">
                     {tag}
                   </li>
                 ))}
@@ -95,33 +82,21 @@ export async function ProjectsGrid({ locale, featuredOnly = false, exclude }: { 
   );
 }
 
-export function Process({ locale, title, theme = "dark" }: { locale: Locale; title?: string; theme?: "dark" | "accent" }) {
+export function Process({ locale, title }: { locale: Locale; title?: string }) {
   const t = getDictionary(locale).process;
   return (
-    <section aria-labelledby="process-title" data-theme={theme} data-scene="process">
-      <div className="container-x grid gap-12 py-24 md:grid-cols-12 md:py-36">
-        <div className="md:col-span-5">
-          <div className="md:sticky md:top-32">
-            <Label className="text-muted">{t.label}</Label>
-            <h2 id="process-title" className="display mt-6 text-[clamp(2.25rem,5vw,4.75rem)]" data-reveal>
-              {title ?? t.title}
-            </h2>
-          </div>
-        </div>
-        <ol className="grid gap-4 md:col-span-7">
+    <section aria-labelledby="process-title" className="border-y border-line bg-paper-2/60">
+      <div className="container-x py-20 md:py-28">
+        <Label className="text-muted">{t.label}</Label>
+        <h2 id="process-title" className="h-section mt-5 max-w-[22ch]">
+          {title ?? t.title}
+        </h2>
+        <ol className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:grid-cols-4">
           {t.steps.map((step, i) => (
-            <li
-              key={step.title}
-              className="rounded-[28px] border border-line bg-paper-2/80 p-8 backdrop-blur-sm transition-colors duration-500 hover:border-accent-soft md:p-10"
-              data-reveal
-              style={delay(i * 80)}
-            >
-              <div className="flex items-center justify-between">
-                <span className="eyebrow text-accent-soft">0{i + 1}</span>
-                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-soft" />
-              </div>
-              <h3 className="mt-10 text-3xl font-medium tracking-[-0.03em] md:text-4xl">{step.title}</h3>
-              <p className="mt-4 max-w-lg text-muted md:text-lg">{step.text}</p>
+            <li key={step.title} className="rounded-2xl border border-line bg-paper p-6" data-reveal style={delay(i * 60)}>
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-accent/10 font-mono text-xs text-accent">0{i + 1}</span>
+              <h3 className="mt-6 text-lg font-semibold">{step.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">{step.text}</p>
             </li>
           ))}
         </ol>
@@ -142,84 +117,35 @@ export function SectionHeader({
   link?: { href: string; label: string };
 }) {
   return (
-    <div className="mb-12 flex flex-col gap-8 md:mb-20 md:flex-row md:items-end md:justify-between">
+    <div className="mb-10 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between">
       <div>
         <Label className="text-muted">{label}</Label>
-        <h2 id={id} className="display mt-6 max-w-[18ch] text-[clamp(2.25rem,5vw,4.75rem)]" data-reveal>
+        <h2 id={id} className="h-section mt-5 max-w-[22ch]">
           {title}
         </h2>
       </div>
       {link && (
-        <Link
-          href={link.href}
-          className="group inline-flex shrink-0 items-center gap-2 text-[15px] font-medium underline decoration-line underline-offset-8 hover:decoration-accent"
-        >
+        <Link href={link.href} className="group inline-flex shrink-0 items-center gap-1.5 text-[15px] font-medium hover:text-accent">
           {link.label}
-          <Arrow className={arrowHover} />
+          <Arrow className={`text-[0.8em] ${arrowHover}`} />
         </Link>
       )}
     </div>
   );
 }
 
-export function FaqSection({ id, label, title, children }: { id: string; label?: string; title: string; children: React.ReactNode }) {
+export function FaqSection({ id, label, title, children }: { id: string; label?: string; title: string; children: ReactNode }) {
   return (
-    <section aria-labelledby={id} className="container-x py-24 md:py-36">
+    <section aria-labelledby={id} className="container-x py-20 md:py-28">
       <div className="grid gap-10 md:grid-cols-12">
         <div className="md:col-span-4">
           {label && <Label className="text-muted">{label}</Label>}
-          <h2 id={id} className="display mt-6 text-[clamp(2.25rem,4.5vw,4rem)]" data-reveal>
+          <h2 id={id} className="h-section mt-5">
             {title}
           </h2>
         </div>
         <div className="md:col-span-8">{children}</div>
       </div>
     </section>
-  );
-}
-
-// Cards for the horizontally scrolling work section on the home page.
-export async function WorkRail({ locale }: { locale: Locale }) {
-  const t = getDictionary(locale);
-  const all = await getProjects();
-  const list = all.filter((p) => p.featured).map((p) => localizeProject(p, locale));
-  return (
-    <>
-      {list.map((p, i) => (
-        <article key={p.slug} className="group w-[min(82vw,760px)] shrink-0 snap-start">
-          <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.workDetail.view}>
-            <ProjectMedia
-              src={p.cover}
-              alt={`${p.name} — ${p.category}`}
-              palette={p.palette}
-              index={i}
-              sizes="(min-width: 1024px) 760px, 82vw"
-            />
-            <div className="mt-6 flex items-start justify-between gap-4">
-              <div>
-                <p className="eyebrow text-muted">0{i + 1}</p>
-                <h3 className="mt-2 text-3xl font-medium tracking-[-0.02em] md:text-4xl">{p.name}</h3>
-                <p className="mt-1 text-muted">{p.category}</p>
-              </div>
-              <span className="mt-2 grid h-12 w-12 shrink-0 place-items-center rounded-full border border-line text-xl transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
-                <Arrow className={arrowHover} />
-              </span>
-            </div>
-          </Link>
-        </article>
-      ))}
-      <article className="w-[min(70vw,460px)] shrink-0 snap-start">
-        <Link
-          href={`/${locale}/work`}
-          className="group flex aspect-[4/3] h-auto flex-col justify-between rounded-[28px] border border-line p-8 transition-colors hover:border-ink md:p-10"
-        >
-          <span className="eyebrow text-muted">{t.workSection.label}</span>
-          <span className="display text-[clamp(2rem,4vw,3.5rem)] transition-colors group-hover:text-accent-soft">{t.workSection.link}</span>
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-ink text-2xl text-paper">
-            <Arrow className={arrowHover} />
-          </span>
-        </Link>
-      </article>
-    </>
   );
 }
