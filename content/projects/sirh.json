@@ -1,6 +1,6 @@
 {
   "name": "SIRH",
-  "order": 5,
+  "order": 4,
   "featured": false,
   "client": "",
   "year": "",
@@ -69,6 +69,15 @@
     "#5C6BFF",
     "#D9DEFF"
   ],
-  "cover": "/work/sirh/cover.jpg",
-  "gallery": []
+  "cover": "/work/sirh/preview.jpg",
+  "gallery": [
+    {
+      "image": "/work/sirh/employees.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/sirh/login.jpg",
+      "device": "desktop"
+    }
+  ]
 }

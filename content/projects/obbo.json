@@ -1,7 +1,7 @@
 {
   "name": "Obbo",
-  "order": 6,
-  "featured": false,
+  "order": 3,
+  "featured": true,
   "client": "",
   "year": "",
   "url": "",
@@ -69,6 +69,15 @@
     "#FFC2D6",
     "#3A0A1F"
   ],
-  "cover": "/work/obbo/cover.jpg",
-  "gallery": []
+  "cover": "/work/obbo/preview.jpg",
+  "gallery": [
+    {
+      "image": "/work/obbo/features.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/obbo/how-it-works.jpg",
+      "device": "desktop"
+    }
+  ]
 }

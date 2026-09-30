@@ -1,7 +1,7 @@
 {
   "name": "Talent Dakhla",
-  "order": 4,
-  "featured": true,
+  "order": 6,
+  "featured": false,
   "client": "",
   "year": "",
   "url": "",
@@ -69,6 +69,6 @@
     "#F2C6FF",
     "#2A0F55"
   ],
-  "cover": "/work/talent-dakhla/cover.jpg",
+  "cover": "/work/talent-dakhla/preview.jpg",
   "gallery": []
 }

@@ -57,24 +57,13 @@ export async function ProjectsGrid({ locale, featuredOnly = false, exclude }: { 
     .filter((p) => (!featuredOnly || p.featured) && p.slug !== exclude)
     .map((p) => localizeProject(p, locale));
   return (
-    <ul className="grid gap-x-6 gap-y-12 md:grid-cols-2">
+    <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       {list.map((p, i) => (
-        <li key={p.slug} className="group" data-reveal style={delay((i % 2) * 80)}>
+        <li key={p.slug} className="group" data-reveal style={delay((i % 3) * 70)}>
           <Link href={`/${locale}/work/${p.slug}`} className="block">
-            <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} index={all.findIndex((x) => x.slug === p.slug)} />
-            <div className="mt-4 flex items-start justify-between gap-4">
-              <div>
-                <h3 className="h-card">{p.name}</h3>
-                <p className="mt-1 text-[15px] text-muted">{p.category}</p>
-              </div>
-              <ul className="flex flex-wrap justify-end gap-1.5">
-                {p.tags.map((tag) => (
-                  <li key={tag} className="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} />
+            <h3 className="mt-4 text-lg font-semibold transition-colors group-hover:text-accent">{p.name}</h3>
+            <p className="mt-1 text-[15px] text-muted">{p.category}</p>
           </Link>
         </li>
       ))}

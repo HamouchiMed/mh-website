@@ -41,6 +41,8 @@ export default async function CaseStudy({ params }: Props) {
   const next = localizeProject(all[(index + 1) % all.length], locale);
   const t = getDictionary(locale);
   const w = t.workDetail;
+  const desktopShots = p.gallery.filter((g) => g.device !== "mobile");
+  const mobileShots = p.gallery.filter((g) => g.device === "mobile");
   const related = services.filter((s) => p.services.includes(s.id as (typeof p.services)[number]));
 
   const jsonLd = {
@@ -94,10 +96,8 @@ export default async function CaseStudy({ params }: Props) {
           src={p.cover}
           alt={`${p.name} — ${p.category}`}
           palette={p.palette}
-          index={index}
-          sizes="(min-width: 1600px) 1500px, 100vw"
+          sizes="(min-width: 1320px) 1240px, 100vw"
           preload
-          className="md:aspect-[16/9]"
         />
       </section>
 
@@ -180,33 +180,33 @@ export default async function CaseStudy({ params }: Props) {
       </section>
 
       {p.gallery.length > 0 && (
-        <section aria-label={p.name} data-theme="dark" className="py-20 md:py-28">
-          <ul className="container-x grid items-end gap-8 md:grid-cols-12">
-            {p.gallery.map((g, i) =>
-              g.device === "mobile" ? (
-                <li key={i} className="md:col-span-4" data-reveal style={delay((i % 3) * 90)}>
-                  <div className="mx-auto w-full max-w-[320px] rounded-[44px] border-[10px] border-[#1c1c24] bg-[#1c1c24] shadow-2xl">
-                    <div className="relative aspect-[9/19.5] overflow-hidden rounded-[34px]">
-                      <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="320px" className="object-cover object-top" />
+        <section aria-label={p.name} className="border-y border-line bg-paper-2/60 py-16 md:py-24">
+          <div className="container-x space-y-10">
+            {desktopShots.length > 0 && (
+              <ul className={`grid gap-6 ${desktopShots.length > 1 ? "md:grid-cols-2" : ""}`}>
+                {desktopShots.map((g, i) => (
+                  <li key={g.image} data-reveal style={delay((i % 2) * 80)}>
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-paper shadow-sm">
+                      <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-top" />
                     </div>
-                  </div>
-                </li>
-              ) : (
-                <li key={i} className="md:col-span-8" data-reveal style={delay((i % 3) * 90)}>
-                  <div className="overflow-hidden rounded-2xl border border-line bg-[#1c1c24] shadow-2xl">
-                    <div aria-hidden="true" className="flex items-center gap-1.5 px-4 py-3">
-                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                    </div>
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="(min-width: 768px) 66vw, 100vw" className="object-cover object-top" />
-                    </div>
-                  </div>
-                </li>
-              ),
+                  </li>
+                ))}
+              </ul>
             )}
-          </ul>
+            {mobileShots.length > 0 && (
+              <ul className="flex flex-wrap justify-center gap-6 md:gap-10">
+                {mobileShots.map((g, i) => (
+                  <li key={g.image} className="w-[240px] md:w-[260px]" data-reveal style={delay(i * 80)}>
+                    <div className="rounded-[36px] bg-[#11131a] p-2 shadow-lg">
+                      <div className="relative aspect-[390/844] overflow-hidden rounded-[28px]">
+                        <Image src={g.image as string} alt={`${p.name} — mobile ${i + 1}`} fill sizes="260px" className="object-cover object-top" />
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </section>
       )}
 

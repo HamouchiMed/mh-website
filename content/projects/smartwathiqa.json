@@ -1,7 +1,7 @@
 {
   "name": "SmartWathiqa",
-  "order": 3,
-  "featured": true,
+  "order": 5,
+  "featured": false,
   "client": "",
   "year": "",
   "url": "",
@@ -71,6 +71,15 @@
     "#C6FFF1",
     "#0A3B4F"
   ],
-  "cover": "/work/smartwathiqa/cover.jpg",
-  "gallery": []
+  "cover": "/work/smartwathiqa/preview.jpg",
+  "gallery": [
+    {
+      "image": "/work/smartwathiqa/dashboard.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/smartwathiqa/login.jpg",
+      "device": "desktop"
+    }
+  ]
 }

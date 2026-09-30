@@ -1,6 +1,6 @@
 {
   "name": "Bricol.clic",
-  "order": 1,
+  "order": 2,
   "featured": true,
   "client": "",
   "year": "",
@@ -73,6 +73,19 @@
     "#8FA2FF",
     "#FF7A45"
   ],
-  "cover": "/work/bricol-clic/cover.jpg",
-  "gallery": []
+  "cover": "/work/bricol-clic/preview.jpg",
+  "gallery": [
+    {
+      "image": "/work/bricol-clic/login.png",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/bricol-clic/main.png",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/bricol-clic/services.png",
+      "device": "mobile"
+    }
+  ]
 }

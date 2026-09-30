@@ -51,8 +51,10 @@ edited at **`/keystatic`**:
      Vercel redeploys automatically.
 
 Testimonials, client logos, the team, key figures and the showreel button all
-stay hidden until you add real ones. Project covers are 4:3 images (ideally
-1600×1200); the current ones are generated placeholders.
+stay hidden until you add real ones. Project covers are 16:10 screenshots
+(ideally 1600×1000 or larger); only projects marked "featured" appear on the
+home page. The current screenshots were taken from each project's own code,
+with sample data where a dashboard needs a backend.
 
 ### In code
 

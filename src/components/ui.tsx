@@ -92,59 +92,36 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
-// Generative cover art used when a project has no image yet.
-export function Cover({ palette, index = 0 }: { palette: [string, string, string]; index?: number }) {
-  const [a, b, c] = palette;
-  const angle = (index * 67) % 360;
-  return (
-    <div
-      aria-hidden="true"
-      className="grain relative aspect-[4/3] overflow-hidden rounded-2xl"
-      style={{
-        background: `radial-gradient(120% 90% at ${20 + ((index * 23) % 60)}% ${15 + ((index * 37) % 50)}%, ${b} 0%, transparent 55%),
-          radial-gradient(90% 80% at ${80 - ((index * 19) % 50)}% 85%, ${a} 0%, transparent 60%),
-          conic-gradient(from ${angle}deg at 60% 40%, ${c}, ${a}, ${b}, ${c})`,
-      }}
-    >
-      <div
-        className="absolute left-1/2 top-1/2 aspect-square w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          background: `radial-gradient(circle at 32% 28%, #fff 0%, ${b} 18%, ${a} 55%, ${c} 100%)`,
-          boxShadow: `0 40px 80px -20px ${c}`,
-        }}
-      />
-    </div>
-  );
-}
-
-// Project image with a gentle zoom on hover; falls back to the generative cover.
+// Project screenshot in a light frame (16:10). Without an image, a plain
+// tinted panel in the project's colours stands in.
 export function ProjectMedia({
   src,
   alt,
   palette,
-  index = 0,
-  sizes = "(min-width: 768px) 50vw, 100vw",
+  sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw",
   preload = false,
   className = "",
 }: {
   src?: string | null;
   alt: string;
   palette: [string, string, string];
-  index?: number;
   sizes?: string;
   preload?: boolean;
   className?: string;
 }) {
-  if (!src) return <Cover palette={palette} index={index} />;
+  const frame = `relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-paper-2 ${className}`;
+  if (!src) {
+    return <div aria-hidden="true" className={frame} style={{ background: `linear-gradient(135deg, ${palette[1]}26, ${palette[0]}33)` }} />;
+  }
   return (
-    <div className={`relative aspect-[4/3] overflow-hidden rounded-2xl bg-paper-2 ${className}`}>
+    <div className={frame}>
       <Image
         src={src}
         alt={alt}
         fill
         sizes={sizes}
         preload={preload}
-        className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+        className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
       />
     </div>
   );

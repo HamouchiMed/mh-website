@@ -120,7 +120,7 @@ export default config({
         year: fields.text({ label: "Année (optionnel)" }),
         url: fields.url({ label: "Site en ligne (optionnel)" }),
         cover: fields.image({
-          label: "Couverture (4:3, idéalement 1600×1200)",
+          label: "Couverture (16:10, idéalement 1600×1000)",
           description: "Image principale : maquette, capture d'écran ou visuel du projet.",
           directory: "public/work",
           publicPath: "/work/",

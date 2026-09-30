@@ -1,6 +1,6 @@
 {
   "name": "SOUBAI Location Sahara",
-  "order": 2,
+  "order": 1,
   "featured": true,
   "client": "SOUBAI Location",
   "year": "",
@@ -71,6 +71,19 @@
     "#FFD2A8",
     "#7A2E12"
   ],
-  "cover": "/work/soubai-location-sahara/cover.jpg",
-  "gallery": []
+  "cover": "/work/soubai-location-sahara/preview.jpg",
+  "gallery": [
+    {
+      "image": "/work/soubai-location-sahara/fleet.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/soubai-location-sahara/cities.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/soubai-location-sahara/mobile.jpg",
+      "device": "mobile"
+    }
+  ]
 }
