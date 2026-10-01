@@ -1,10 +1,14 @@
 # MH Group — agency website
 
 Trilingual (FR / EN / AR), SEO-first agency site built with Next.js 16, React 19
-and Tailwind CSS 4. Clean, professional layout with a single small real-time
-WebGL shape in the home hero (`SceneCanvas.tsx`), subtle fade-ins, and a `/lab`
-page with three interactive experiments. Everything stays static and readable
-for `prefers-reduced-motion`, touch screens and browsers without WebGL.
+and Tailwind CSS 4. Moderate type sizes with Lusion-style motion: a real-time
+WebGL scene that follows the home page sections (`SceneCanvas.tsx`), page
+colours that change per section, smooth scrolling (Lenis), a first-visit intro,
+page transitions, a pinned sideways project strip, liquid image hover, a
+custom cursor, magnetic and rolling-letter buttons, a full-screen menu,
+optional UI sounds and a `/lab` page with three interactive experiments.
+Everything stays static and readable for `prefers-reduced-motion`, touch
+screens and browsers without WebGL.
 
 ## Run it
 
@@ -102,6 +106,6 @@ the email address of your Resend account.
   BlogPosting, BreadcrumbList, FAQPage, City areaServed.
 - `sitemap.xml` with language alternates, `robots.txt`, web manifest,
   generated Open Graph images.
-- Performance: the 3D hero is a single WebGL shader (no three.js), rendered
+- Performance: the 3D scene is a single WebGL shader (no three.js), rendered
   below native resolution, paused off-screen and static for
   `prefers-reduced-motion`. The intro loader and page transitions are pure CSS.

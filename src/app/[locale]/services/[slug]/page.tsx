@@ -77,6 +77,10 @@ export default async function ServicePage({ params }: Props) {
       <JsonLd data={jsonLd} />
 
       <section className="relative isolate overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute -end-[10%] -top-[14%] -z-10 aspect-square w-[38vw] max-w-[560px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff_0%,#8fa2ff_18%,#2e3bff_55%,#0b0b12_100%)] opacity-90"
+        />
         <div className="container-x pb-16 pt-32 md:pb-24 md:pt-44">
           <nav aria-label="Breadcrumb">
             <ol className="eyebrow flex flex-wrap items-center gap-2 text-muted">

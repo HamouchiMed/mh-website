@@ -4,7 +4,7 @@ import { services } from "@/content/services";
 import { cityFolder, getDictionary, type Locale } from "@/lib/i18n";
 import { activeSocials, site } from "@/lib/site";
 import { Logo } from "./Header";
-import { Pill } from "./ui";
+import { Arrow, Label } from "./ui";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -13,23 +13,24 @@ export default function Footer({ locale }: { locale: Locale }) {
   const linkClass = "text-[15px] text-muted transition-colors hover:text-ink";
 
   return (
-    <footer data-theme="dark" className="relative">
-      <section aria-labelledby="footer-cta" className="container-x flex flex-col gap-8 border-b border-line py-16 md:flex-row md:items-end md:justify-between md:py-20">
-        <div>
-          <p className="eyebrow text-muted">{t.cta.label}</p>
-          <h2 id="footer-cta" className="h-page mt-4">
-            {t.cta.title}
-          </h2>
-          <p className="mt-4 text-muted">
-            {t.cta.or}{" "}
-            <a href={`mailto:${site.email}`} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
-              {site.email}
-            </a>
-          </p>
-        </div>
-        <Pill href={`/${locale}/contact`}>
-          {t.cta.button}
-        </Pill>
+    <footer data-theme="dark" data-scene="cta" className="relative overflow-hidden">
+      <section aria-labelledby="footer-cta" className="container-x border-b border-line py-16 md:py-24">
+        <Label className="text-muted">{t.cta.label}</Label>
+        <Link href={`/${locale}/contact`} id="footer-cta" className="group mt-5 flex items-center justify-between gap-6" data-reveal>
+          <span className="display text-[clamp(2.6rem,6.5vw,5.25rem)] transition-colors duration-500 group-hover:text-accent">{t.cta.title}</span>
+          <span
+            data-magnetic
+            className="grid aspect-square w-[clamp(52px,6.5vw,88px)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.25rem,2vw,1.8rem)] text-white transition-transform duration-500 group-hover:rotate-45 rtl:group-hover:-rotate-45"
+          >
+            <Arrow />
+          </span>
+        </Link>
+        <p className="mt-6 text-muted">
+          {t.cta.or}{" "}
+          <a href={`mailto:${site.email}`} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-accent">
+            {site.email}
+          </a>
+        </p>
       </section>
 
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-12">

@@ -30,6 +30,7 @@ export default function Showreel({ src, poster, labels }: { src: string; poster?
         ref={buttonRef}
         type="button"
         onClick={() => setOpen(true)}
+        data-magnetic
         className="group inline-flex items-center gap-3 text-[15px] font-medium"
       >
         <span className="grid h-12 w-12 place-items-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:scale-110">

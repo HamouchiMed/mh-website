@@ -186,7 +186,7 @@ export default async function CaseStudy({ params }: Props) {
               <ul className={`grid gap-6 ${desktopShots.length > 1 ? "md:grid-cols-2" : ""}`}>
                 {desktopShots.map((g, i) => (
                   <li key={g.image} data-reveal style={delay((i % 2) * 80)}>
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-paper shadow-sm">
+                    <div data-liquid className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-paper shadow-sm">
                       <Image src={g.image as string} alt={`${p.name} — ${i + 1}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-top" />
                     </div>
                   </li>
