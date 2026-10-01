@@ -35,7 +35,7 @@ export default async function LegalPage({ params }: Props) {
       <section className="container-x pb-20 md:pb-28">
         <div className="prose-mh max-w-[72ch]">
           <h2>{s.publisher}</h2>
-          <dl className="grid gap-x-8 gap-y-3 sm:grid-cols-[220px_1fr]">
+          <dl className="grid gap-x-8 gap-y-3 sm:grid-cols-[13.75rem_1fr]">
             {s.publisherLines.map((label, i) => (
               <div key={label} className="contents">
                 <dt className="font-medium text-ink">{label}</dt>

@@ -42,7 +42,7 @@ export default async function Home({ params }: Props) {
       {/* Hero */}
       <section data-scene="hero" className="relative flex min-h-[100svh] flex-col">
         <div className="container-x flex flex-1 flex-col justify-end pb-10 pt-28 md:justify-center md:pb-12">
-          <div className="max-w-[640px]">
+          <div className="max-w-[40rem]">
             <Label className="text-muted">{t.hero.eyebrow}</Label>
             <SplitHeadline text={t.hero.title} className="h-hero mt-5 max-w-[16ch] [text-wrap:balance]" />
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted" data-reveal style={delay(450)}>
@@ -132,7 +132,7 @@ export default async function Home({ params }: Props) {
             <li key={item.title} className="flex flex-col bg-paper p-6 md:p-8" data-reveal style={delay(i * 80)}>
               <span className="grid h-9 w-9 place-items-center rounded-full bg-accent/10 font-mono text-xs text-accent">0{i + 1}</span>
               <h3 className="h-card mt-8">{item.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.text}</p>
+              <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted">{item.text}</p>
             </li>
           ))}
         </ul>

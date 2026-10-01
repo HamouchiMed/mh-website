@@ -31,7 +31,7 @@ export default function Showreel({ src, poster, labels }: { src: string; poster?
         type="button"
         onClick={() => setOpen(true)}
         data-magnetic
-        className="group inline-flex items-center gap-3 text-[15px] font-medium"
+        className="group inline-flex items-center gap-3 text-[0.9375rem] font-medium"
       >
         <span className="grid h-12 w-12 place-items-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:scale-110">
           <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current rtl:-scale-x-100">
@@ -47,7 +47,7 @@ export default function Showreel({ src, poster, labels }: { src: string; poster?
             type="button"
             onClick={close}
             autoFocus
-            className="absolute end-5 top-5 rounded-full bg-white px-5 py-2.5 text-[15px] font-medium text-black"
+            className="absolute end-5 top-5 rounded-full bg-white px-5 py-2.5 text-[0.9375rem] font-medium text-black"
           >
             {labels.close}
           </button>

@@ -39,7 +39,7 @@ export function ServicesList({
         <li key={s.id} className="border-b border-line" data-reveal style={delay(i * 50)}>
           <Link
             href={`/${locale}/services/${s[locale].slug}`}
-            className="group relative isolate grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 overflow-hidden py-6 md:grid-cols-[64px_1fr_1fr_auto] md:gap-x-8 md:py-7"
+            className="group relative isolate grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 overflow-hidden py-6 md:grid-cols-[4rem_1fr_1fr_auto] md:gap-x-8 md:py-7"
           >
             <span
               aria-hidden="true"
@@ -47,7 +47,7 @@ export function ServicesList({
             />
             <span className="font-mono text-xs text-muted transition-colors group-hover:text-white/70 md:ps-4">0{services.indexOf(s) + 1}</span>
             <H className="h-card transition-colors group-hover:text-white">{s[locale].title}</H>
-            <p className="col-span-3 max-w-md text-[15px] text-muted transition-colors group-hover:text-white/80 md:col-span-1">
+            <p className="col-span-3 max-w-md text-[0.9375rem] text-muted transition-colors group-hover:text-white/80 md:col-span-1">
               {s[locale].short}
             </p>
             <span className="col-start-3 row-start-1 grid h-10 w-10 place-items-center rounded-full border border-line transition-all duration-500 group-hover:border-white group-hover:bg-white group-hover:text-accent md:col-start-auto md:row-start-auto md:me-4">
@@ -73,7 +73,7 @@ export async function ProjectsGrid({ locale, featuredOnly = false, exclude }: { 
           <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.view}>
             <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} />
             <h3 className="mt-4 text-lg font-semibold">{p.name}</h3>
-            <p className="mt-1 text-[15px] text-muted">{p.category}</p>
+            <p className="mt-1 text-[0.9375rem] text-muted">{p.category}</p>
           </Link>
         </li>
       ))}
@@ -109,7 +109,7 @@ export function Process({ locale, title, theme = "dark" }: { locale: Locale; tit
                 <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-soft" />
               </div>
               <h3 className="h-card mt-6">{step.title}</h3>
-              <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-muted">{step.text}</p>
+              <p className="mt-2 max-w-lg text-[0.9375rem] leading-relaxed text-muted">{step.text}</p>
             </li>
           ))}
         </ol>
@@ -140,7 +140,7 @@ export function SectionHeader({
       {link && (
         <Link
           href={link.href}
-          className="group inline-flex shrink-0 items-center gap-1.5 text-[15px] font-medium underline decoration-line underline-offset-8 transition-colors hover:decoration-accent"
+          className="group inline-flex shrink-0 items-center gap-1.5 text-[0.9375rem] font-medium underline decoration-line underline-offset-8 transition-colors hover:decoration-accent"
         >
           {link.label}
           <Arrow className={`text-[0.8em] ${arrowHover}`} />
@@ -174,14 +174,14 @@ export async function WorkRail({ locale }: { locale: Locale }) {
   return (
     <>
       {list.map((p, i) => (
-        <article key={p.slug} className="group w-[min(82vw,560px)] shrink-0 snap-start">
+        <article key={p.slug} className="group w-[min(82vw,35rem)] shrink-0 snap-start">
           <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.workDetail.view}>
             <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} sizes="(min-width: 1024px) 560px, 82vw" />
             <div className="mt-5 flex items-start justify-between gap-4">
               <div>
                 <p className="eyebrow text-muted">0{i + 1}</p>
                 <h3 className="h-card mt-2">{p.name}</h3>
-                <p className="mt-1 text-[15px] text-muted">{p.category}</p>
+                <p className="mt-1 text-[0.9375rem] text-muted">{p.category}</p>
               </div>
               <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
                 <Arrow className={arrowHover} />
@@ -190,7 +190,7 @@ export async function WorkRail({ locale }: { locale: Locale }) {
           </Link>
         </article>
       ))}
-      <article className="w-[min(70vw,360px)] shrink-0 snap-start">
+      <article className="w-[min(70vw,22.5rem)] shrink-0 snap-start">
         <Link
           href={`/${locale}/work`}
           className="group flex aspect-[16/10] flex-col justify-between rounded-xl border border-line p-6 transition-colors hover:border-ink md:p-8"

@@ -73,7 +73,7 @@ export default function HorizontalWork({
         <div className="container-x">{header}</div>
         <div
           ref={trackRef}
-          className={`flex gap-5 px-[max(clamp(20px,4vw,40px),calc((100vw_-_1280px)/2_+_40px))] md:gap-7 ${
+          className={`flex gap-5 px-[max(clamp(1.25rem,4vw,2.5rem),calc((100vw_-_80rem)/2_+_2.5rem))] md:gap-7 ${
             pinned ? "will-change-transform" : "snap-x snap-mandatory overflow-x-auto pb-6 [scrollbar-width:none]"
           }`}
         >

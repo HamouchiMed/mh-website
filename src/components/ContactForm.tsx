@@ -91,7 +91,7 @@ export default function ContactForm({
           {t.successTitle}
         </h2>
         <p className="mt-4 text-lg text-muted">{t.successText}</p>
-        <button type="button" onClick={() => setStatus("idle")} className="mt-8 text-[15px] font-medium underline underline-offset-4">
+        <button type="button" onClick={() => setStatus("idle")} className="mt-8 text-[0.9375rem] font-medium underline underline-offset-4">
           {t.again}
         </button>
       </div>
@@ -167,7 +167,7 @@ export default function ContactForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-4 text-[15px] font-medium text-white transition-colors hover:bg-ink disabled:opacity-60"
+          className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-4 text-[0.9375rem] font-medium text-white transition-colors hover:bg-ink disabled:opacity-60"
         >
           {status === "sending" ? t.sending : t.submit}
           <span aria-hidden="true" className="rtl:-scale-x-100">

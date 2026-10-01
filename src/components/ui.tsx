@@ -55,7 +55,7 @@ export function Pill({ variant = "accent", className = "", children, ...props }:
       {...props}
       data-magnetic
       data-fill
-      className={`group relative isolate inline-flex items-center gap-2.5 overflow-hidden rounded-full px-5 py-3 text-[15px] font-medium transition-colors duration-500 ${style.base} ${style.text} ${className}`}
+      className={`group relative isolate inline-flex items-center gap-2.5 overflow-hidden rounded-full px-5 py-3 text-[0.9375rem] font-medium transition-colors duration-500 ${style.base} ${style.text} ${className}`}
     >
       <span aria-hidden="true" className={`pill-fill ${style.fill}`} />
       {typeof children === "string" ? <RollText text={children} /> : <span>{children}</span>}

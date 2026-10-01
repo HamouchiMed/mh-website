@@ -80,7 +80,7 @@ export default async function PricingPage({ params }: Props) {
                 </ul>
                 <Link
                   href={`/${locale}/contact?package=${plan.id}`}
-                    className={`group mt-10 inline-flex items-center justify-between gap-3 rounded-full px-6 py-4 text-[15px] font-medium transition-colors ${
+                    className={`group mt-10 inline-flex items-center justify-between gap-3 rounded-full px-6 py-4 text-[0.9375rem] font-medium transition-colors ${
                     popular ? "bg-accent text-white hover:bg-paper hover:text-ink" : "bg-ink text-paper hover:bg-accent"
                   }`}
                 >

@@ -13,10 +13,10 @@ import { Arrow, arrowHover, RollText } from "./ui";
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <span dir="ltr" className={`flex items-center gap-2 ${className}`}>
-      <span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-full bg-accent text-[12px] font-semibold tracking-tight text-white">
+      <span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-full bg-accent text-xs font-semibold tracking-tight text-white">
         MH
       </span>
-      <span className="text-[17px] font-semibold tracking-tight">{site.name.replace("MH ", "")}</span>
+      <span className="text-[1.0625rem] font-semibold tracking-tight">{site.name.replace("MH ", "")}</span>
     </span>
   );
 }
@@ -92,7 +92,7 @@ export default function Header({
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   const langSwitch = (
-    <div className="flex items-center gap-0.5 text-[13px]" role="group" aria-label={nav.language}>
+    <div className="flex items-center gap-0.5 text-[0.8125rem]" role="group" aria-label={nav.language}>
       {locales.map((l) => (
         <Link
           key={l}
@@ -136,7 +136,7 @@ export default function Header({
                 key={link.href}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
-                className={`text-[15px] transition-colors ${isActive(link.href) ? "text-ink" : "text-muted hover:text-ink"}`}
+                className={`text-[0.9375rem] transition-colors ${isActive(link.href) ? "text-ink" : "text-muted hover:text-ink"}`}
               >
                 <RollText text={link.label} />
               </Link>
@@ -150,7 +150,7 @@ export default function Header({
               href={`/${locale}/contact`}
               data-magnetic
               data-fill
-              className="group relative isolate hidden items-center gap-2 overflow-hidden rounded-full bg-accent px-4 py-2 text-[14px] font-medium text-white md:inline-flex"
+              className="group relative isolate hidden items-center gap-2 overflow-hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-white md:inline-flex"
             >
               <span aria-hidden="true" className="pill-fill bg-ink" />
               <RollText text={nav.cta} />
@@ -163,7 +163,7 @@ export default function Header({
               aria-expanded={open}
               aria-controls="site-menu"
               data-magnetic
-              className="relative z-10 flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-[14px] font-medium text-paper"
+              className="relative z-10 flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-paper"
             >
               <RollText text={open ? nav.close : nav.menu} />
               <span aria-hidden="true" className="flex w-3.5 flex-col gap-1">

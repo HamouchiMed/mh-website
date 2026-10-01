@@ -20,7 +20,11 @@
 @layer base {
   /* The page colour lives on <html> (the canvas root) so the fixed 3D scene,
      which sits at a negative z-index, renders above it and below content. */
+  /* Everything is sized in rem, so the whole site scales with the root font
+     size: 16px up to a 1536px-wide window, then growing with the window
+     (20px at 1920px), like a browser zoom on large screens. */
   html {
+    font-size: clamp(1rem, calc(100vw / 96), 1.25rem);
     background-color: var(--page-bg, var(--color-paper));
     transition: background-color 0.8s var(--ease-out-expo);
     color: var(--color-ink);
@@ -104,9 +108,9 @@ html[lang="ar"] {
 
 @utility container-x {
   width: 100%;
-  max-width: 1280px;
+  max-width: 80rem;
   margin-inline: auto;
-  padding-inline: clamp(20px, 4vw, 40px);
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 @utility eyebrow {
@@ -311,8 +315,8 @@ html.themed .site-menu[data-theme] {
   z-index: 100;
   display: grid;
   place-items: center;
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
   border-radius: 9999px;
   border: 1px solid #fff;
   mix-blend-mode: difference;
@@ -324,15 +328,15 @@ html.themed .site-menu[data-theme] {
     background-color 0.3s;
 }
 .cursor-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #fff;
   opacity: 0;
   transition: opacity 0.2s;
 }
 .cursor-ring.has-label {
-  width: 76px;
-  height: 76px;
+  width: 4.75rem;
+  height: 4.75rem;
   border-color: transparent;
   background: var(--color-accent);
   mix-blend-mode: normal;

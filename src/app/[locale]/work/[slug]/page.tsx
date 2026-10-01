@@ -135,7 +135,7 @@ export default async function CaseStudy({ params }: Props) {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-[15px] font-medium text-paper transition-colors hover:bg-accent"
+                className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-[0.9375rem] font-medium text-paper transition-colors hover:bg-accent"
               >
                 {w.visit}
                 <Arrow className={arrowHover} />
@@ -196,9 +196,9 @@ export default async function CaseStudy({ params }: Props) {
             {mobileShots.length > 0 && (
               <ul className="flex flex-wrap justify-center gap-6 md:gap-10">
                 {mobileShots.map((g, i) => (
-                  <li key={g.image} className="w-[240px] md:w-[260px]" data-reveal style={delay(i * 80)}>
-                    <div className="rounded-[36px] bg-[#11131a] p-2 shadow-lg">
-                      <div className="relative aspect-[390/844] overflow-hidden rounded-[28px]">
+                  <li key={g.image} className="w-[15rem] md:w-[16.25rem]" data-reveal style={delay(i * 80)}>
+                    <div className="rounded-[2.25rem] bg-[#11131a] p-2 shadow-lg">
+                      <div className="relative aspect-[390/844] overflow-hidden rounded-[1.75rem]">
                         <Image src={g.image as string} alt={`${p.name} — mobile ${i + 1}`} fill sizes="260px" className="object-cover object-top" />
                       </div>
                     </div>

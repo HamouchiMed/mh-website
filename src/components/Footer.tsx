@@ -10,7 +10,7 @@ export default function Footer({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const year = new Date().getFullYear();
   const cityBase = `/${locale}/${cityFolder[locale]}`;
-  const linkClass = "text-[15px] text-muted transition-colors hover:text-ink";
+  const linkClass = "text-[0.9375rem] text-muted transition-colors hover:text-ink";
 
   return (
     <footer data-theme="dark" data-scene="cta" className="relative overflow-hidden">
@@ -20,7 +20,7 @@ export default function Footer({ locale }: { locale: Locale }) {
           <span className="display text-[clamp(2.6rem,6.5vw,5.25rem)] transition-colors duration-500 group-hover:text-accent">{t.cta.title}</span>
           <span
             data-magnetic
-            className="grid aspect-square w-[clamp(52px,6.5vw,88px)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.25rem,2vw,1.8rem)] text-white transition-transform duration-500 group-hover:rotate-45 rtl:group-hover:-rotate-45"
+            className="grid aspect-square w-[clamp(3.25rem,6.5vw,5.5rem)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.25rem,2vw,1.8rem)] text-white transition-transform duration-500 group-hover:rotate-45 rtl:group-hover:-rotate-45"
           >
             <Arrow />
           </span>
@@ -36,7 +36,7 @@ export default function Footer({ locale }: { locale: Locale }) {
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-12">
         <div className="md:col-span-4">
           <Logo />
-          <p className="mt-4 max-w-xs text-[15px] text-muted">{t.footer.tagline}</p>
+          <p className="mt-4 max-w-xs text-[0.9375rem] text-muted">{t.footer.tagline}</p>
           {activeSocials.length > 0 && (
             <ul className="mt-5 flex flex-wrap gap-4" aria-label={t.footer.follow}>
               {activeSocials.map(([name, url]) => (
@@ -84,7 +84,7 @@ export default function Footer({ locale }: { locale: Locale }) {
         </nav>
         <div className="md:col-span-3">
           <h2 className="text-sm font-semibold">{t.footer.contact}</h2>
-          <ul className="mt-4 space-y-2.5 text-[15px] text-muted">
+          <ul className="mt-4 space-y-2.5 text-[0.9375rem] text-muted">
             <li>
               <a href={`mailto:${site.email}`} className="hover:text-ink">
                 {site.email}
