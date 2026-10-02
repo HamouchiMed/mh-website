@@ -59,7 +59,7 @@ export default function DotWave({ className = "" }: { className?: string }) {
             if (r > 0.5) discard;
             vec3 col = mix(vec3(0.72, 0.78, 1.0), vec3(1.0), clamp(vH * 0.45 + 0.3, 0.0, 1.0));
             float fade = clamp(1.4 - vD / 32.0, 0.0, 1.0);
-            gl_FragColor = vec4(col, smoothstep(0.5, 0.1, r) * fade * 0.85);
+            gl_FragColor = vec4(col, (1.0 - smoothstep(0.1, 0.5, r)) * fade * 0.85);
           }`,
       });
       const scene = new THREE.Scene();

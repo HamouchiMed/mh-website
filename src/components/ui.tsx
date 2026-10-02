@@ -43,9 +43,9 @@ type PillProps = ComponentProps<typeof Link> & { variant?: "accent" | "ink" | "o
 // Base colours + the colour that fills in from the pointer on hover.
 const pillStyles = {
   accent: { base: "bg-accent text-white", fill: "bg-ink", text: "" },
-  ink: { base: "bg-ink text-paper", fill: "bg-accent", text: "group-hover:text-white" },
-  outline: { base: "border border-line", fill: "bg-ink", text: "group-hover:text-paper group-hover:border-ink" },
-  light: { base: "bg-paper text-ink", fill: "bg-accent", text: "group-hover:text-white" },
+  ink: { base: "bg-ink text-paper", fill: "bg-accent", text: "hover:text-white focus-visible:text-white" },
+  outline: { base: "border border-line", fill: "bg-ink", text: "hover:border-ink hover:text-paper focus-visible:text-paper" },
+  light: { base: "bg-paper text-ink", fill: "bg-accent", text: "hover:text-white focus-visible:text-white" },
 };
 
 // Magnetic pill button: letters roll and colour fills in from the pointer.

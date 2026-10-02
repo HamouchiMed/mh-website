@@ -29,7 +29,7 @@ void main() {
   vec2 uv = vec2(vUv.x, 1.0 - vUv.y);
   vec2 d = (uv - uMouse) * vec2(uAspect, 1.0);
   float dist = length(d);
-  float fall = smoothstep(0.55, 0.0, dist);
+  float fall = 1.0 - smoothstep(0.0, 0.55, dist);
   vec2 dir = d / max(dist, 1e-4);
   float wave = sin(dist * 26.0 - uTime * 6.0) * 0.014 * fall;
   vec2 st = (uv - 0.5) * (1.0 - 0.05 * uStrength) + 0.5;

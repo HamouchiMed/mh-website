@@ -202,7 +202,7 @@ export default function ParticleMorph({ watch, className = "" }: { watch?: strin
             float r = length(gl_PointCoord - 0.5);
             if (r > 0.5) discard;
             vec3 col = mix(vec3(0.18, 0.23, 1.0), vec3(0.55, 0.64, 1.0), smoothstep(0.55, 1.0, vR));
-            gl_FragColor = vec4(col, smoothstep(0.5, 0.15, r) * 0.95);
+            gl_FragColor = vec4(col, (1.0 - smoothstep(0.15, 0.5, r)) * 0.95);
           }`,
       });
       const group = new THREE.Group();

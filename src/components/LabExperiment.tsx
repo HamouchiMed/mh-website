@@ -52,7 +52,7 @@ vec3 bg(vec2 q) {
   vec3 a = vec3(0.06, 0.06, 0.09);
   vec3 b = vec3(0.18, 0.23, 1.0);
   vec3 col = mix(a, b, stripes);
-  float dots = smoothstep(0.08, 0.0, length(fract(q * 3.0) - 0.5));
+  float dots = 1.0 - smoothstep(0.0, 0.08, length(fract(q * 3.0) - 0.5));
   return col + dots * vec3(1.0, 0.5, 0.3) * 0.5;
 }
 
