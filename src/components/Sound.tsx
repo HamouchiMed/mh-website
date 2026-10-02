@@ -85,7 +85,9 @@ export default function SoundToggle({ labels }: { labels: { on: string; off: str
       lastX = e.clientX;
       lastY = e.clientY;
     };
-    // Scroll speed feeds the wind; the bars follow the music.
+    // Scroll speed feeds the wind; the bars follow the music, unless the
+    // device has motion turned off (then they stay still, see globals.css).
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let lastScroll = window.scrollY;
     let speed = 0;
     const bins = new Uint8Array(32);
@@ -97,7 +99,7 @@ export default function SoundToggle({ labels }: { labels: { on: string; off: str
       if (engine) {
         engine.setScroll(speed);
         const spans = barsRef.current?.children;
-        if (spans) {
+        if (spans && !still) {
           engine.analyser.getByteFrequencyData(bins);
           for (let i = 0; i < spans.length; i++) {
             const v = bins[1 + i * 3] / 255;

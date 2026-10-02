@@ -614,7 +614,22 @@ html.own-scrollbar::-webkit-scrollbar {
   transform: none;
 }
 
+/* Motion turned off on the device: nothing slides, scales, rotates, wipes or
+   loops. Fades and colour changes stay, so states still change softly. The
+   JS effects (3D scenes, cursor, smooth scroll, marquee, intro) check the
+   same setting and stay still. */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-property: opacity, color, background-color, border-color, fill, stroke, visibility !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
   .page-curtain,
   html.intro-play .intro-loader {
     display: none;
@@ -631,21 +646,31 @@ html.own-scrollbar::-webkit-scrollbar {
   [data-rise] {
     animation: none;
   }
-  .roll-char,
-  .pill-fill,
-  .site-menu,
-  .menu-item > a {
-    transition: none;
-  }
   .sound-bars.is-hint span {
     animation: none;
   }
   .scroll-word {
     opacity: 1;
   }
-  .capsule-fold,
-  .ring-pct,
-  .ring-up {
-    transition: none;
+  /* The menu fades in instead of growing as a circle. */
+  .site-menu,
+  .site-menu.is-open {
+    clip-path: none;
+    transition:
+      opacity 0.3s,
+      visibility 0.3s;
+  }
+  .site-menu {
+    opacity: 0;
+  }
+  .site-menu.is-open {
+    opacity: 1;
+  }
+  /* Music on: still bars instead of bars that dance (Sound.tsx). */
+  .sound-bars.is-live span {
+    height: 8px;
+  }
+  .sound-bars.is-live span:nth-child(even) {
+    height: 11px;
   }
 }
