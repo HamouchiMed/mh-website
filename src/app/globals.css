@@ -537,6 +537,91 @@ html.intro-play [data-rise] {
   letter-spacing: 0;
 }
 
+/* ---------- Own scrollbar (ScrollBar.tsx) ----------
+   Computers with a mouse only: the native bar is hidden and replaced by a
+   thin rail whose thumb grows on hover and shows the scroll percentage. */
+html.own-scrollbar {
+  scrollbar-width: none;
+}
+html.own-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar {
+  display: none;
+  position: fixed;
+  z-index: 30;
+  top: 5rem;
+  bottom: 1.25rem;
+  right: 0.25rem;
+  width: 1rem;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+html.own-scrollbar .scrollbar:not([data-empty="true"]) {
+  display: block;
+}
+.scrollbar-line {
+  position: absolute;
+  inset-block: 0;
+  right: calc(0.5rem - 0.5px);
+  width: 1px;
+  background: var(--color-line);
+  opacity: 0.6;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+.scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  right: calc(0.5rem - 2px);
+  width: 4px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  opacity: 0.45;
+  will-change: transform;
+  transition:
+    width 0.35s var(--ease-out-expo),
+    right 0.35s var(--ease-out-expo),
+    opacity 0.4s var(--ease-out-expo);
+}
+.scrollbar-label {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 0.625rem);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(0.375rem, -50%, 0);
+  transition:
+    opacity 0.25s var(--ease-out-expo),
+    transform 0.35s var(--ease-out-expo);
+  pointer-events: none;
+}
+.scrollbar[data-active="true"] .scrollbar-thumb,
+.scrollbar:hover .scrollbar-thumb {
+  opacity: 1;
+}
+.scrollbar[data-active="true"] .scrollbar-line,
+.scrollbar:hover .scrollbar-line {
+  opacity: 1;
+}
+.scrollbar:hover .scrollbar-thumb,
+.scrollbar[data-dragging="true"] .scrollbar-thumb {
+  width: 8px;
+  right: calc(0.5rem - 4px);
+}
+.scrollbar:hover .scrollbar-label,
+.scrollbar[data-dragging="true"] .scrollbar-label {
+  opacity: 1;
+  transform: translate3d(0, -50%, 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-curtain,
   html.intro-play .intro-loader {
@@ -566,5 +651,10 @@ html.intro-play [data-rise] {
   }
   .scroll-word {
     opacity: 1;
+  }
+  .scrollbar-line,
+  .scrollbar-thumb,
+  .scrollbar-label {
+    transition: none;
   }
 }

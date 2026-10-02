@@ -3,6 +3,7 @@
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { setLenis } from "@/lib/scroll";
 
 const pageColors = { light: "#fafafa", dark: "#0b0b12", accent: "#2e3bff" } as const;
 type PageTheme = keyof typeof pageColors;
@@ -19,6 +20,7 @@ export default function Effects() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const lenis = new Lenis({ lerp: 0.1, anchors: true });
     lenisRef.current = lenis;
+    setLenis(lenis);
     let raf = requestAnimationFrame(function frame(time) {
       lenis.raf(time);
       raf = requestAnimationFrame(frame);
@@ -27,6 +29,7 @@ export default function Effects() {
       cancelAnimationFrame(raf);
       lenis.destroy();
       lenisRef.current = null;
+      setLenis(null);
     };
   }, []);
 
