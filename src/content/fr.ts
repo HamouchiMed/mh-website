@@ -233,8 +233,8 @@ export const fr = {
     },
   },
   sound: {
-    on: "Couper le son",
-    off: "Activer le son",
+    on: "Couper la musique",
+    off: "Activer la musique et les sons",
   },
   lab: {
     metaTitle: "Lab — expériences interactives WebGL",

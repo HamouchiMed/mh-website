@@ -235,8 +235,8 @@ export const en: Dictionary = {
     },
   },
   sound: {
-    on: "Mute sound",
-    off: "Turn sound on",
+    on: "Mute the music",
+    off: "Turn on music and sound",
   },
   lab: {
     metaTitle: "Lab — interactive WebGL experiments",

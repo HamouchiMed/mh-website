@@ -308,16 +308,24 @@ html.themed .site-menu[data-theme] {
   background: currentColor;
   transition: height 0.3s;
 }
-.sound-bars.is-on span {
+/* Playing: heights come from the music (Sound.tsx). */
+.sound-bars.is-live span {
+  transition: height 0.08s linear;
+}
+.sound-bars.is-live {
+  color: var(--color-accent);
+}
+/* First visit: a gentle wave says sound is available. */
+.sound-bars.is-hint span {
   animation: sound-bar 0.8s ease-in-out infinite alternate;
 }
-.sound-bars.is-on span:nth-child(2) {
+.sound-bars.is-hint span:nth-child(2) {
   animation-delay: -0.25s;
 }
-.sound-bars.is-on span:nth-child(3) {
+.sound-bars.is-hint span:nth-child(3) {
   animation-delay: -0.5s;
 }
-.sound-bars.is-on span:nth-child(4) {
+.sound-bars.is-hint span:nth-child(4) {
   animation-delay: -0.7s;
 }
 @keyframes sound-bar {
@@ -629,9 +637,8 @@ html.own-scrollbar::-webkit-scrollbar {
   .menu-item > a {
     transition: none;
   }
-  .sound-bars.is-on span {
+  .sound-bars.is-hint span {
     animation: none;
-    height: 9px;
   }
   .scroll-word {
     opacity: 1;
