@@ -15,7 +15,7 @@ export function PageHero({ label, title, lead }: { label: string; title: string;
       <Label className="text-muted">{label}</Label>
       <SplitHeadline text={title} className="h-page mt-5 max-w-[22ch] [text-wrap:balance]" />
       {lead && (
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-reveal style={delay(300)}>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-rise style={delay(150)}>
           {lead}
         </p>
       )}

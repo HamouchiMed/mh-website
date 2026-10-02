@@ -103,10 +103,10 @@ export default async function ServicePage({ params }: Props) {
           </nav>
           <p className="eyebrow mt-10 text-accent">0{index + 1}</p>
           <SplitHeadline text={s.h1} className="h-page mt-4 max-w-[22ch] [text-wrap:balance]" />
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-reveal style={{ "--delay": "300ms" } as CSSProperties}>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-rise style={{ "--delay": "150ms" } as CSSProperties}>
             {s.lead}
           </p>
-          <div className="mt-10" data-reveal style={{ "--delay": "450ms" } as CSSProperties}>
+          <div className="mt-10" data-rise style={{ "--delay": "250ms" } as CSSProperties}>
             <Pill href={`/${locale}/contact`}>{t.serviceDetail.cta}</Pill>
           </div>
         </div>

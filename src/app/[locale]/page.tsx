@@ -47,16 +47,16 @@ export default async function Home({ params }: Props) {
           <div className="max-w-[40rem]">
             <Label className="text-muted">{t.hero.eyebrow}</Label>
             <SplitHeadline text={t.hero.title} className="h-hero mt-5 max-w-[16ch] [text-wrap:balance]" />
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted" data-reveal style={delay(450)}>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted" data-rise style={delay(150)}>
               {t.hero.lead}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3" data-reveal style={delay(600)}>
+            <div className="mt-8 flex flex-wrap items-center gap-3" data-rise style={delay(250)}>
               <Pill href={`/${locale}/contact`}>{t.hero.primary}</Pill>
               <Pill href={`/${locale}/services`} variant="outline">
                 {t.hero.secondary}
               </Pill>
             </div>
-            <p className="eyebrow mt-8 flex flex-wrap gap-x-2 text-muted" data-reveal style={delay(750)}>
+            <p className="eyebrow mt-8 flex flex-wrap gap-x-2 text-muted" data-rise style={delay(350)}>
               <span>{t.hero.specialty}</span>
               <Decode
                 text={services[0][locale].title}
@@ -66,7 +66,7 @@ export default async function Home({ params }: Props) {
               />
             </p>
             {studio.showreel && (
-              <div className="mt-8" data-reveal style={delay(700)}>
+              <div className="mt-8" data-rise style={delay(350)}>
                 <Showreel src={studio.showreel} poster={studio.showreelPoster} labels={{ open: t.studio.showreel, close: t.studio.close }} />
               </div>
             )}

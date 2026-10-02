@@ -86,12 +86,12 @@ export default async function CaseStudy({ params }: Props) {
         </nav>
         <p className="eyebrow mt-10 text-accent">{p.category}</p>
         <SplitHeadline text={p.name} className="h-page mt-4" />
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted" data-reveal style={delay(300)}>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted" data-rise style={delay(150)}>
           {p.summary}
         </p>
       </section>
 
-      <section className="container-x" data-reveal>
+      <section className="container-x" data-rise style={delay(250)}>
         <ProjectMedia
           src={p.cover}
           alt={`${p.name} — ${p.category}`}
@@ -102,33 +102,35 @@ export default async function CaseStudy({ params }: Props) {
       </section>
 
       <section className="container-x py-16 md:py-24">
-        <dl className="grid gap-8 border-y border-line py-10 sm:grid-cols-2 lg:grid-cols-4">
-          {p.client && (
+        <div className="grid gap-8 border-y border-line py-10 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="contents">
+            {p.client && (
+              <div>
+                <dt className="eyebrow text-muted">{w.client}</dt>
+                <dd className="mt-3 text-lg font-medium">{p.client}</dd>
+              </div>
+            )}
             <div>
-              <dt className="eyebrow text-muted">{w.client}</dt>
-              <dd className="mt-3 text-lg font-medium">{p.client}</dd>
+              <dt className="eyebrow text-muted">{w.services}</dt>
+              <dd className="mt-3 flex flex-col gap-1.5">
+                {related.map((s) => (
+                  <Link key={s.id} href={`/${locale}/services/${s[locale].slug}`} className="text-lg font-medium hover:text-accent">
+                    {s[locale].title}
+                  </Link>
+                ))}
+              </dd>
             </div>
-          )}
-          <div>
-            <dt className="eyebrow text-muted">{w.services}</dt>
-            <dd className="mt-3 flex flex-col gap-1.5">
-              {related.map((s) => (
-                <Link key={s.id} href={`/${locale}/services/${s[locale].slug}`} className="text-lg font-medium hover:text-accent">
-                  {s[locale].title}
-                </Link>
-              ))}
-            </dd>
-          </div>
-          <div className={p.client ? "" : "lg:col-span-2"}>
-            <dt className="eyebrow text-muted">{w.stack}</dt>
-            <dd className="mt-3 flex flex-wrap gap-2">
-              {p.stack.map((tech) => (
-                <span key={tech} className="rounded-full border border-line px-3.5 py-1.5 text-sm">
-                  {tech}
-                </span>
-              ))}
-            </dd>
-          </div>
+            <div className={p.client ? "" : "lg:col-span-2"}>
+              <dt className="eyebrow text-muted">{w.stack}</dt>
+              <dd className="mt-3 flex flex-wrap gap-2">
+                {p.stack.map((tech) => (
+                  <span key={tech} className="rounded-full border border-line px-3.5 py-1.5 text-sm">
+                    {tech}
+                  </span>
+                ))}
+              </dd>
+            </div>
+          </dl>
           {p.url && (
             <div className="flex items-end lg:justify-end">
               <a
@@ -142,7 +144,7 @@ export default async function CaseStudy({ params }: Props) {
               </a>
             </div>
           )}
-        </dl>
+        </div>
       </section>
 
       <section className="container-x grid gap-16 pb-24 md:grid-cols-12 md:pb-36">

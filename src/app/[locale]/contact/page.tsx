@@ -1,5 +1,5 @@
 import ContactForm from "@/components/ContactForm";
-import { PageHero } from "@/components/sections";
+import { delay, PageHero } from "@/components/sections";
 import { JsonLd } from "@/components/ui";
 import { services } from "@/content/services";
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
@@ -39,7 +39,7 @@ export default async function ContactPage({ params }: Props) {
       <PageHero label={c.label} title={c.h1} lead={c.lead} />
       <section className="container-x pb-20 md:pb-28">
         <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-8" data-reveal>
+          <div className="lg:col-span-8" data-rise style={delay(200)}>
             <ContactForm
               t={c.form}
               locale={locale}

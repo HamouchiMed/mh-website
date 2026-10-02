@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
@@ -16,7 +15,7 @@ import { IntroLoader, introScript, WhatsAppButton } from "@/components/Overlays"
 import { JsonLd } from "@/components/ui";
 import { services, serviceSlugMap } from "@/content/services";
 import { getPostSlugMap, getProjects } from "@/lib/content";
-import { readex } from "@/lib/fonts";
+import { geistMono, readex } from "@/lib/fonts";
 import { dir, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
 import { activeSocials, site } from "@/lib/site";
@@ -106,7 +105,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir(locale)}
-      className={`${GeistSans.variable} ${GeistMono.variable} ${readex.variable}`}
+      className={`${GeistSans.variable} ${geistMono.variable} ${readex.variable}`}
       suppressHydrationWarning
     >
       <head>

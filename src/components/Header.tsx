@@ -13,9 +13,7 @@ import { Arrow, arrowHover, RollText } from "./ui";
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <span dir="ltr" className={`flex items-center gap-2 ${className}`}>
-      <span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-full bg-accent text-xs font-semibold tracking-tight text-white">
-        MH
-      </span>
+      <span className="grid h-8 w-8 place-items-center rounded-full bg-accent text-xs font-semibold tracking-tight text-white">MH</span>{" "}
       <span className="text-[1.0625rem] font-semibold tracking-tight">{site.name.replace("MH ", "")}</span>
     </span>
   );
@@ -126,7 +124,7 @@ export default function Header({
         }`}
       >
         <div className="container-x flex h-16 items-center justify-between gap-6">
-          <Link href={`/${locale}`} aria-label={`${site.name} — ${nav.home}`} className="relative z-10">
+          <Link href={`/${locale}`} title={nav.home} className="relative z-10">
             <Logo />
           </Link>
 

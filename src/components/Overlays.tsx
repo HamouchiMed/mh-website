@@ -4,7 +4,7 @@ import { Logo } from "./Header";
 
 // First-visit intro: a 0 → 100 counter, then the panel slides away. Pure CSS
 // driven by the `intro-play` class that an inline script adds once per session
-// (never for reduced motion), so it costs no JavaScript bundle.
+// (computers only, never for reduced motion), so it costs no JavaScript bundle.
 export function IntroLoader({ tagline }: { tagline: string }) {
   return (
     <div className="intro-loader" aria-hidden="true">
@@ -20,7 +20,7 @@ export function IntroLoader({ tagline }: { tagline: string }) {
   );
 }
 
-export const introScript = `try{var d=document.documentElement;if(!sessionStorage.getItem('mh-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-play');sessionStorage.setItem('mh-intro','1');setTimeout(function(){d.classList.remove('intro-play')},2600)}}catch(e){}`;
+export const introScript = `try{var d=document.documentElement;if(!sessionStorage.getItem('mh-intro')&&matchMedia('(min-width: 768px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-play');sessionStorage.setItem('mh-intro','1');setTimeout(function(){d.classList.remove('intro-play')},2600)}}catch(e){}`;
 
 export function WhatsAppButton({ t }: { t: Dictionary["whatsapp"] }) {
   if (!site.whatsapp) return null;

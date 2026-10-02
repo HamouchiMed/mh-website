@@ -84,7 +84,7 @@ export default async function PostPage({ params }: Props) {
             </ol>
           </nav>
           <h1 className="h-page mt-6 max-w-[24ch] [text-wrap:balance]">{post.title}</h1>
-          <p className="mt-8 max-w-3xl text-xl leading-relaxed text-ink/75" data-reveal style={delay(200)}>
+          <p className="mt-8 max-w-3xl text-xl leading-relaxed text-ink/75" data-rise style={delay(150)}>
             {post.description}
           </p>
           <p className="mt-8 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">

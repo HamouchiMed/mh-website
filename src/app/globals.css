@@ -173,6 +173,23 @@ html[lang="ar"] {
   transform: none;
 }
 
+/* Top-of-page entrance: pure CSS, so it starts with the first paint instead
+   of waiting for JavaScript (keeps Largest Contentful Paint fast). */
+[data-rise] {
+  animation: rise-in 0.9s var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Headline: each word rises from behind a mask on load. */
 .word-mask {
   display: inline-block;
@@ -410,6 +427,9 @@ html.intro-play .word-mask > span {
 html.intro-play.js [data-reveal] {
   transition-delay: calc(var(--delay, 0ms) + 1500ms);
 }
+html.intro-play [data-rise] {
+  animation-delay: calc(var(--delay, 0ms) + 1500ms);
+}
 
 /* ---------- Page transitions ---------- */
 .page-curtain {
@@ -530,7 +550,8 @@ html.intro-play.js [data-reveal] {
     transform: none;
     transition: none;
   }
-  .word-mask > span {
+  .word-mask > span,
+  [data-rise] {
     animation: none;
   }
   .roll-char,

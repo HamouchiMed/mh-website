@@ -152,10 +152,10 @@ export function CityPage({ locale, folder, slug }: { locale: Locale; folder: str
             </ol>
           </nav>
           <h1 className="h-page mt-6 max-w-[20ch] [text-wrap:balance]">{f(c.h1)}</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-reveal style={delay(200)}>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted" data-rise style={delay(150)}>
             {f(c.lead)}
           </p>
-          <div className="mt-10" data-reveal style={delay(320)}>
+          <div className="mt-10" data-rise style={delay(250)}>
             <Pill href={`/${locale}/contact`}>{c.cta}</Pill>
           </div>
         </div>
