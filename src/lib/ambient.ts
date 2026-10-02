@@ -5,7 +5,6 @@
 //  - top/bottom changes the amount of reverb,
 //  - moving the mouse plays bell notes from the same scale (higher at the
 //    top of the screen, panned with the pointer), so the visitor plays along,
-//  - hovering and clicking links play notes of the current chord,
 //  - scrolling adds a soft wind that follows the scroll speed.
 
 const mtof = (m: number) => 440 * Math.pow(2, (m - 69) / 12);
@@ -261,20 +260,6 @@ export class Ambient {
     if (!this.running) return;
     const i = Math.round((1 - y) * (SCALE.length - 1));
     this.bell(this.ctx.currentTime, SCALE[Math.max(0, Math.min(SCALE.length - 1, i))], 0.025 + speed * 0.045, x * 1.6 - 0.8);
-  }
-
-  hover() {
-    if (!this.running) return;
-    const tones = CHORDS[this.current].notes;
-    this.bell(this.ctx.currentTime, tones[tones.length - 1] + 12, 0.022, 0);
-  }
-
-  click() {
-    if (!this.running) return;
-    const t = this.ctx.currentTime;
-    const root = CHORDS[this.current].notes[0] + 12;
-    this.pluck(t, root, 0.08, -0.15);
-    this.pluck(t + 0.035, root + 7, 0.06, 0.15);
   }
 
   /** Scroll speed, 0–1: drives the wind. */

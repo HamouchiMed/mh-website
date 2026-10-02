@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Ambient } from "@/lib/ambient";
 
-// Music and interactive sound (see lib/ambient.ts), all synthesised in the
-// browser. Off by default; browsers only allow audio after a click, so a
-// remembered "on" starts on the visitor's first interaction. While it plays,
-// the button's bars follow the music.
+// The music (see lib/ambient.ts), synthesised in the browser; moving the
+// mouse plays along. Button ticks and clicks are separate (UiSounds.tsx).
+// Off by default; browsers only allow audio after a click, so a remembered
+// "on" starts on the visitor's first interaction. While it plays, the
+// button's bars follow the music.
 const STORAGE_KEY = "mh-sound";
 const HINT_KEY = "mh-sound-hint";
 
@@ -84,16 +85,6 @@ export default function SoundToggle({ labels }: { labels: { on: string; off: str
       lastX = e.clientX;
       lastY = e.clientY;
     };
-    let lastHover: Element | null = null;
-    const onOver = (e: PointerEvent) => {
-      const el = (e.target as Element | null)?.closest("a, button, summary, [data-cursor-label]") ?? null;
-      if (el && el !== lastHover) engineRef.current?.hover();
-      lastHover = el;
-    };
-    const onDown = (e: PointerEvent) => {
-      if ((e.target as Element | null)?.closest("a, button, summary")) engineRef.current?.click();
-    };
-
     // Scroll speed feeds the wind; the bars follow the music.
     let lastScroll = window.scrollY;
     let speed = 0;
@@ -127,16 +118,12 @@ export default function SoundToggle({ labels }: { labels: { on: string; off: str
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    document.addEventListener("pointerover", onOver, { passive: true });
-    document.addEventListener("pointerdown", onDown, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointerdown", onGesture);
       window.removeEventListener("keydown", onGesture);
       window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerover", onOver);
-      document.removeEventListener("pointerdown", onDown);
       document.removeEventListener("visibilitychange", onVisibility);
       const spans = barsRef.current?.children;
       if (spans) for (const s of Array.from(spans)) (s as HTMLElement).style.height = "";

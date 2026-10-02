@@ -235,7 +235,7 @@ export const ar: Dictionary = {
   },
   sound: {
     on: "إيقاف الموسيقى",
-    off: "تشغيل الموسيقى والمؤثرات",
+    off: "تشغيل الموسيقى",
   },
   lab: {
     metaTitle: "المختبر — تجارب تفاعلية بتقنية WebGL",
