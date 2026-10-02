@@ -7,6 +7,7 @@ import { ease, isSmallScreen, runThreeStage, SNOISE } from "./motion/stage";
 // behind the content; each section can carry data-scene="…" and the bubble
 // glides to that section's preset (position, size, wobble, tint, opacity).
 // Sections with their own animation (services, method, footer) hide it.
+// Desktop only: on phones the bubble is not loaded at all.
 
 type Preset = {
   x: number; // fraction of the half-width (−1 left … 1 right)
@@ -20,39 +21,15 @@ type Preset = {
 
 const BLUE: Preset["color"] = [0.14, 0.2, 0.92];
 const ORANGE: Preset["color"] = [0.85, 0.3, 0.1];
-const PRESETS: Record<string, { desktop: Preset; mobile: Preset }> = {
-  hero: {
-    desktop: { x: 0.52, y: 0.02, scale: 0.74, amp: 0.26, color: BLUE, alpha: 1, pull: 0.35 },
-    mobile: { x: 0.12, y: 0.66, scale: 0.3, amp: 0.26, color: BLUE, alpha: 1, pull: 0.3 },
-  },
-  intro: {
-    desktop: { x: -0.82, y: 0.52, scale: 0.36, amp: 0.38, color: BLUE, alpha: 1, pull: 0.2 },
-    mobile: { x: 0.62, y: 0.84, scale: 0.24, amp: 0.38, color: BLUE, alpha: 0.9, pull: 0.15 },
-  },
-  services: {
-    desktop: { x: 0.9, y: 0.8, scale: 0.2, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
-    mobile: { x: 0.7, y: 0.86, scale: 0.18, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
-  },
-  work: {
-    desktop: { x: 0.25, y: 0.7, scale: 0.3, amp: 0.36, color: ORANGE, alpha: 1, pull: 0.2 },
-    mobile: { x: 0.5, y: 0.84, scale: 0.22, amp: 0.36, color: ORANGE, alpha: 0.9, pull: 0.15 },
-  },
-  process: {
-    desktop: { x: -0.7, y: -0.45, scale: 0.3, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
-    mobile: { x: -0.4, y: -0.8, scale: 0.2, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
-  },
-  why: {
-    desktop: { x: 0.86, y: 0.62, scale: 0.3, amp: 0.36, color: BLUE, alpha: 0.95, pull: 0.2 },
-    mobile: { x: 0.62, y: 0.86, scale: 0.2, amp: 0.36, color: BLUE, alpha: 0.8, pull: 0.15 },
-  },
-  blog: {
-    desktop: { x: -0.88, y: 0.64, scale: 0.28, amp: 0.36, color: ORANGE, alpha: 0.85, pull: 0.15 },
-    mobile: { x: -0.62, y: 0.86, scale: 0.2, amp: 0.36, color: ORANGE, alpha: 0.7, pull: 0.15 },
-  },
-  cta: {
-    desktop: { x: 0.42, y: 0.62, scale: 0.3, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
-    mobile: { x: 0.55, y: 0.7, scale: 0.2, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
-  },
+const PRESETS: Record<string, Preset> = {
+  hero: { x: 0.52, y: 0.02, scale: 0.74, amp: 0.26, color: BLUE, alpha: 1, pull: 0.35 },
+  intro: { x: -0.82, y: 0.52, scale: 0.36, amp: 0.38, color: BLUE, alpha: 1, pull: 0.2 },
+  services: { x: 0.9, y: 0.8, scale: 0.2, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
+  work: { x: 0.25, y: 0.7, scale: 0.3, amp: 0.36, color: ORANGE, alpha: 1, pull: 0.2 },
+  process: { x: -0.7, y: -0.45, scale: 0.3, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
+  why: { x: 0.86, y: 0.62, scale: 0.3, amp: 0.36, color: BLUE, alpha: 0.95, pull: 0.2 },
+  blog: { x: -0.88, y: 0.64, scale: 0.28, amp: 0.36, color: ORANGE, alpha: 0.85, pull: 0.15 },
+  cta: { x: 0.42, y: 0.62, scale: 0.3, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
 };
 
 const VERTEX = `${SNOISE}
@@ -103,9 +80,8 @@ export default function SceneCanvas({ mirror = false, className = "" }: { mirror
 
   useEffect(() => {
     const host = ref.current;
-    if (!host) return;
+    if (!host || isSmallScreen()) return;
     return runThreeStage(host, { alpha: true, dprCap: 1.5 }, (THREE, pointer) => {
-      const small = isSmallScreen();
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
       camera.position.z = 8;
@@ -117,14 +93,13 @@ export default function SceneCanvas({ mirror = false, className = "" }: { mirror
         uAlpha: { value: 1 },
       };
       const material = new THREE.ShaderMaterial({ uniforms, vertexShader: VERTEX, fragmentShader: FRAGMENT, transparent: true });
-      const geometry = new THREE.IcosahedronGeometry(1, small ? 20 : 32);
+      const geometry = new THREE.IcosahedronGeometry(1, 32);
       const blob = new THREE.Mesh(geometry, material);
       scene.add(blob);
 
       const flip = mirror ? -1 : 1;
       const presetFor = (name: string) => {
-        const set = PRESETS[name] ?? PRESETS.hero;
-        const p = small ? set.mobile : set.desktop;
+        const p = PRESETS[name] ?? PRESETS.hero;
         return { x: p.x * flip, y: p.y, scale: p.scale, amp: p.amp, r: p.color[0], g: p.color[1], b: p.color[2], alpha: p.alpha, pull: p.pull };
       };
       let sceneName = "hero";
@@ -199,7 +174,7 @@ export default function SceneCanvas({ mirror = false, className = "" }: { mirror
     <div
       ref={ref}
       aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 -z-10 h-[100lvh] w-full opacity-0 transition-opacity duration-[1500ms] data-[ready=true]:opacity-100 ${className}`}
+      className={`pointer-events-none fixed inset-0 -z-10 h-[100lvh] w-full opacity-0 max-md:hidden transition-opacity duration-[1500ms] data-[ready=true]:opacity-100 ${className}`}
     />
   );
 }

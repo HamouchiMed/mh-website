@@ -43,7 +43,7 @@ export default async function Home({ params }: Props) {
 
       {/* Hero */}
       <section data-scene="hero" className="relative flex min-h-[100svh] flex-col">
-        <div className="container-x flex flex-1 flex-col justify-end pb-10 pt-28 md:justify-center md:pb-12">
+        <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 md:pb-12">
           <div className="max-w-[40rem]">
             <Label className="text-muted">{t.hero.eyebrow}</Label>
             <SplitHeadline text={t.hero.title} className="h-hero mt-5 max-w-[16ch] [text-wrap:balance]" />
