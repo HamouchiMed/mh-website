@@ -4,7 +4,7 @@ export const site = {
   name: "MH Group",
   // Production URL without a trailing slash. Set NEXT_PUBLIC_SITE_URL on Vercel
   // once the final domain (e.g. https://mh-group.ma) is connected.
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://mh-group-ma.vercel.app").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://mh-website-bay.vercel.app").replace(/\/$/, ""),
   // TODO: replace with the agency's real inbox — the contact form sends here.
   email: "contact@mh-group.ma",
   // International format without spaces, e.g. "+212600000000". Leave empty to hide.
