@@ -3,6 +3,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { services } from "@/content/services";
 import { getProjects, localizeProject } from "@/lib/content";
 import { getDictionary, type Locale } from "@/lib/i18n";
+import DotWave from "./motion/DotWave";
+import Decode from "./motion/Decode";
 import { Arrow, arrowHover, Label, ProjectMedia, SplitHeadline } from "./ui";
 
 export const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
@@ -21,33 +23,47 @@ export function PageHero({ label, title, lead }: { label: string; title: string;
   );
 }
 
-// Services as rows: on hover the accent colour sweeps up from the bottom.
+// Services as rows: on hover the accent colour sweeps up from the bottom and
+// the title decodes. Each row carries data-shape for <ParticleMorph>.
+// `compact` stacks title and summary for a narrower column.
 export function ServicesList({
   locale,
   headingLevel = "h3",
   only,
+  compact = false,
+  id,
 }: {
   locale: Locale;
   headingLevel?: "h2" | "h3";
   only?: string[];
+  compact?: boolean;
+  id?: string;
 }) {
   const H = headingLevel;
   const list = only ? services.filter((s) => only.includes(s.id)) : services;
   return (
-    <ul className="border-t border-line">
+    <ul id={id} className="border-t border-line">
       {list.map((s, i) => (
-        <li key={s.id} className="border-b border-line" data-reveal style={delay(i * 50)}>
+        <li key={s.id} className="border-b border-line" data-reveal data-shape={s.id} style={delay(i * 50)}>
           <Link
             href={`/${locale}/services/${s[locale].slug}`}
-            className="group relative isolate grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 overflow-hidden py-6 md:grid-cols-[4rem_1fr_1fr_auto] md:gap-x-8 md:py-7"
+            className={`group relative isolate grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 overflow-hidden py-6 md:gap-x-8 md:py-7 ${
+              compact ? "" : "md:grid-cols-[4rem_1fr_1fr_auto]"
+            }`}
           >
             <span
               aria-hidden="true"
               className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-accent transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-y-100"
             />
             <span className="font-mono text-xs text-muted transition-colors group-hover:text-white/70 md:ps-4">0{services.indexOf(s) + 1}</span>
-            <H className="h-card transition-colors group-hover:text-white">{s[locale].title}</H>
-            <p className="col-span-3 max-w-md text-[0.9375rem] text-muted transition-colors group-hover:text-white/80 md:col-span-1">
+            <H className="h-card transition-colors group-hover:text-white">
+              <Decode text={s[locale].title} trigger="hover" />
+            </H>
+            <p
+              className={`max-w-md text-[0.9375rem] text-muted transition-colors group-hover:text-white/80 ${
+                compact ? "col-start-2 row-start-2" : "col-span-3 md:col-span-1"
+              }`}
+            >
               {s[locale].short}
             </p>
             <span className="col-start-3 row-start-1 grid h-10 w-10 place-items-center rounded-full border border-line transition-all duration-500 group-hover:border-white group-hover:bg-white group-hover:text-accent md:col-start-auto md:row-start-auto md:me-4">
@@ -86,7 +102,8 @@ export async function ProjectsGrid({ locale, featuredOnly = false, exclude }: { 
 export function Process({ locale, title, theme = "dark" }: { locale: Locale; title?: string; theme?: "dark" | "accent" }) {
   const t = getDictionary(locale).process;
   return (
-    <section aria-labelledby="process-title" data-theme={theme} data-scene="process">
+    <section aria-labelledby="process-title" data-theme={theme} data-scene="process" className="relative isolate overflow-hidden">
+      <DotWave className="absolute inset-0 -z-10" />
       <div className="container-x grid gap-10 py-20 md:grid-cols-12 md:py-28">
         <div className="md:col-span-5">
           <div className="md:sticky md:top-28">

@@ -1,5 +1,7 @@
 import { LatestPosts, Trust } from "@/components/blocks";
 import HorizontalWork from "@/components/HorizontalWork";
+import Decode from "@/components/motion/Decode";
+import ParticleMorph from "@/components/motion/ParticleMorph";
 import SceneCanvas from "@/components/SceneCanvas";
 import { delay, FaqSection, Process, SectionHeader, ServicesList, WorkRail } from "@/components/sections";
 import Showreel from "@/components/Showreel";
@@ -37,7 +39,7 @@ export default async function Home({ params }: Props) {
       <JsonLd data={{ "@context": "https://schema.org", ...faqLd(t.faq.items) }} />
 
       {/* One 3D scene for the whole page: it glides to a new pose for every [data-scene] section. */}
-      <SceneCanvas mode="scroll" mirror={locale === "ar"} />
+      <SceneCanvas mirror={locale === "ar"} />
 
       {/* Hero */}
       <section data-scene="hero" className="relative flex min-h-[100svh] flex-col">
@@ -54,6 +56,15 @@ export default async function Home({ params }: Props) {
                 {t.hero.secondary}
               </Pill>
             </div>
+            <p className="eyebrow mt-8 flex flex-wrap gap-x-2 text-muted" data-reveal style={delay(750)}>
+              <span>{t.hero.specialty}</span>
+              <Decode
+                text={services[0][locale].title}
+                cycle={services.map((s) => s[locale].title)}
+                trigger="none"
+                className="text-accent"
+              />
+            </p>
             {studio.showreel && (
               <div className="mt-8" data-reveal style={delay(700)}>
                 <Showreel src={studio.showreel} poster={studio.showreelPoster} labels={{ open: t.studio.showreel, close: t.studio.close }} />
@@ -92,6 +103,7 @@ export default async function Home({ params }: Props) {
       </section>
 
       {/* Services */}
+      {/* Services: the particle cloud takes the shape of the hovered service */}
       <section aria-labelledby="services-title" data-scene="services" className="container-x pb-20 md:pb-32">
         <SectionHeader
           id="services-title"
@@ -99,7 +111,14 @@ export default async function Home({ params }: Props) {
           title={t.servicesSection.title}
           link={{ href: `/${locale}/services`, label: t.servicesSection.link }}
         />
-        <ServicesList locale={locale} />
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
+            <ParticleMorph watch="home-services" className="aspect-[4/3] w-full lg:sticky lg:top-24 lg:aspect-square" />
+          </div>
+          <div className="lg:col-span-7">
+            <ServicesList locale={locale} compact id="home-services" />
+          </div>
+        </div>
       </section>
 
       {/* Work: pinned, slides sideways while the page scrolls */}

@@ -31,6 +31,7 @@ export const en: Dictionary = {
     primary: "Start a project",
     secondary: "Our services",
     scroll: "Scroll",
+    specialty: "What we build:",
   },
   intro: {
     label: "The agency",
@@ -459,6 +460,6 @@ export const en: Dictionary = {
     title: "Page not found",
     text: "The page you are looking for doesn't exist or has moved.",
     back: "Back to home",
-    hint: "Move your mouse: even when lost, this page stays alive.",
+    hint: "Hold the click to jump to hyperspace.",
   },
 };

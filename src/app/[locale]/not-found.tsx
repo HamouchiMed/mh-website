@@ -1,4 +1,4 @@
-import SceneCanvas from "@/components/SceneCanvas";
+import Warp from "@/components/motion/Warp";
 import { Pill } from "@/components/ui";
 import { getDictionary } from "@/lib/i18n";
 
@@ -7,10 +7,8 @@ import { getDictionary } from "@/lib/i18n";
 export default function LocaleNotFound() {
   const t = getDictionary("fr");
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pb-20 pt-32">
-      <div className="absolute inset-0 -z-10">
-        <SceneCanvas mode="playful" />
-      </div>
+    <section data-theme="dark" className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pb-20 pt-32">
+      <Warp hold className="absolute inset-0 -z-10" />
       <div className="container-x">
         <p aria-hidden="true" className="display select-none text-[clamp(7rem,22vw,18rem)] leading-none text-ink/[0.06]">
           404

@@ -1,7 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Link from "next/link";
-import SceneCanvas from "@/components/SceneCanvas";
+import Warp from "@/components/motion/Warp";
 import { fr } from "@/content/fr";
 import { en } from "@/content/en";
 
@@ -10,10 +10,8 @@ import { en } from "@/content/en";
 export default function GlobalNotFound() {
   return (
     <html lang="fr" className={GeistSans.variable}>
-      <body className="relative isolate grid min-h-screen place-items-center overflow-hidden bg-paper p-6 text-ink">
-        <div className="absolute inset-0 -z-10">
-          <SceneCanvas mode="playful" />
-        </div>
+      <body data-theme="dark" className="relative isolate grid min-h-screen place-items-center overflow-hidden bg-paper p-6 text-ink">
+        <Warp hold className="absolute inset-0 -z-10" />
         <main className="max-w-xl text-center">
           <p className="eyebrow text-accent">404</p>
           <h1 className="h-page mt-4">{fr.notFound.title}</h1>

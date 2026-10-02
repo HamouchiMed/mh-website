@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, type ComponentProps, type CSSProperties, type ReactNode } from "react";
+import Decode from "./motion/Decode";
 
 // Hover rotation for arrows inside a `group` (reversed in RTL).
 export const arrowHover = "transition-transform duration-300 group-hover:rotate-45 rtl:group-hover:-rotate-45";
@@ -78,7 +79,7 @@ export function Label({
   return (
     <Tag id={id} className={`eyebrow flex items-center gap-2 ${className}`}>
       <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-      {children}
+      {typeof children === "string" ? <Decode text={children} /> : children}
     </Tag>
   );
 }

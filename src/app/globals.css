@@ -195,6 +195,12 @@ html[lang="ar"] {
   }
 }
 
+/* Characters shown while a <Decode> text is decoding. */
+.decode-glyph {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
 /* Scroll-linked text highlight: the container sets --p (0 → 1). */
 .scroll-word {
   opacity: clamp(0.16, calc(var(--p, 1) * var(--n) - var(--i) + 1), 1);

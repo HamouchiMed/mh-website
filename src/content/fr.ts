@@ -29,6 +29,7 @@ export const fr = {
     primary: "Démarrer un projet",
     secondary: "Nos services",
     scroll: "Défiler",
+    specialty: "Ce que nous codons :",
   },
   intro: {
     label: "L'agence",
@@ -457,7 +458,7 @@ export const fr = {
     title: "Page introuvable",
     text: "La page que vous cherchez n'existe pas ou a été déplacée.",
     back: "Retour à l'accueil",
-    hint: "Bougez la souris : même perdue, la page reste vivante.",
+    hint: "Maintenez le clic : saut en hyperespace.",
   },
 };
 

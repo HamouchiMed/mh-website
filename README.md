@@ -1,8 +1,11 @@
 # MH Group — agency website
 
 Trilingual (FR / EN / AR), SEO-first agency site built with Next.js 16, React 19
-and Tailwind CSS 4. Moderate type sizes with Lusion-style motion: a real-time
-WebGL scene that follows the home page sections (`SceneCanvas.tsx`), page
+and Tailwind CSS 4. Moderate type sizes with Lusion-style motion: an
+iridescent liquid bubble that follows the home page sections (`SceneCanvas.tsx`),
+particles that take the shape of the hovered service, a 3D dot wave behind the
+method section, decoding labels, a hyperspace star field in the footer and on
+the 404 page (`src/components/motion/`, three.js loaded on demand), page
 colours that change per section, smooth scrolling (Lenis), a first-visit intro,
 page transitions, a pinned sideways project strip, liquid image hover, a
 custom cursor, magnetic and rolling-letter buttons, a full-screen menu,
