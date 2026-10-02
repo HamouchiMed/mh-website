@@ -1,0 +1,91 @@
+{
+  "name": "My Dakhla",
+  "order": 3,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Application mobile · Guide & réservations",
+    "en": "Mobile app · City guide & bookings",
+    "ar": "تطبيق جوال · دليل المدينة والحجوزات"
+  },
+  "summary": {
+    "fr": "My Dakhla réunit dans une seule application tout ce qu'il faut pour profiter de Dakhla : hôtels, restaurants, cafés, excursions, activités et location de voiture.",
+    "en": "My Dakhla brings everything you need to enjoy Dakhla into one app: hotels, restaurants, cafés, excursions, activities and car rental.",
+    "ar": "يجمع تطبيق My Dakhla كل ما تحتاجه للاستمتاع بالداخلة في تطبيق واحد: الفنادق، والمطاعم، والمقاهي، والرحلات، والأنشطة، وكراء السيارات."
+  },
+  "challenge": {
+    "fr": "Pour réserver un hôtel, une table ou une sortie dans le désert, les visiteurs de Dakhla jonglent entre WhatsApp, Instagram et des sites éparpillés, et les prestataires locaux manquent de visibilité.",
+    "en": "To book a hotel, a table or a desert trip, visitors to Dakhla juggle WhatsApp, Instagram and scattered websites, while local businesses lack visibility.",
+    "ar": "لحجز فندق أو طاولة أو رحلة في الصحراء، يتنقل زوار الداخلة بين واتساب وإنستغرام ومواقع متفرقة، بينما تفتقر المؤسسات المحلية إلى الظهور."
+  },
+  "solution": {
+    "fr": "Une application React Native (Expo) organisée par catégories, avec recherche et filtres, fiches détaillées, favoris, réservations, commande et livraison pour les restaurants et cafés, vue carte et un parcours d'accueil pour les visiteurs comme pour les prestataires.",
+    "en": "A React Native (Expo) app organised by category, with search and filters, detailed listings, favourites, bookings, ordering and delivery for restaurants and cafés, a map view and an onboarding flow for both visitors and providers.",
+    "ar": "تطبيق React Native (Expo) منظم حسب الفئات، مع البحث والتصفية، وصفحات تفصيلية، والمفضلة، والحجوزات، والطلب والتوصيل من المطاعم والمقاهي، وعرض على الخريطة، ومسار ترحيبي للزوار ومقدمي الخدمات."
+  },
+  "features": {
+    "fr": [
+      "Hôtels, restaurants, cafés et excursions",
+      "Location de voiture avec réservation",
+      "Recherche, filtres et vue carte",
+      "Réservation de table ou commande livrée",
+      "Favoris et suivi des réservations",
+      "Chat avec les restaurants",
+      "Parcours visiteur ou prestataire"
+    ],
+    "en": [
+      "Hotels, restaurants, cafés and excursions",
+      "Car rental with booking",
+      "Search, filters and map view",
+      "Table booking or delivered orders",
+      "Favourites and booking tracking",
+      "Chat with restaurants",
+      "Visitor or provider onboarding"
+    ],
+    "ar": [
+      "فنادق ومطاعم ومقاهٍ ورحلات",
+      "كراء السيارات مع الحجز",
+      "بحث وتصفية وعرض على الخريطة",
+      "حجز طاولة أو طلب مع التوصيل",
+      "المفضلة وتتبع الحجوزات",
+      "دردشة مع المطاعم",
+      "مسار للزائر أو لمقدم الخدمة"
+    ]
+  },
+  "services": [
+    "mobile",
+    "design"
+  ],
+  "stack": [
+    "React Native",
+    "Expo",
+    "Expo Router",
+    "React Native Maps"
+  ],
+  "tags": [
+    "Mobile",
+    "Tourism"
+  ],
+  "palette": [
+    "#E9862B",
+    "#0F2B46",
+    "#FFF4E3"
+  ],
+  "gallery": [
+    {
+      "image": "/work/my-dakhla/hotels.jpg",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/my-dakhla/cars.jpg",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/my-dakhla/welcome.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/my-dakhla/preview.jpg"
+}

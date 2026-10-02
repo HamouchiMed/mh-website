@@ -1,0 +1,87 @@
+{
+  "name": "MH.GROUP Portfolio",
+  "order": 11,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "https://mh-group-ma.vercel.app",
+  "category": {
+    "fr": "Site web · Portfolio immersif WebGL",
+    "en": "Website · Immersive WebGL portfolio",
+    "ar": "موقع ويب · بورتفوليو تفاعلي WebGL"
+  },
+  "summary": {
+    "fr": "Le portfolio personnel de Mohamed Hamouchi, fondateur de MH Group : un site immersif en noir et blanc, avec une scène WebGL qui accompagne toute la visite, des études de cas détaillées et une version FR / EN.",
+    "en": "The personal portfolio of Mohamed Hamouchi, founder of MH Group: an immersive black-and-white site with a WebGL scene that follows the whole visit, detailed case studies and French / English versions.",
+    "ar": "البورتفوليو الشخصي لمحمد حموشي، مؤسس MH Group: موقع تفاعلي بالأبيض والأسود مع مشهد WebGL يرافق الزيارة بأكملها، ودراسات حالة مفصلة، ونسختان بالفرنسية والإنجليزية."
+  },
+  "challenge": {
+    "fr": "Se démarquer comme développeur : montrer les projets, mais aussi le niveau de détail technique et créatif, sans sacrifier la vitesse ni le référencement.",
+    "en": "Standing out as a developer: showing not just the projects but the level of technical and creative detail, without giving up speed or SEO.",
+    "ar": "التميز كمطور: عرض المشاريع ومعها مستوى الدقة التقنية والإبداعية، دون التضحية بالسرعة أو بتحسين محركات البحث."
+  },
+  "solution": {
+    "fr": "Un site Next.js avec une seule scène Three.js (React Three Fiber) qui reste derrière les pages, des animations GSAP (ScrollTrigger, SplitText), un défilement fluide Lenis, des transitions liquides entre les pages, un curseur sur mesure, du son optionnel, des études de cas générées statiquement avec leurs images de partage et un formulaire de contact.",
+    "en": "A Next.js site with a single Three.js scene (React Three Fiber) that stays behind every page, GSAP animations (ScrollTrigger, SplitText), Lenis smooth scrolling, liquid page transitions, a custom cursor, optional sound, statically generated case studies with their own share images and a contact form.",
+    "ar": "موقع مبني بـ Next.js مع مشهد Three.js واحد (React Three Fiber) يبقى خلف كل الصفحات، وحركات GSAP (ScrollTrigger وSplitText)، وتمرير سلس بـ Lenis، وانتقالات سائلة بين الصفحات، ومؤشر مخصص، وصوت اختياري، ودراسات حالة مولدة مسبقًا مع صور المشاركة الخاصة بها، ونموذج للتواصل."
+  },
+  "features": {
+    "fr": [
+      "Scène 3D WebGL persistante",
+      "Animations GSAP au scroll",
+      "Défilement fluide et curseur sur mesure",
+      "Transitions liquides entre les pages",
+      "Études de cas avec images de partage",
+      "Version française et anglaise"
+    ],
+    "en": [
+      "Persistent WebGL 3D scene",
+      "GSAP scroll animations",
+      "Smooth scrolling and a custom cursor",
+      "Liquid page transitions",
+      "Case studies with share images",
+      "French and English versions"
+    ],
+    "ar": [
+      "مشهد WebGL ثلاثي الأبعاد دائم",
+      "حركات GSAP عند التمرير",
+      "تمرير سلس ومؤشر مخصص",
+      "انتقالات سائلة بين الصفحات",
+      "دراسات حالة مع صور المشاركة",
+      "نسختان فرنسية وإنجليزية"
+    ]
+  },
+  "services": [
+    "web",
+    "design",
+    "seo"
+  ],
+  "stack": [
+    "Next.js",
+    "React Three Fiber",
+    "Three.js",
+    "GSAP",
+    "Lenis",
+    "Tailwind CSS"
+  ],
+  "tags": [
+    "WebGL",
+    "Portfolio"
+  ],
+  "palette": [
+    "#000000",
+    "#FFFFFF",
+    "#6B6B6B"
+  ],
+  "gallery": [
+    {
+      "image": "/work/mh-portfolio/case-study.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/mh-portfolio/mobile.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/mh-portfolio/preview.jpg"
+}

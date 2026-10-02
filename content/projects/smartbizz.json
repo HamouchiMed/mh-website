@@ -1,0 +1,96 @@
+{
+  "name": "SmartBizz",
+  "order": 6,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Application mobile · CRM",
+    "en": "Mobile app · CRM",
+    "ar": "تطبيق جوال · إدارة علاقات العملاء"
+  },
+  "summary": {
+    "fr": "SmartBizz est un CRM mobile pour les petites entreprises : contacts, prospects, deals, messages, événements, portefeuille et statistiques dans une seule application.",
+    "en": "SmartBizz is a mobile CRM for small businesses: contacts, leads, deals, messages, events, wallet and analytics in one app.",
+    "ar": "SmartBizz تطبيق جوال لإدارة علاقات العملاء موجّه للمقاولات الصغيرة: جهات الاتصال، والعملاء المحتملون، والصفقات، والرسائل، والمواعيد، والمحفظة، والإحصائيات في تطبيق واحد."
+  },
+  "challenge": {
+    "fr": "Beaucoup de petites entreprises suivent leurs clients et leurs ventes entre carnets, fichiers Excel et WhatsApp : des relances s'oublient et personne n'a de vue claire sur les ventes en cours.",
+    "en": "Many small businesses track customers and sales across notebooks, spreadsheets and WhatsApp: follow-ups get forgotten and nobody has a clear view of the deals in progress.",
+    "ar": "تتابع مقاولات صغيرة كثيرة عملاءها ومبيعاتها بين الدفاتر وملفات Excel وواتساب: تُنسى المتابعات ولا توجد رؤية واضحة للصفقات الجارية."
+  },
+  "solution": {
+    "fr": "Une application React Native (Expo) reliée à une API Node.js / Express et une base PostgreSQL : tableau de bord avec solde et indicateurs clés, pipeline de deals avec progression, prospects et contacts, messagerie par deal, agenda, portefeuille et analytics. Connexion sécurisée par code OTP, thème clair et sombre.",
+    "en": "A React Native (Expo) app backed by a Node.js / Express API and PostgreSQL: a dashboard with balance and key metrics, a deal pipeline with progress, leads and contacts, per-deal messaging, calendar, wallet and analytics. Secure sign-in with an OTP code, light and dark themes.",
+    "ar": "تطبيق React Native (Expo) مرتبط بواجهة برمجية Node.js / Express وقاعدة بيانات PostgreSQL: لوحة تحكم بالرصيد والمؤشرات الأساسية، ومسار للصفقات مع نسبة التقدم، والعملاء المحتملون وجهات الاتصال، ورسائل لكل صفقة، وأجندة، ومحفظة، وإحصائيات. تسجيل دخول آمن برمز OTP، ووضعان فاتح وداكن."
+  },
+  "features": {
+    "fr": [
+      "Tableau de bord et indicateurs clés",
+      "Pipeline de deals avec progression",
+      "Prospects et contacts",
+      "Messagerie liée aux deals",
+      "Agenda et rappels",
+      "Portefeuille et historique du solde",
+      "Analytics des ventes",
+      "Connexion OTP, thème clair et sombre"
+    ],
+    "en": [
+      "Dashboard and key metrics",
+      "Deal pipeline with progress",
+      "Leads and contacts",
+      "Messaging linked to deals",
+      "Calendar and reminders",
+      "Wallet and balance history",
+      "Sales analytics",
+      "OTP sign-in, light and dark themes"
+    ],
+    "ar": [
+      "لوحة تحكم ومؤشرات أساسية",
+      "مسار الصفقات مع نسبة التقدم",
+      "العملاء المحتملون وجهات الاتصال",
+      "رسائل مرتبطة بالصفقات",
+      "أجندة وتذكيرات",
+      "محفظة وسجل الرصيد",
+      "إحصائيات المبيعات",
+      "دخول برمز OTP، ووضعان فاتح وداكن"
+    ]
+  },
+  "services": [
+    "mobile",
+    "software"
+  ],
+  "stack": [
+    "React Native",
+    "Expo",
+    "Node.js",
+    "Express",
+    "PostgreSQL",
+    "JWT"
+  ],
+  "tags": [
+    "Mobile",
+    "CRM"
+  ],
+  "palette": [
+    "#065F46",
+    "#F0EDE5",
+    "#1F2937"
+  ],
+  "gallery": [
+    {
+      "image": "/work/smartbizz/welcome.jpg",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/smartbizz/leads.jpg",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/smartbizz/sales.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/smartbizz/preview.jpg"
+}

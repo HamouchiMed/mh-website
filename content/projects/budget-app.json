@@ -1,0 +1,93 @@
+{
+  "name": "Budget App",
+  "order": 9,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Application mobile · Finances personnelles",
+    "en": "Mobile app · Personal finance",
+    "ar": "تطبيق جوال · المالية الشخصية"
+  },
+  "summary": {
+    "fr": "Une application mobile de budget pour suivre ses revenus et ses dépenses, fixer des budgets par catégorie, épargner vers des objectifs et recevoir des conseils personnalisés.",
+    "en": "A mobile budgeting app to track income and spending, set budgets by category, save towards goals and get personalised advice.",
+    "ar": "تطبيق جوال للميزانية لتتبع المداخيل والمصاريف، وتحديد ميزانية لكل فئة، والادخار نحو أهداف محددة، والحصول على نصائح مخصصة."
+  },
+  "challenge": {
+    "fr": "Beaucoup de gens ne savent pas exactement où part leur argent chaque mois. Il fallait une application simple pour noter une dépense en quelques secondes et transformer ces chiffres en conseils concrets.",
+    "en": "Many people don't know exactly where their money goes each month. The app had to make logging a purchase take seconds and turn those numbers into practical advice.",
+    "ar": "كثيرون لا يعرفون بدقة أين تذهب أموالهم كل شهر. كان المطلوب تطبيقًا بسيطًا لتسجيل مصروف في ثوانٍ وتحويل الأرقام إلى نصائح عملية."
+  },
+  "solution": {
+    "fr": "Une application React Native (Expo Router) avec une API Node.js / Express et PostgreSQL : solde, revenus et dépenses en temps réel, budgets mensuels, objectifs et comptes d'épargne, transactions récurrentes, « Smart Insights » qui analysent les habitudes, statistiques du compte et export CSV / PDF. Plusieurs devises dont le dirham, en français, anglais et arabe.",
+    "en": "A React Native (Expo Router) app with a Node.js / Express API and PostgreSQL: live balance, income and spending, monthly budgets, savings goals and accounts, recurring transactions, \"Smart Insights\" that analyse spending habits, account statistics and CSV / PDF export. Several currencies including the dirham, in French, English and Arabic.",
+    "ar": "تطبيق React Native (Expo Router) مع واجهة برمجية Node.js / Express وقاعدة PostgreSQL: الرصيد والمداخيل والمصاريف بشكل فوري، وميزانيات شهرية، وأهداف وحسابات للادخار، ومعاملات متكررة، و«Smart Insights» لتحليل العادات، وإحصائيات الحساب، والتصدير إلى CSV وPDF. عدة عملات منها الدرهم، بالفرنسية والإنجليزية والعربية."
+  },
+  "features": {
+    "fr": [
+      "Revenus, dépenses et solde en temps réel",
+      "Budgets mensuels par catégorie",
+      "Objectifs et comptes d'épargne",
+      "Transactions récurrentes",
+      "Smart Insights : conseils personnalisés",
+      "Statistiques et export CSV / PDF",
+      "Plusieurs devises et trois langues"
+    ],
+    "en": [
+      "Live income, spending and balance",
+      "Monthly budgets by category",
+      "Savings goals and accounts",
+      "Recurring transactions",
+      "Smart Insights: personalised advice",
+      "Statistics and CSV / PDF export",
+      "Several currencies and three languages"
+    ],
+    "ar": [
+      "المداخيل والمصاريف والرصيد بشكل فوري",
+      "ميزانيات شهرية حسب الفئة",
+      "أهداف وحسابات للادخار",
+      "معاملات متكررة",
+      "Smart Insights: نصائح مخصصة",
+      "إحصائيات وتصدير CSV وPDF",
+      "عدة عملات وثلاث لغات"
+    ]
+  },
+  "services": [
+    "mobile",
+    "software"
+  ],
+  "stack": [
+    "React Native",
+    "Expo",
+    "Node.js",
+    "Express",
+    "PostgreSQL",
+    "Redis"
+  ],
+  "tags": [
+    "Mobile",
+    "Finance"
+  ],
+  "palette": [
+    "#8B593E",
+    "#FFF8F3",
+    "#2ECC71"
+  ],
+  "gallery": [
+    {
+      "image": "/work/budget-app/goals.jpg",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/budget-app/stats.jpg",
+      "device": "mobile"
+    },
+    {
+      "image": "/work/budget-app/savings.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/budget-app/preview.jpg"
+}

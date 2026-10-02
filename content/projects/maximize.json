@@ -1,0 +1,96 @@
+{
+  "name": "Maximize",
+  "order": 2,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "E-commerce · Boutique en ligne & admin",
+    "en": "E-commerce · Online store & admin",
+    "ar": "تجارة إلكترونية · متجر ولوحة إدارة"
+  },
+  "summary": {
+    "fr": "Maximize est une boutique en ligne multi-catégories (mode, maison, beauté, électronique…) avec son propre panneau d'administration, le paiement en ligne et le suivi des commandes.",
+    "en": "Maximize is a multi-category online store (fashion, home, beauty, electronics…) with its own admin panel, online payment and order tracking.",
+    "ar": "Maximize متجر إلكتروني متعدد الفئات (أزياء، منزل، تجميل، إلكترونيات…) مع لوحة إدارة خاصة، ودفع إلكتروني، وتتبع للطلبات."
+  },
+  "challenge": {
+    "fr": "Vendre des dizaines de produits dans des catégories très différentes demande une boutique rapide et claire, un paiement fiable au Maroc et un outil simple pour préparer et suivre chaque commande.",
+    "en": "Selling dozens of products across very different categories needs a fast, clear store, reliable payment in Morocco and a simple tool to prepare and track every order.",
+    "ar": "بيع عشرات المنتجات في فئات مختلفة يتطلب متجرًا سريعًا وواضحًا، ودفعًا موثوقًا في المغرب، وأداة بسيطة لتجهيز كل طلب وتتبعه."
+  },
+  "solution": {
+    "fr": "Une boutique Next.js avec catalogue filtrable, fiches produits avec galerie, panier, liste d'envies, codes promo et comptes clients. Le paiement se fait d'avance par carte (Stripe ou YouCan Pay) et un panneau d'administration séparé gère les produits, catégories, commandes, la préparation, les coupons et les messages du support.",
+    "en": "A Next.js store with a filterable catalogue, product pages with galleries, cart, wishlist, coupons and customer accounts. Payment is taken upfront by card (Stripe or YouCan Pay), and a separate admin panel manages products, categories, orders, fulfillment, coupons and support messages.",
+    "ar": "متجر مبني بـ Next.js مع كتالوج قابل للتصفية، وصفحات منتجات بمعرض صور، وسلة، وقائمة أمنيات، وقسائم تخفيض، وحسابات للعملاء. يتم الدفع مسبقًا بالبطاقة (Stripe أو YouCan Pay)، وتدير لوحة إدارة مستقلة المنتجات والفئات والطلبات والتجهيز والقسائم ورسائل الدعم."
+  },
+  "features": {
+    "fr": [
+      "Catalogue de 10 catégories avec filtres",
+      "Fiches produit avec galerie et promotions",
+      "Panier, liste d'envies et codes promo",
+      "Comptes clients et adresses",
+      "Paiement en ligne : Stripe et YouCan Pay",
+      "Suivi de commande pour le client",
+      "Admin : produits, commandes et préparation",
+      "Messages du support client"
+    ],
+    "en": [
+      "10-category catalogue with filters",
+      "Product pages with gallery and discounts",
+      "Cart, wishlist and coupons",
+      "Customer accounts and addresses",
+      "Online payment: Stripe and YouCan Pay",
+      "Order tracking for customers",
+      "Admin: products, orders and fulfillment",
+      "Customer support messages"
+    ],
+    "ar": [
+      "كتالوج من 10 فئات مع تصفية",
+      "صفحات منتجات بمعرض صور وتخفيضات",
+      "سلة وقائمة أمنيات وقسائم",
+      "حسابات العملاء وعناوينهم",
+      "دفع إلكتروني: Stripe وYouCan Pay",
+      "تتبع الطلب للعميل",
+      "لوحة الإدارة: المنتجات والطلبات والتجهيز",
+      "رسائل دعم العملاء"
+    ]
+  },
+  "services": [
+    "ecommerce",
+    "web"
+  ],
+  "stack": [
+    "Next.js",
+    "TypeScript",
+    "Prisma",
+    "SQLite",
+    "Stripe",
+    "Tailwind CSS"
+  ],
+  "tags": [
+    "E-commerce",
+    "Admin"
+  ],
+  "palette": [
+    "#111111",
+    "#4F46E5",
+    "#7DD3FC"
+  ],
+  "gallery": [
+    {
+      "image": "/work/maximize/product.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/maximize/admin.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/maximize/mobile.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/maximize/preview.jpg"
+}

@@ -196,7 +196,7 @@ export async function WorkRail({ locale }: { locale: Locale }) {
             <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} sizes="(min-width: 1024px) 560px, 82vw" />
             <div className="mt-5 flex items-start justify-between gap-4">
               <div>
-                <p className="eyebrow text-muted">0{i + 1}</p>
+                <p className="eyebrow text-muted">{String(i + 1).padStart(2, "0")}</p>
                 <h3 className="h-card mt-2">{p.name}</h3>
                 <p className="mt-1 text-[0.9375rem] text-muted">{p.category}</p>
               </div>

@@ -1,0 +1,97 @@
+{
+  "name": "DarGG",
+  "order": 1,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Plateforme web · Marketplace gaming",
+    "en": "Web platform · Gaming marketplace",
+    "ar": "منصة ويب · سوق للألعاب"
+  },
+  "summary": {
+    "fr": "DarGG est le hub des gamers marocains : acheter, vendre ou échanger des jeux, trouver des coéquipiers et discuter avec des vendeurs vérifiés, au même endroit.",
+    "en": "DarGG is a gaming hub for Moroccan players: buy, sell or swap games, find teammates and chat with verified sellers, all in one place.",
+    "ar": "DarGG منصة للاعبين المغاربة: شراء الألعاب أو بيعها أو مبادلتها، وإيجاد زملاء للعب، والتواصل مع بائعين موثوقين، في مكان واحد."
+  },
+  "challenge": {
+    "fr": "Au Maroc, les échanges de jeux se font dans des groupes dispersés : annonces perdues, vendeurs inconnus, arnaques et spam. Les joueurs n'avaient pas d'endroit fiable pour échanger et former une équipe.",
+    "en": "In Morocco, game trading happens in scattered chat groups: listings get lost, sellers are unknown, and scams and spam are common. Players had no trusted place to trade or form a squad.",
+    "ar": "في المغرب، تتم مبادلة الألعاب في مجموعات متفرقة: إعلانات تضيع، وبائعون مجهولون، واحتيال ورسائل مزعجة. لم يكن للاعبين مكان موثوق للتبادل وتكوين فريق."
+  },
+  "solution": {
+    "fr": "Une plateforme Next.js avec une marketplace filtrable (plateforme, ville, prix, type d'échange), des profils vendeurs vérifiés et reliés à Discord, Steam ou Xbox, un chat d'échange, un fil LFG pour trouver des coéquipiers et un tableau de modération. Le tout dans une identité néon avec un hero WebGL.",
+    "en": "A Next.js platform with a filterable marketplace (platform, city, price, trade type), verified seller profiles linked to Discord, Steam or Xbox, trade chat, an LFG feed to find teammates and a moderation dashboard, wrapped in a neon identity with a WebGL hero.",
+    "ar": "منصة مبنية بـ Next.js تضم سوقًا قابلًا للتصفية (المنصة، المدينة، السعر، نوع التبادل)، وملفات بائعين موثقة ومرتبطة بـ Discord وSteam وXbox، ودردشة للتبادل، وصفحة LFG لإيجاد زملاء اللعب، ولوحة للإشراف، مع هوية نيون وواجهة WebGL."
+  },
+  "features": {
+    "fr": [
+      "Marketplace : vente, échange ou les deux",
+      "Filtres par plateforme, ville et prix",
+      "Profils vendeurs vérifiés",
+      "Connexion Discord, Steam, Xbox et Google",
+      "Chat d'échange entre joueurs",
+      "Fil LFG pour trouver des coéquipiers",
+      "Signalements et modération",
+      "Hero 3D WebGL et animations GSAP"
+    ],
+    "en": [
+      "Marketplace: sell, swap or both",
+      "Filters by platform, city and price",
+      "Verified seller profiles",
+      "Discord, Steam, Xbox and Google sign-in",
+      "Trade chat between players",
+      "LFG feed to find teammates",
+      "Reports and moderation",
+      "WebGL 3D hero and GSAP animations"
+    ],
+    "ar": [
+      "سوق: بيع أو مبادلة أو الاثنان",
+      "تصفية حسب المنصة والمدينة والسعر",
+      "ملفات بائعين موثقة",
+      "تسجيل الدخول عبر Discord وSteam وXbox وGoogle",
+      "دردشة تبادل بين اللاعبين",
+      "صفحة LFG لإيجاد زملاء اللعب",
+      "بلاغات وإشراف",
+      "واجهة ثلاثية الأبعاد WebGL وحركات GSAP"
+    ]
+  },
+  "services": [
+    "web",
+    "ecommerce",
+    "design"
+  ],
+  "stack": [
+    "Next.js",
+    "TypeScript",
+    "Supabase",
+    "Tailwind CSS",
+    "Three.js",
+    "GSAP"
+  ],
+  "tags": [
+    "Marketplace",
+    "Gaming"
+  ],
+  "palette": [
+    "#EC4899",
+    "#A855F7",
+    "#0B0B12"
+  ],
+  "gallery": [
+    {
+      "image": "/work/dargg/marketplace.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/dargg/listing.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/dargg/mobile.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/dargg/preview.jpg"
+}

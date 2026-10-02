@@ -1,0 +1,88 @@
+{
+  "name": "Fitness Hamouchi Gym",
+  "order": 8,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Logiciel de bureau · Gestion de salle de sport",
+    "en": "Desktop software · Gym management",
+    "ar": "برنامج مكتبي · تسيير قاعة رياضية"
+  },
+  "summary": {
+    "fr": "Un logiciel Windows sur mesure pour gérer une salle de sport au quotidien : membres, abonnements, paiements, pointage par empreinte, charges et statistiques.",
+    "en": "Custom Windows software to run a gym day to day: members, memberships, payments, fingerprint check-in, expenses and statistics.",
+    "ar": "برنامج Windows مصمم حسب الطلب لتسيير قاعة رياضية يوميًا: الأعضاء، والاشتراكات، والأداءات، وتسجيل الحضور بالبصمة، والمصاريف، والإحصائيات."
+  },
+  "challenge": {
+    "fr": "Une salle de sport suit chaque jour des dizaines d'abonnements, de paiements et de passages. Sur papier ou dans un tableur, les abonnements expirés et les restes à payer passent facilement inaperçus.",
+    "en": "A gym tracks dozens of memberships, payments and visits every day. On paper or in a spreadsheet, expired memberships and unpaid balances easily slip through.",
+    "ar": "تتابع القاعة الرياضية يوميًا عشرات الاشتراكات والأداءات والزيارات. وعلى الورق أو في جدول بيانات، تمر الاشتراكات المنتهية والمبالغ غير المؤداة دون أن يُنتبه إليها."
+  },
+  "solution": {
+    "fr": "Une application de bureau Electron avec une base SQLite locale qui fonctionne hors ligne. Elle gère deux espaces (Fitness Hamouchi Gym et Académie Nousseur), les membres par discipline, les renouvellements, les paiements partiels, le pointage automatique via une pointeuse ZKTeco (empreinte ou badge), les charges, des statistiques mensuelles, l'export PDF et Excel et des sauvegardes automatiques. Livrée avec un installateur Windows.",
+    "en": "An Electron desktop app with a local SQLite database that works offline. It handles two spaces (Fitness Hamouchi Gym and Académie Nousseur), members by discipline, renewals, partial payments, automatic check-in through a ZKTeco time clock (fingerprint or badge), expenses, monthly statistics, PDF and Excel export and automatic backups. Shipped with a Windows installer.",
+    "ar": "تطبيق مكتبي مبني بـ Electron مع قاعدة بيانات SQLite محلية تعمل دون إنترنت. يدير فضاءين (Fitness Hamouchi Gym وأكاديمية نصور)، والأعضاء حسب الرياضة، والتجديدات، والأداءات الجزئية، وتسجيل الحضور التلقائي عبر جهاز ZKTeco (بالبصمة أو البطاقة)، والمصاريف، والإحصائيات الشهرية، والتصدير إلى PDF وExcel، والنسخ الاحتياطي التلقائي. مع برنامج تثبيت لـ Windows."
+  },
+  "features": {
+    "fr": [
+      "Membres par discipline et renouvellements",
+      "Paiements, restes à payer et alertes",
+      "Pointage par empreinte ou badge (ZKTeco)",
+      "Charges et solde net du mois",
+      "Statistiques mensuelles et export PDF",
+      "Export Excel et sauvegardes automatiques",
+      "Hors ligne, installateur Windows"
+    ],
+    "en": [
+      "Members by discipline and renewals",
+      "Payments, balances due and alerts",
+      "Fingerprint or badge check-in (ZKTeco)",
+      "Expenses and monthly net balance",
+      "Monthly statistics and PDF export",
+      "Excel export and automatic backups",
+      "Works offline, Windows installer"
+    ],
+    "ar": [
+      "الأعضاء حسب الرياضة والتجديدات",
+      "الأداءات والمبالغ المتبقية والتنبيهات",
+      "تسجيل الحضور بالبصمة أو البطاقة (ZKTeco)",
+      "المصاريف والرصيد الصافي للشهر",
+      "إحصائيات شهرية وتصدير PDF",
+      "تصدير Excel ونسخ احتياطي تلقائي",
+      "يعمل دون إنترنت، مع برنامج تثبيت لـ Windows"
+    ]
+  },
+  "services": [
+    "software",
+    "design"
+  ],
+  "stack": [
+    "Electron",
+    "React",
+    "Vite",
+    "Node.js",
+    "SQLite"
+  ],
+  "tags": [
+    "Desktop",
+    "Management"
+  ],
+  "palette": [
+    "#FFD60A",
+    "#0B0B0B",
+    "#FFFFFF"
+  ],
+  "gallery": [
+    {
+      "image": "/work/fitness-hamouchi-gym/statistics.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/fitness-hamouchi-gym/members.jpg",
+      "device": "desktop"
+    }
+  ],
+  "cover": "/work/fitness-hamouchi-gym/preview.jpg"
+}

@@ -1,0 +1,90 @@
+{
+  "name": "Hezz2 Duel",
+  "order": 7,
+  "featured": true,
+  "client": "",
+  "year": "",
+  "url": "",
+  "category": {
+    "fr": "Jeu web · Jeu de cartes marocain",
+    "en": "Web game · Moroccan card game",
+    "ar": "لعبة ويب · لعبة ورق مغربية"
+  },
+  "summary": {
+    "fr": "Hezz2 Duel est une version web du jeu de cartes marocain Hezz2, avec le jeu espagnol traditionnel : on joue contre l'ordinateur ou contre un ami en ligne grâce à un code de salle.",
+    "en": "Hezz2 Duel is a web version of the Moroccan card game Hezz2, played with the traditional Spanish deck: play against the computer or against a friend online with a room code.",
+    "ar": "Hezz2 Duel نسخة ويب من لعبة الورق المغربية Hezz2 بأوراق اللعب الإسبانية التقليدية: العب ضد الحاسوب أو ضد صديق عبر الإنترنت باستعمال رمز الغرفة."
+  },
+  "challenge": {
+    "fr": "Adapter un jeu de cartes populaire au navigateur : respecter les règles (le 1 qui fait passer un tour, les 2 qui s'additionnent, le 7 qui change la couleur), rendre l'ordinateur crédible et empêcher la triche en ligne.",
+    "en": "Bringing a popular card game to the browser: follow the rules (the 1 that skips a turn, stacking 2s, the 7 that changes the suit), make the computer a believable opponent and prevent cheating online.",
+    "ar": "نقل لعبة ورق شعبية إلى المتصفح: احترام القواعد (الورقة 1 التي تُفوّت الدور، وتراكم ورقات 2، والورقة 7 التي تغيّر اللون)، وجعل الحاسوب خصمًا مقنعًا، ومنع الغش عبر الإنترنت."
+  },
+  "solution": {
+    "fr": "Un moteur de jeu en TypeScript pour les règles et l'IA (trois niveaux), une interface React néo-brutaliste animée avec Framer Motion et des sons, et un mode en ligne géré par Laravel : salles à deux joueurs avec code d'invitation, temps réel via Reverb et mains privées gardées côté serveur dans Redis.",
+    "en": "A TypeScript game engine for the rules and the AI (three levels), a neo-brutalist React interface animated with Framer Motion and sound effects, and an online mode run by Laravel: two-player rooms with invite codes, real-time updates through Reverb and private hands kept on the server in Redis.",
+    "ar": "محرك لعب مكتوب بـ TypeScript للقواعد وللذكاء الاصطناعي (ثلاثة مستويات)، وواجهة React بأسلوب نيو-بروتالي مع حركات Framer Motion ومؤثرات صوتية، ووضع لعب عبر الإنترنت يديره Laravel: غرف لاعبَين برمز دعوة، وتحديث فوري عبر Reverb، وأوراق كل لاعب محفوظة في الخادم داخل Redis."
+  },
+  "features": {
+    "fr": [
+      "Partie contre l'IA : facile, moyen, difficile",
+      "Salles en ligne à deux avec code d'invitation",
+      "Règles spéciales : 1, 2 cumulables, 7 joker",
+      "Mains privées gardées sur le serveur",
+      "Animations de distribution et sons",
+      "Deux thèmes : Lemon table et Night arcade"
+    ],
+    "en": [
+      "Play the AI: easy, medium, hard",
+      "Two-player online rooms with invite codes",
+      "Special cards: 1, stacking 2s, wild 7",
+      "Private hands kept on the server",
+      "Dealing animations and sound",
+      "Two themes: Lemon table and Night arcade"
+    ],
+    "ar": [
+      "اللعب ضد الذكاء الاصطناعي: سهل، متوسط، صعب",
+      "غرف لاعبَين عبر الإنترنت برمز دعوة",
+      "أوراق خاصة: 1، وتراكم 2، و7 لتغيير اللون",
+      "أوراق اللاعبين محفوظة في الخادم",
+      "حركات توزيع الأوراق ومؤثرات صوتية",
+      "مظهران: Lemon table وNight arcade"
+    ]
+  },
+  "services": [
+    "web",
+    "design"
+  ],
+  "stack": [
+    "Laravel",
+    "React",
+    "TypeScript",
+    "Inertia.js",
+    "Redis",
+    "Framer Motion"
+  ],
+  "tags": [
+    "Game",
+    "Realtime"
+  ],
+  "palette": [
+    "#FFE066",
+    "#2563EB",
+    "#FF5A36"
+  ],
+  "gallery": [
+    {
+      "image": "/work/hezz2-duel/board.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/hezz2-duel/night.jpg",
+      "device": "desktop"
+    },
+    {
+      "image": "/work/hezz2-duel/mobile.jpg",
+      "device": "mobile"
+    }
+  ],
+  "cover": "/work/hezz2-duel/preview.jpg"
+}
