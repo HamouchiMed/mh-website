@@ -8,7 +8,6 @@ import "lenis/dist/lenis.css";
 import "../globals.css";
 import Cursor from "@/components/Cursor";
 import Effects from "@/components/Effects";
-import ScrollBar from "@/components/ScrollBar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Liquid from "@/components/Liquid";
@@ -121,7 +120,6 @@ export default async function LocaleLayout({
         <Footer locale={locale} />
         <WhatsAppButton t={t.whatsapp} />
         <Effects />
-        <ScrollBar />
         <Cursor />
         <Liquid />
         <Analytics />

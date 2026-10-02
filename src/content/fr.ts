@@ -21,6 +21,7 @@ export const fr = {
     close: "Fermer",
     skip: "Aller au contenu",
     language: "Langue",
+    top: "Revenir en haut",
   },
   hero: {
     eyebrow: "Agence de développement digital · Maroc",

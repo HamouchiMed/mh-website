@@ -23,6 +23,7 @@ export const ar: Dictionary = {
     close: "إغلاق",
     skip: "الانتقال إلى المحتوى",
     language: "اللغة",
+    top: "العودة إلى الأعلى",
   },
   hero: {
     eyebrow: "وكالة تطوير رقمي · المغرب",

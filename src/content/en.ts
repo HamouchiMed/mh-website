@@ -23,6 +23,7 @@ export const en: Dictionary = {
     close: "Close",
     skip: "Skip to content",
     language: "Language",
+    top: "Back to top",
   },
   hero: {
     eyebrow: "Digital development agency · Morocco",

@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Dictionary } from "@/content/fr";
 import { localeLabels, localeNames, locales, localizePath, type Locale, type PathMaps } from "@/lib/locales";
 import { activeSocials, site } from "@/lib/site";
+import ScrollRing from "./ScrollRing";
 import SoundToggle from "./Sound";
 import { Arrow, arrowHover, RollText } from "./ui";
 
@@ -36,18 +37,34 @@ export default function Header({
 }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [folded, setFolded] = useState(false);
   const [active, setActive] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // The capsule folds to logo + ring + menu while scrolling down, and
+  // opens again when scrolling up, near the top, or on hover.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    let last = window.scrollY;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      if (y < 160) setFolded(false);
+      else if (Math.abs(y - last) > 6) setFolded(y > last);
+      if (Math.abs(y - last) > 6 || y < 160) last = y;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   // Lock scroll, close on Escape and move focus into / out of the menu.
@@ -117,59 +134,66 @@ export default function Header({
       >
         {nav.skip}
       </a>
-      <header
-        data-theme={open ? "dark" : undefined}
-        className={`theme-follow fixed inset-x-0 top-0 z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-500 ${
-          scrolled && !open ? "border-line bg-paper/75 backdrop-blur-xl" : "border-transparent"
-        }`}
-      >
-        <div className="container-x flex h-16 items-center justify-between gap-6">
-          <Link href={`/${locale}`} title={nav.home} className="relative z-10">
+      <header data-theme={open ? "dark" : undefined} className="theme-follow pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 md:pt-4">
+        <div
+          data-folded={folded || open}
+          data-open={open}
+          className="capsule pointer-events-auto flex max-w-full items-center gap-1 rounded-full border border-line bg-paper/80 p-1.5 shadow-[0_18px_40px_-24px_rgb(11_11_18/0.45)] backdrop-blur-xl transition-colors duration-500"
+        >
+          <Link href={`/${locale}`} title={nav.home} className="relative z-10 shrink-0 rounded-full pe-2">
             <Logo />
           </Link>
 
-          <nav aria-label="Main" className={`hidden items-center gap-7 transition-opacity duration-300 lg:flex ${open ? "pointer-events-none opacity-0" : ""}`}>
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                className={`text-[0.9375rem] transition-colors ${isActive(link.href) ? "text-ink" : "text-muted hover:text-ink"}`}
-              >
-                <RollText text={link.label} />
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            <SoundToggle labels={sound} />
-            <div className="hidden sm:block">{langSwitch}</div>
-            <Link
-              href={`/${locale}/contact`}
-              data-magnetic
-              data-fill
-              className="group relative isolate hidden items-center gap-2 overflow-hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-white md:inline-flex"
-            >
-              <span aria-hidden="true" className="pill-fill bg-ink" />
-              <RollText text={nav.cta} />
-              <Arrow className={`text-[0.85em] ${arrowHover}`} />
-            </Link>
-            <button
-              ref={buttonRef}
-              type="button"
-              onClick={toggle}
-              aria-expanded={open}
-              aria-controls="site-menu"
-              data-magnetic
-              className="relative z-10 flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-paper"
-            >
-              <RollText text={open ? nav.close : nav.menu} />
-              <span aria-hidden="true" className="flex w-3.5 flex-col gap-1">
-                <span className={`h-px bg-current transition-transform duration-500 ${open ? "translate-y-[2.5px] rotate-45" : ""}`} />
-                <span className={`h-px bg-current transition-transform duration-500 ${open ? "-translate-y-[2.5px] -rotate-45" : ""}`} />
-              </span>
-            </button>
+          <div className="capsule-fold grid">
+            <div className="gap-1">
+              <nav aria-label="Main" className="hidden items-center lg:flex">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={`rounded-full px-2.5 py-1.5 text-[0.875rem] transition-colors xl:px-3 ${isActive(link.href) ? "text-ink" : "text-muted hover:text-ink"}`}
+                  >
+                    <RollText text={link.label} />
+                  </Link>
+                ))}
+              </nav>
+              <span aria-hidden="true" className="mx-1 hidden h-5 w-px bg-line lg:block" />
+              <div className="hidden sm:block">{langSwitch}</div>
+              <SoundToggle labels={sound} />
+            </div>
           </div>
+
+          <ScrollRing label={nav.top} />
+
+          <div className="capsule-fold hidden md:grid">
+            <div>
+              <Link
+                href={`/${locale}/contact`}
+                data-fill
+                className="group relative isolate ms-1 inline-flex items-center gap-2 overflow-hidden rounded-full bg-accent px-4 py-2 text-sm font-medium whitespace-nowrap text-white"
+              >
+                <span aria-hidden="true" className="pill-fill bg-ink" />
+                <RollText text={nav.cta} />
+                <Arrow className={`text-[0.85em] ${arrowHover}`} />
+              </Link>
+            </div>
+          </div>
+
+          <button
+            ref={buttonRef}
+            type="button"
+            onClick={toggle}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            className="relative z-10 ms-1 flex h-9 shrink-0 items-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-paper"
+          >
+            <RollText text={open ? nav.close : nav.menu} />
+            <span aria-hidden="true" className="flex w-3.5 flex-col gap-1">
+              <span className={`h-px bg-current transition-transform duration-500 ${open ? "translate-y-[2.5px] rotate-45" : ""}`} />
+              <span className={`h-px bg-current transition-transform duration-500 ${open ? "-translate-y-[2.5px] -rotate-45" : ""}`} />
+            </span>
+          </button>
         </div>
       </header>
 
