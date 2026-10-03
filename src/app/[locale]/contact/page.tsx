@@ -51,7 +51,7 @@ export default async function ContactPage({ params }: Props) {
             <dl className="divide-y divide-line border-y border-line">
               <div className="py-6">
                 <dt className="eyebrow text-muted">{c.info.email}</dt>
-                <dd className="mt-2 text-xl font-medium">
+                <dd className="mt-2 text-lg font-medium [overflow-wrap:anywhere] sm:text-xl">
                   <a href={`mailto:${site.email}`} className="underline decoration-line underline-offset-4 hover:decoration-accent">
                     {site.email}
                   </a>

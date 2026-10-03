@@ -475,6 +475,8 @@ html.intro-play [data-rise] {
   font-size: 1.125rem;
   line-height: 1.75;
   color: rgb(11 11 18 / 0.85);
+  /* Long words such as the email address wrap instead of overflowing. */
+  overflow-wrap: anywhere;
 }
 .prose-mh > * + * {
   margin-top: 1.25em;

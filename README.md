@@ -73,9 +73,10 @@ with sample data where a dashboard needs a backend.
 | City pages | `src/content/cities.ts` |
 | Colours, fonts, animations | `src/app/globals.css` |
 
-**Before launch:** replace the placeholder email and fill in the WhatsApp
-number and legal details in `src/lib/site.ts` (all marked `TODO`). The
-WhatsApp button appears automatically once a number is set.
+**Before launch:** fill in the WhatsApp number and legal details in
+`src/lib/site.ts` (all marked `TODO`), and switch the email (a Gmail address
+for now) to one on the final domain once it is bought. The WhatsApp button
+appears automatically once a number is set.
 
 ## Deploy (Vercel)
 
