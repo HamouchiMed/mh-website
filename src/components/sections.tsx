@@ -191,7 +191,7 @@ export async function WorkRail({ locale }: { locale: Locale }) {
   return (
     <>
       {list.map((p, i) => (
-        <article key={p.slug} className="group w-[min(82vw,35rem)] shrink-0 snap-start">
+        <article key={p.slug} className="group w-[min(82vw,35rem)] shrink-0 snap-start motion-reduce:lg:w-auto">
           <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.workDetail.view}>
             <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} sizes="(min-width: 1024px) 560px, 82vw" />
             <div className="mt-5 flex items-start justify-between gap-4">
@@ -207,7 +207,7 @@ export async function WorkRail({ locale }: { locale: Locale }) {
           </Link>
         </article>
       ))}
-      <article className="w-[min(70vw,22.5rem)] shrink-0 snap-start">
+      <article className="w-[min(70vw,22.5rem)] shrink-0 snap-start motion-reduce:lg:w-auto">
         <Link
           href={`/${locale}/work`}
           className="group flex aspect-[16/10] flex-col justify-between rounded-xl border border-line p-6 transition-colors hover:border-ink md:p-8"

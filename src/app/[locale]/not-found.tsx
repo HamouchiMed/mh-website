@@ -15,7 +15,7 @@ export default function LocaleNotFound() {
         </p>
         <h1 className="h-page -mt-[0.4em]">{t.notFound.title}</h1>
         <p className="mt-4 max-w-xl text-lg text-muted">{t.notFound.text}</p>
-        <p className="eyebrow mt-4 text-accent">{t.notFound.hint}</p>
+        <p className="eyebrow mt-4 text-accent motion-reduce:hidden">{t.notFound.hint}</p>
         <div className="mt-8">
           <Pill href="/fr">{t.notFound.back}</Pill>
         </div>

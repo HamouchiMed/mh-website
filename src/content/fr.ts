@@ -244,6 +244,8 @@ export const fr = {
     h1: "Le laboratoire. On expérimente, vous jouez.",
     lead: "Des expériences interactives en temps réel, codées à la main, qui montrent ce que le web peut faire. Bougez la souris ou touchez l'écran.",
     hint: "Interagissez",
+    // Shown when motion is turned off on the device.
+    play: { on: "Lancer l'animation", off: "Mettre en pause" },
     experiments: [
       { id: "liquid", title: "Trace liquide", text: "Des métaballes suivent votre curseur et fusionnent comme du mercure." },
       { id: "particles", title: "Particules", text: "Des milliers de particules dessinent notre logo. Approchez le curseur, puis cliquez." },

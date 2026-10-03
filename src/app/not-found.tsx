@@ -16,7 +16,7 @@ export default function GlobalNotFound() {
           <p className="eyebrow text-accent">404</p>
           <h1 className="h-page mt-4">{fr.notFound.title}</h1>
           <p className="mt-4 text-muted">{fr.notFound.text}</p>
-          <p className="eyebrow mt-3 text-accent">{fr.notFound.hint}</p>
+          <p className="eyebrow mt-3 text-accent motion-reduce:hidden">{fr.notFound.hint}</p>
           <div className="mt-8 flex justify-center gap-3">
             <Link href="/fr" className="rounded-full bg-accent px-6 py-3 font-medium text-white">
               {fr.notFound.back}

@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ease, isSmallScreen, runThreeStage } from "./stage";
+import { ease, isSmallScreen, prefersReducedMotion, runThreeStage } from "./stage";
 
 // Particles that change shape. Inside the element with id `watch`, hovering an
 // item with data-shape="<service id>" morphs the cloud into that service's
-// shape; otherwise the shapes cycle on their own.
+// shape; otherwise the shapes cycle on their own. With motion turned off on
+// the device the shape is drawn already formed and a hover swaps it at once.
 
 type ShapeId = "web" | "mobile" | "ecommerce" | "software" | "design" | "seo";
 const ORDER: ShapeId[] = ["web", "mobile", "ecommerce", "software", "design", "seo"];
@@ -138,20 +139,27 @@ export default function ParticleMorph({ watch, className = "" }: { watch?: strin
   useEffect(() => {
     const host = ref.current;
     if (!host) return;
+    const still = prefersReducedMotion();
     let hovered: ShapeId | null = null;
+    let redraw = () => {};
     const list = watch ? document.getElementById(watch) : null;
     const onOver = (e: Event) => {
       const id = (e.target as Element | null)?.closest<HTMLElement>("[data-shape]")?.dataset.shape as ShapeId | undefined;
-      hovered = id && id in BUILDERS ? id : null;
+      const next = id && id in BUILDERS ? id : null;
+      if (next === hovered) return;
+      hovered = next;
+      redraw();
     };
     const onLeave = () => {
       hovered = null;
+      redraw();
     };
     list?.addEventListener("pointerover", onOver);
     list?.addEventListener("pointerleave", onLeave);
     list?.addEventListener("focusin", onOver);
 
-    const stop = runThreeStage(host, { alpha: true, antialias: false }, (THREE, pointer) => {
+    const stop = runThreeStage(host, { alpha: true, antialias: false }, (THREE, pointer, draw) => {
+      redraw = draw;
       const COUNT = isSmallScreen() ? 3200 : 6500;
       const shapes = new Map<ShapeId, Float32Array>();
       const shapeOf = (id: ShapeId) => {
@@ -169,8 +177,10 @@ export default function ParticleMorph({ watch, className = "" }: { watch?: strin
         rnd[i] = Math.random();
         speed[i] = 1.8 + Math.random() * 2.6;
       }
+      // Starts spread out and gathers into the first shape (already formed
+      // when motion is off).
       cur.set(shapeOf("web"));
-      for (let i = 0; i < cur.length; i++) cur[i] *= 1.8;
+      if (!still) for (let i = 0; i < cur.length; i++) cur[i] *= 1.8;
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
@@ -221,7 +231,7 @@ export default function ParticleMorph({ watch, className = "" }: { watch?: strin
           camera.updateProjectionMatrix();
         },
         frame(t, dt, renderer) {
-          if (!hovered && t - autoAt > 4.5) {
+          if (!still && !hovered && t - autoAt > 4.5) {
             auto = (auto + 1) % ORDER.length;
             autoAt = t;
           }
@@ -229,7 +239,7 @@ export default function ParticleMorph({ watch, className = "" }: { watch?: strin
           shown = hovered ?? ORDER[auto];
           const target = shapeOf(shown);
           for (let i = 0; i < COUNT; i++) {
-            const k = ease(dt, speed[i]);
+            const k = still ? 1 : ease(dt, speed[i]);
             const j = i * 3;
             cur[j] += (target[j] - cur[j]) * k;
             cur[j + 1] += (target[j + 1] - cur[j + 1]) * k;
@@ -238,12 +248,15 @@ export default function ParticleMorph({ watch, className = "" }: { watch?: strin
           position.needsUpdate = true;
           uniforms.uTime.value = t;
           const flat = shown === "design" || shown === "mobile";
-          const mx = pointer.inside ? pointer.x / Math.max(host.clientWidth, 1) - 0.5 : 0;
-          const my = pointer.inside ? pointer.y / Math.max(host.clientHeight, 1) - 0.5 : 0;
-          tiltX += ((shown === "seo" ? 0.55 : 0) + my * 0.5 - tiltX) * ease(dt, 3);
-          tiltY += (mx * 0.8 - tiltY) * ease(dt, 3);
+          const mx = pointer.inside && !still ? pointer.x / Math.max(host.clientWidth, 1) - 0.5 : 0;
+          const my = pointer.inside && !still ? pointer.y / Math.max(host.clientHeight, 1) - 0.5 : 0;
+          const tilt = still ? 1 : ease(dt, 3);
+          // Still: 3D shapes are shown at an angle so their depth reads.
+          const baseX = shown === "seo" ? 0.55 : still && !flat ? 0.3 : 0;
+          tiltX += (baseX + my * 0.5 - tiltX) * tilt;
+          tiltY += (mx * 0.8 - tiltY) * tilt;
           group.rotation.x = tiltX;
-          group.rotation.y = (flat ? Math.sin(t * 0.6) * 0.3 : t * 0.2) + tiltY;
+          group.rotation.y = still ? (flat ? 0 : 0.6) : (flat ? Math.sin(t * 0.6) * 0.3 : t * 0.2) + tiltY;
           renderer.render(scene, camera);
         },
         dispose() {

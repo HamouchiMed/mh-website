@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Interactive experiments for the /lab page. Each one only animates while it
-// is on screen, and accepts mouse and touch input.
+// is on screen, and accepts mouse and touch input. With motion turned off on
+// the device each shows a still frame and a button to play it on request.
 
 type Kind = "liquid" | "particles" | "glass";
 
@@ -123,8 +124,12 @@ function setupGl(canvas: HTMLCanvasElement, frag: string) {
   return { gl, u: (n: string) => gl.getUniformLocation(prog, n) };
 }
 
-export default function LabExperiment({ kind, label }: { kind: Kind; label: string }) {
+export default function LabExperiment({ kind, label, play }: { kind: Kind; label: string; play: { on: string; off: string } }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const playing = useRef(false);
+  const wake = useRef(() => {});
+  const [still, setStill] = useState(false);
+  const [on, setOn] = useState(false);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -295,6 +300,8 @@ export default function LabExperiment({ kind, label }: { kind: Kind; label: stri
       };
     }
 
+    // Set up: offer the play button when motion is off.
+    setStill(reduced);
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
@@ -304,14 +311,17 @@ export default function LabExperiment({ kind, label }: { kind: Kind; label: stri
     const start = performance.now();
     const loop = () => {
       render((performance.now() - start) / 1000);
-      if (visible && !reduced) raf = requestAnimationFrame(loop);
+      raf = visible && (!reduced || playing.current) ? requestAnimationFrame(loop) : 0;
     };
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       cancelAnimationFrame(raf);
-      if (visible) raf = requestAnimationFrame(loop);
+      raf = visible ? requestAnimationFrame(loop) : 0;
     });
     io.observe(canvas);
+    wake.current = () => {
+      if (!raf && visible) raf = requestAnimationFrame(loop);
+    };
     if (reduced) {
       // One settled frame so the experiment is still visible.
       for (let i = 0; i < 120; i++) render(2 + i / 60);
@@ -327,5 +337,28 @@ export default function LabExperiment({ kind, label }: { kind: Kind; label: stri
     };
   }, [kind]);
 
-  return <canvas ref={ref} role="img" aria-label={label} className="absolute inset-0 h-full w-full touch-pan-y" />;
+  const toggle = () => {
+    playing.current = !on;
+    setOn(!on);
+    wake.current();
+  };
+
+  return (
+    <>
+      <canvas ref={ref} role="img" aria-label={label} className="absolute inset-0 h-full w-full touch-pan-y" />
+      {still && (
+        <button
+          type="button"
+          onClick={toggle}
+          aria-pressed={on}
+          className="absolute bottom-5 end-5 z-10 flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
+        >
+          <span aria-hidden="true" className="text-[0.75em]">
+            {on ? "❚❚" : "▶"}
+          </span>
+          {on ? play.off : play.on}
+        </button>
+      )}
+    </>
+  );
 }

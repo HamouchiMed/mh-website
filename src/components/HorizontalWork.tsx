@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 // Pinned section whose track slides sideways while the page scrolls down.
-// On small screens, with reduced motion or without JS it is a plain
-// horizontally scrollable row with snap points.
+// On small screens or without JS it is a plain horizontally scrollable row
+// with snap points; with motion turned off, computers get a grid instead
+// (a sideways row is hard to scroll with a mouse).
 export default function HorizontalWork({
   header,
   children,
@@ -74,7 +75,9 @@ export default function HorizontalWork({
         <div
           ref={trackRef}
           className={`flex gap-5 px-[max(clamp(1.25rem,4vw,2.5rem),calc((100vw_-_80rem)/2_+_2.5rem))] md:gap-7 ${
-            pinned ? "will-change-transform" : "snap-x snap-mandatory overflow-x-auto pb-6 [scrollbar-width:none]"
+            pinned
+              ? "will-change-transform"
+              : "snap-x snap-mandatory overflow-x-auto pb-6 [scrollbar-width:none] motion-reduce:lg:grid motion-reduce:lg:grid-cols-3 motion-reduce:lg:gap-y-12 motion-reduce:lg:overflow-visible"
           }`}
         >
           {children}

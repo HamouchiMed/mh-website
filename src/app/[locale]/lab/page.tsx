@@ -22,7 +22,7 @@ export default async function LabPage({ params }: Props) {
     <li key={exp.id} className={big ? "md:col-span-2" : ""} data-reveal style={delay(i * 100)}>
       <figure>
         <div className={`relative overflow-hidden rounded-2xl bg-[#0b0b12] ${big ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"}`}>
-          <LabExperiment kind={exp.id as "liquid" | "particles" | "glass"} label={exp.title} />
+          <LabExperiment kind={exp.id as "liquid" | "particles" | "glass"} label={exp.title} play={t.lab.play} />
           <span className="eyebrow pointer-events-none absolute start-6 top-6 rounded-full bg-white/10 px-3 py-1 text-white/80 backdrop-blur">
             0{i + 1} · {t.lab.hint}
           </span>

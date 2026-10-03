@@ -31,9 +31,14 @@ export const isSmallScreen = () => typeof window !== "undefined" && window.match
  * Runs a three.js scene inside `host`. three is imported on demand (it never
  * blocks the first paint), the renderer is created once the host comes near
  * the screen, the loop pauses off-screen or in a hidden tab, and with reduced
- * motion a single still frame is drawn. Returns a cleanup function.
+ * motion a single still frame is drawn (`redraw` draws a new one after a
+ * change, such as a hover). Returns a cleanup function.
  */
-export function runThreeStage(host: HTMLElement, options: Options, build: (THREE: Three, pointer: Pointer) => Scene3) {
+export function runThreeStage(
+  host: HTMLElement,
+  options: Options,
+  build: (THREE: Three, pointer: Pointer, redraw: () => void) => Scene3,
+) {
   const reduced = prefersReducedMotion();
   const pointer: Pointer = { x: 0, y: 0, inside: false, down: false, moved: 0 };
   // A fresh canvas per run, so a lost context is never reused.
@@ -92,7 +97,9 @@ export function runThreeStage(host: HTMLElement, options: Options, build: (THREE
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, options.dprCap ?? 2));
     renderer.setClearColor(options.clear ?? 0x000000, options.alpha ? 0 : 1);
     measure();
-    scene = build(THREE, pointer);
+    scene = build(THREE, pointer, () => {
+      if (reduced) draw();
+    });
     renderer.setSize(w, h, false);
     scene.resize(w, h);
     host.dataset.ready = "true";

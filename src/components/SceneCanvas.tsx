@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ease, isSmallScreen, runThreeStage, SNOISE } from "./motion/stage";
+import { ease, isSmallScreen, prefersReducedMotion, runThreeStage, SNOISE } from "./motion/stage";
 
 // The iridescent liquid bubble that follows the home page. It sits fixed
 // behind the content; each section can carry data-scene="…" and the bubble
 // glides to that section's preset (position, size, wobble, tint, opacity).
 // Sections with their own animation (services, method, footer) hide it.
-// Desktop only: on phones the bubble is not loaded at all.
+// Desktop only: on phones the bubble is not loaded at all. With motion turned
+// off on the device it stays a still picture in the hero and scrolls away
+// with it, instead of staying on screen over the other sections.
 
 type Preset = {
   x: number; // fraction of the half-width (−1 left … 1 right)
@@ -112,7 +114,9 @@ export default function SceneCanvas({ mirror = false, className = "" }: { mirror
       let speedAmp = 0;
 
       // The [data-scene] section crossing the middle of the screen sets the pose.
+      const still = prefersReducedMotion();
       const pickScene = () => {
+        if (still) return;
         const mid = window.innerHeight / 2;
         const hit = Array.from(document.querySelectorAll<HTMLElement>("[data-scene]")).find((el) => {
           const r = el.getBoundingClientRect();
@@ -174,7 +178,7 @@ export default function SceneCanvas({ mirror = false, className = "" }: { mirror
     <div
       ref={ref}
       aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 -z-10 h-[100lvh] w-full opacity-0 max-md:hidden transition-opacity duration-[1500ms] data-[ready=true]:opacity-100 ${className}`}
+      className={`pointer-events-none fixed inset-0 -z-10 h-[100lvh] w-full opacity-0 max-md:hidden motion-reduce:absolute transition-opacity duration-[1500ms] data-[ready=true]:opacity-100 ${className}`}
     />
   );
 }

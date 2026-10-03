@@ -246,6 +246,7 @@ export const en: Dictionary = {
     h1: "The lab. We experiment, you play.",
     lead: "Hand-coded, real-time interactive experiments that show what the web can do. Move your mouse or touch the screen.",
     hint: "Interact",
+    play: { on: "Play the animation", off: "Pause" },
     experiments: [
       { id: "liquid", title: "Liquid trail", text: "Metaballs follow your cursor and merge like mercury." },
       { id: "particles", title: "Particles", text: "Thousands of particles draw our logo. Bring your cursor close, then click." },

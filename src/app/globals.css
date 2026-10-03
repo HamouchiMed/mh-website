@@ -666,6 +666,10 @@ html.own-scrollbar::-webkit-scrollbar {
   .site-menu.is-open {
     opacity: 1;
   }
+  /* The work row is a grid then (HorizontalWork.tsx): no "keep scrolling". */
+  [data-scroll-hint] {
+    display: none;
+  }
   /* Music on: still bars instead of bars that dance (Sound.tsx). */
   .sound-bars.is-live span {
     height: 8px;

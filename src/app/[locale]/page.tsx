@@ -132,7 +132,9 @@ export default async function Home({ params }: Props) {
                 {t.workSection.title}
               </h2>
             </div>
-            <p className="eyebrow hidden text-muted lg:block">{t.workSection.hint} ↓</p>
+            <p data-scroll-hint className="eyebrow hidden text-muted lg:block">
+              {t.workSection.hint} ↓
+            </p>
           </div>
         }
       >
