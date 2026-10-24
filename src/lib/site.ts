@@ -9,8 +9,8 @@ export const site = {
   // TODO: switch to an address on the final domain once it is bought.
   email: "mohamedhamouchi2006@gmail.com",
   // International format without spaces, e.g. "+212600000000". Leave empty to hide.
-  phone: "",
-  whatsapp: "",
+  phone: "+212708826686",
+  whatsapp: "+212708826686",
   country: "MA",
   // Shown on the legal notice page. Empty values display "À compléter".
   // TODO: fill in once the company details are final.
