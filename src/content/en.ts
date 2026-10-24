@@ -2,11 +2,11 @@ import type { Dictionary } from "./fr";
 
 export const en: Dictionary = {
   meta: {
-    title: "MH Group — Web & mobile development agency in Morocco",
+    title: "MH Group — Web, mobile & security systems in Morocco",
     description:
-      "MH Group designs and builds fast, beautiful, SEO-ready websites, mobile apps and custom software for ambitious brands in Morocco and worldwide.",
+      "MH Group builds fast, SEO-ready websites, mobile apps and custom software — and installs access control and CCTV. Digital and security systems for businesses in Morocco.",
     ogLocale: "en_US",
-    tagline: "Web & mobile development agency",
+    tagline: "Digital & security systems",
   },
   nav: {
     home: "Home",
@@ -26,9 +26,9 @@ export const en: Dictionary = {
     top: "Back to top",
   },
   hero: {
-    eyebrow: "Digital development agency · Morocco",
-    title: "We code digital experiences that help brands grow.",
-    lead: "Websites, mobile apps and custom software — built for performance, search visibility and emotion.",
+    eyebrow: "Digital & security systems · Morocco",
+    title: "We build your digital presence and secure your premises.",
+    lead: "Websites, mobile apps and custom software — plus access control and video surveillance. One partner for your digital and physical security.",
     primary: "Start a project",
     secondary: "Our services",
     scroll: "Scroll",
@@ -36,7 +36,7 @@ export const en: Dictionary = {
   },
   intro: {
     label: "The agency",
-    text: "MH Group is a development studio that brings design, technology and strategy together. We turn your ideas into fast, accessible and memorable digital products — from the first prototype to launch, and on to growth.",
+    text: "MH Group brings together web, software and security. We design fast, memorable digital products and install reliable access control and video surveillance — from the first prototype or site survey to launch and maintenance.",
     link: "About the agency",
   },
   servicesSection: {

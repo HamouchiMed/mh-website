@@ -1,10 +1,10 @@
 export const fr = {
   meta: {
-    title: "MH Group — Agence de développement web & mobile au Maroc",
+    title: "MH Group — Web, mobile & systèmes de sécurité au Maroc",
     description:
-      "MH Group conçoit des sites web, applications mobiles et logiciels sur-mesure rapides, beaux et optimisés SEO pour les marques ambitieuses au Maroc et à l'international.",
+      "MH Group conçoit des sites web, applications mobiles et logiciels sur-mesure, et installe contrôle d'accès et vidéosurveillance. Solutions digitales et de sécurité pour les entreprises au Maroc.",
     ogLocale: "fr_MA",
-    tagline: "Agence de développement web & mobile",
+    tagline: "Solutions digitales & sécurité",
   },
   nav: {
     home: "Accueil",
@@ -24,17 +24,17 @@ export const fr = {
     top: "Revenir en haut",
   },
   hero: {
-    eyebrow: "Agence de développement digital · Maroc",
-    title: "Nous codons des expériences digitales qui font grandir les marques.",
-    lead: "Sites web, applications mobiles et logiciels sur-mesure — pensés pour la performance, le référencement et l'émotion.",
+    eyebrow: "Solutions digitales & sécurité · Maroc",
+    title: "Nous créons votre présence digitale et sécurisons vos locaux.",
+    lead: "Sites web, applications mobiles et logiciels sur-mesure — plus contrôle d'accès et vidéosurveillance. Un seul partenaire pour votre sécurité digitale et physique.",
     primary: "Démarrer un projet",
     secondary: "Nos services",
     scroll: "Défiler",
-    specialty: "Ce que nous codons :",
+    specialty: "Ce que nous faisons :",
   },
   intro: {
     label: "L'agence",
-    text: "MH Group est un studio de développement qui réunit design, technologie et stratégie. Nous transformons vos idées en produits digitaux rapides, accessibles et mémorables — du premier prototype au lancement, puis à la croissance.",
+    text: "MH Group réunit le web, le logiciel et la sécurité. Nous concevons des produits digitaux rapides et mémorables, et installons des systèmes de contrôle d'accès et de vidéosurveillance fiables — du premier prototype ou de l'étude sur site jusqu'au lancement et à la maintenance.",
     link: "Découvrir l'agence",
   },
   servicesSection: {

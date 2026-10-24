@@ -431,6 +431,142 @@ const base: Omit<Service, "ar">[] = [
       ],
     },
   },
+  {
+    id: "access-control",
+    stack: ["RFID / badge", "Biométrie", "Reconnaissance faciale", "ZKTeco", "Interphonie", "Pointage"],
+    fr: {
+      slug: "controle-acces",
+      title: "Contrôle d'accès",
+      short: "Systèmes de contrôle d'accès par badge, code ou biométrie pour sécuriser portes, bureaux et sites, avec gestion des droits et des horaires.",
+      metaTitle: "Contrôle d'accès au Maroc — badge, biométrie & gestion des entrées",
+      metaDescription:
+        "Installation de systèmes de contrôle d'accès au Maroc : badges RFID, lecteurs biométriques, reconnaissance faciale, gestion des droits et pointage. Installation et maintenance par MH Group.",
+      h1: "Systèmes de contrôle d'accès pour sécuriser vos locaux",
+      lead: "Maîtrisez qui entre, où et quand. Nous installons et configurons des systèmes de contrôle d'accès fiables — badge, code ou biométrie — pour vos portes, portails et zones sensibles, avec une gestion simple des droits et des horaires.",
+      deliverables: [
+        "Contrôle d'accès par badge RFID et code",
+        "Lecteurs biométriques (empreinte, reconnaissance faciale)",
+        "Portes, portails, barrières et tourniquets",
+        "Gestion des droits, zones et plages horaires",
+        "Pointage et suivi des présences",
+        "Intégration avec la vidéosurveillance et l'alarme",
+      ],
+      faqs: [
+        {
+          q: "Peut-on gérer les accès à distance ?",
+          a: "Oui. La plupart des systèmes se pilotent depuis un logiciel ou une application : ajout de badges, horaires et zones, en temps réel.",
+        },
+        {
+          q: "Le système fonctionne-t-il en cas de coupure de courant ?",
+          a: "Oui. Nous prévoyons des batteries de secours et un déverrouillage sécurisé conforme aux normes, pour ne jamais bloquer les issues.",
+        },
+        {
+          q: "Assurez-vous l'installation et la maintenance ?",
+          a: "Oui, de l'étude sur site à l'installation, la configuration et la maintenance, partout au Maroc.",
+        },
+      ],
+    },
+    en: {
+      slug: "access-control",
+      title: "Access control",
+      short: "Badge, PIN and biometric access control to secure doors, offices and sites, with full control over permissions and schedules.",
+      metaTitle: "Access control systems in Morocco — badge, biometric & entry management",
+      metaDescription:
+        "Access control installation in Morocco: RFID badges, biometric and facial-recognition readers, permission management and time tracking. Installed and maintained by MH Group.",
+      h1: "Access control systems to secure your premises",
+      lead: "Control who gets in, where and when. We install and configure reliable access control — badge, PIN or biometric — for your doors, gates and sensitive areas, with simple management of permissions and schedules.",
+      deliverables: [
+        "RFID badge and PIN access control",
+        "Biometric readers (fingerprint, facial recognition)",
+        "Doors, gates, barriers and turnstiles",
+        "Permission, zone and time-slot management",
+        "Time and attendance tracking",
+        "Integration with CCTV and alarm systems",
+      ],
+      faqs: [
+        {
+          q: "Can access be managed remotely?",
+          a: "Yes. Most systems are managed from software or an app: add badges, schedules and zones in real time.",
+        },
+        {
+          q: "Does it work during a power cut?",
+          a: "Yes. We add backup batteries and standards-compliant safe unlocking, so exits are never blocked.",
+        },
+        {
+          q: "Do you handle installation and maintenance?",
+          a: "Yes, from the on-site survey to installation, configuration and maintenance, anywhere in Morocco.",
+        },
+      ],
+    },
+  },
+  {
+    id: "cctv",
+    stack: ["Caméras IP", "4K / HD", "NVR / DVR", "Hikvision", "Vision nocturne", "Accès mobile"],
+    fr: {
+      slug: "videosurveillance",
+      title: "Vidéosurveillance",
+      short: "Installation de caméras de surveillance HD et 4K, intérieures et extérieures, avec enregistrement et accès en direct depuis votre mobile.",
+      metaTitle: "Vidéosurveillance & caméras au Maroc — installation et accès mobile",
+      metaDescription:
+        "Installation de caméras de surveillance au Maroc : caméras IP HD et 4K, vision nocturne, enregistrement NVR/DVR et visionnage à distance sur mobile. Installation et maintenance par MH Group.",
+      h1: "Caméras de surveillance et vidéosurveillance sur-mesure",
+      lead: "Gardez un œil sur ce qui compte, où que vous soyez. Nous installons des systèmes de vidéosurveillance fiables — caméras HD et 4K, intérieures comme extérieures — avec enregistrement et accès en direct depuis votre téléphone.",
+      deliverables: [
+        "Caméras IP et analogiques, HD et 4K",
+        "Vidéosurveillance intérieure et extérieure",
+        "Vision nocturne et détection de mouvement",
+        "Enregistrement NVR/DVR et stockage sécurisé",
+        "Visionnage en direct et à distance sur mobile",
+        "Installation, câblage et maintenance",
+      ],
+      faqs: [
+        {
+          q: "Puis-je voir mes caméras depuis mon téléphone ?",
+          a: "Oui. Vous accédez au direct et aux enregistrements depuis une application mobile, où que vous soyez.",
+        },
+        {
+          q: "Combien de temps les enregistrements sont-ils conservés ?",
+          a: "Selon la capacité de stockage choisie : de quelques jours à plusieurs semaines, avec archivage possible.",
+        },
+        {
+          q: "Les caméras fonctionnent-elles la nuit et en extérieur ?",
+          a: "Oui. Nous installons des caméras à vision nocturne et étanches, adaptées aux conditions extérieures du Maroc.",
+        },
+      ],
+    },
+    en: {
+      slug: "video-surveillance",
+      title: "Video surveillance",
+      short: "HD and 4K CCTV installation, indoor and outdoor, with recording and live access from your phone.",
+      metaTitle: "CCTV & video surveillance in Morocco — installation and mobile access",
+      metaDescription:
+        "CCTV installation in Morocco: HD and 4K IP cameras, night vision, NVR/DVR recording and remote viewing on mobile. Installed and maintained by MH Group.",
+      h1: "CCTV and video surveillance, tailored to your site",
+      lead: "Keep an eye on what matters, wherever you are. We install reliable CCTV systems — HD and 4K cameras, indoor and outdoor — with recording and live access from your phone.",
+      deliverables: [
+        "IP and analogue cameras, HD and 4K",
+        "Indoor and outdoor video surveillance",
+        "Night vision and motion detection",
+        "NVR/DVR recording and secure storage",
+        "Live and remote viewing on mobile",
+        "Installation, cabling and maintenance",
+      ],
+      faqs: [
+        {
+          q: "Can I view my cameras from my phone?",
+          a: "Yes. You get live and recorded footage from a mobile app, wherever you are.",
+        },
+        {
+          q: "How long is footage kept?",
+          a: "It depends on the storage you choose: from a few days to several weeks, with archiving available.",
+        },
+        {
+          q: "Do the cameras work at night and outdoors?",
+          a: "Yes. We install weatherproof, night-vision cameras suited to Moroccan outdoor conditions.",
+        },
+      ],
+    },
+  },
 ];
 
 export const services: Service[] = base.map((s) => ({ ...s, ar: servicesAr[s.id] }));
