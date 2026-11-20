@@ -31,10 +31,40 @@ export default function AsciiMedia({ src, alt, sizes }: { src: string; alt: stri
     const fine = window.matchMedia("(pointer: fine)").matches;
     const seed = Math.random() * 1000;
     let cells: Uint8ClampedArray | null = null;
+    let cache: HTMLCanvasElement | null = null;
     let cols = 0, rows = 0, cw = 0, ch = 0, light = false, lo = 0, span = 1;
     let w = 0, h = 0, scale = 1;
-    let raf = 0, visible = false, last = 0, lastTick = -1;
+    let raf = 0, visible = false, last = 0, lastTick = -1, dirty = true, cleared = false;
     let hover = false, reveal = 0, target = 0, mx = 0, my = 0;
+    const font = () => `600 ${ch}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    const colour = (i: number) => {
+      const d = cells!, R = d[i], G = d[i + 1], B = d[i + 2];
+      return light
+        ? `rgb(${Math.round(R * 0.62)},${Math.round(G * 0.62)},${Math.round(B * 0.7)})`
+        : `rgb(${Math.min(255, R * 1.25 + 20)},${Math.min(255, G * 1.25 + 20)},${Math.min(255, B * 1.25 + 30)})`;
+    };
+    // All the characters, drawn once per size into a hidden canvas.
+    const paint = () => {
+      cache = document.createElement("canvas");
+      cache.width = w;
+      cache.height = h;
+      const x = cache.getContext("2d")!;
+      x.fillStyle = light ? "#f4f4f8" : "#06060a";
+      x.fillRect(0, 0, w, h);
+      x.font = font();
+      x.textBaseline = "top";
+      const d = cells!;
+      for (let r = 0; r < rows; r++) {
+        for (let k = 0; k < cols; k++) {
+          const i = (r * cols + k) * 4;
+          const l = ((0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255 - lo) / span;
+          const idx = Math.round(Math.pow(Math.max(0, light ? 1 - l : l), 0.8) * (RAMP.length - 1));
+          if (idx <= 0) continue;
+          x.fillStyle = colour(i);
+          x.fillText(RAMP[idx], k * cw, r * ch);
+        }
+      }
+    };
 
     const build = () => {
       const img = imgRef.current;
@@ -69,40 +99,44 @@ export default function AsciiMedia({ src, alt, sizes }: { src: string; alt: stri
       light = sum / (cols * rows) > 0.5;
       lo = min;
       span = Math.max(0.05, max - min);
+      paint();
       lastTick = -1;
+      dirty = true;
       canvas.style.background = "";
       return true;
     };
 
+    // Each frame copies the characters and lets a few of them flicker (about
+    // 8 times a second); fully decoded, the canvas is simply cleared.
     const draw = (now: number) => {
       if (!cells && !build()) return;
       const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
       last = now;
       reveal += (target - reveal) * Math.min(1, dt * (target > reveal ? 3.2 : 5));
-      const tick = Math.floor(now / 100);
+      if (target === 1 && reveal > 0.995) {
+        if (!cleared) ctx.clearRect(0, 0, w, h);
+        cleared = true;
+        return;
+      }
+      cleared = false;
+      const tick = Math.floor(now / 120);
       const animating = Math.abs(target - reveal) > 0.002;
-      if (tick === lastTick && !animating) return;
+      if (tick === lastTick && !animating && !dirty) return;
       lastTick = tick;
-      const d = cells!;
+      dirty = false;
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = light ? "#f4f4f8" : "#06060a";
-      ctx.fillRect(0, 0, w, h);
-      ctx.font = `600 ${ch}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+      ctx.drawImage(cache!, 0, 0);
+      ctx.font = font();
       ctx.textBaseline = "top";
-      for (let r = 0; r < rows; r++) {
-        for (let k = 0; k < cols; k++) {
-          const i = (r * cols + k) * 4;
-          const R = d[i], G = d[i + 1], B = d[i + 2];
-          const l = ((0.299 * R + 0.587 * G + 0.114 * B) / 255 - lo) / span;
-          let idx = Math.round(Math.pow(Math.max(0, light ? 1 - l : l), 0.8) * (RAMP.length - 1));
-          const n = Math.sin((k * 12.9898 + r * 78.233 + seed) * 43.1 + tick) * 43758.5453;
-          if (n - Math.floor(n) > 0.94) idx = Math.min(RAMP.length - 1, idx + 1 + (tick % 3));
-          if (idx <= 0) continue;
-          ctx.fillStyle = light
-            ? `rgb(${Math.round(R * 0.62)},${Math.round(G * 0.62)},${Math.round(B * 0.7)})`
-            : `rgb(${Math.min(255, R * 1.25 + 20)},${Math.min(255, G * 1.25 + 20)},${Math.min(255, B * 1.25 + 30)})`;
-          ctx.fillText(RAMP[idx], k * cw, r * ch);
-        }
+      const flicker = Math.max(4, Math.round(cols * rows * 0.012));
+      for (let j = 0; j < flicker; j++) {
+        const n = Math.sin(j * 12.9898 + tick * 78.233 + seed) * 43758.5453;
+        const cell = Math.floor((n - Math.floor(n)) * cols * rows);
+        const k = cell % cols, r = Math.floor(cell / cols);
+        ctx.fillStyle = light ? "#f4f4f8" : "#06060a";
+        ctx.fillRect(k * cw, r * ch, cw, ch);
+        ctx.fillStyle = colour(cell * 4);
+        ctx.fillText(RAMP[1 + ((tick + j) % (RAMP.length - 1))], k * cw, r * ch);
       }
       if (reveal > 0.002) {
         // Erase the characters around the pointer: the real image shows through.
@@ -135,12 +169,14 @@ export default function AsciiMedia({ src, alt, sizes }: { src: string; alt: stri
       mx = (e.clientX - r.left) * scale;
       my = (e.clientY - r.top) * scale;
       hover = true;
+      dirty = true;
       target = 1;
     };
     const onLeave = () => {
       if (!hover) return;
       hover = false;
       target = 0;
+      dirty = true;
     };
     box.addEventListener("pointermove", onMove);
     box.addEventListener("pointerleave", onLeave);

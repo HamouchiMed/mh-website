@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { BUBBLE_FRAGMENT, BUBBLE_VERTEX } from "../motion/bubble";
 import { isSmallScreen, prefersReducedMotion, runThreeStage } from "../motion/stage";
-import { BLOB_FRAG, SKY_FRAG, VERT } from "./glsl";
+import { CLOUDS_FRAG, SKY_FRAG, VERT } from "./glsl";
 
 // The hero as a sky: clouds drift around the 3D bubble. The section is tall
 // and its screen sticks, so scrolling dives through the cloud layer (it
@@ -52,19 +53,14 @@ export default function SkyDive({ children, hint, mirror = false }: { children: 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const stop = runThreeStage(host, { alpha: false, antialias: false, dprCap: small ? 0.55 : 0.75 }, (THREE, pointer, draw) => {
+    // The clouds are drawn small and stretched (they are soft); the ground's
+    // contour lines and the bubble (a mesh) are drawn at screen resolution.
+    // While the page is still everything redraws at 30 fps, and on every
+    // frame while it scrolls.
+    const stop = runThreeStage(host, { alpha: false, antialias: true, dprCap: small ? 0.55 : 0.75 }, (THREE, pointer, draw, isStill) => {
       redraw = draw;
-      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-      const geometry = new THREE.PlaneGeometry(2, 2);
-      const target = small ? null : new THREE.WebGLRenderTarget(512, 512);
-      const look = new THREE.Vector2();
-      const blobMaterial = new THREE.ShaderMaterial({
-        uniforms: { uTime: { value: 0 }, uLook: { value: look } },
-        vertexShader: VERT,
-        fragmentShader: BLOB_FRAG,
-      });
-      const blobScene = new THREE.Scene();
-      blobScene.add(new THREE.Mesh(geometry, blobMaterial));
+      const flat = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const quad = new THREE.PlaneGeometry(2, 2);
       const size = new THREE.Vector2();
       const u = {
         uRes: { value: new THREE.Vector2(1, 1) },
@@ -78,48 +74,106 @@ export default function SkyDive({ children, hint, mirror = false }: { children: 
         uHillK: { value: 0 },
         uMirror: { value: mirror ? 1 : 0 },
         uP: { value: 0 },
-        uArea: { value: new THREE.Vector4(0, 0, 1, 1) },
-        uBlob: { value: target?.texture ?? null },
-        uHasBlob: { value: target ? 1 : 0 },
       };
-      const skyMaterial = new THREE.ShaderMaterial({ uniforms: u, vertexShader: VERT, fragmentShader: SKY_FRAG });
-      const scene = new THREE.Scene();
-      scene.add(new THREE.Mesh(geometry, skyMaterial));
+      const clouds = new THREE.WebGLRenderTarget(1, 1, { depthBuffer: false });
+      const c = {
+        uRes: { value: new THREE.Vector2(1, 1) },
+        uTime: u.uTime,
+        uP: u.uP,
+        uView: u.uView,
+        uMouse: u.uMouse,
+        uMirror: u.uMirror,
+      };
+      const cloudMaterial = new THREE.ShaderMaterial({ uniforms: c, vertexShader: VERT, fragmentShader: CLOUDS_FRAG, depthTest: false, depthWrite: false });
+      const cloudScene = new THREE.Scene();
+      cloudScene.add(new THREE.Mesh(quad, cloudMaterial));
+      const skyMaterial = new THREE.ShaderMaterial({
+        uniforms: { ...u, tClouds: { value: clouds.texture } },
+        vertexShader: VERT,
+        fragmentShader: SKY_FRAG,
+        depthTest: false,
+        depthWrite: false,
+      });
+      const sky = new THREE.Scene();
+      sky.add(new THREE.Mesh(quad, skyMaterial));
+
+      // The bubble, as on the classic home page (left out on phones).
+      const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+      camera.position.z = 8;
+      const look = new THREE.Vector2();
+      const b = {
+        uTime: { value: 0 },
+        uMouse: { value: look },
+        uAmp: { value: 0.26 },
+        uColor: { value: new THREE.Color().setRGB(0.14, 0.2, 0.92) },
+        uAlpha: { value: 1 },
+      };
+      const sphere = small ? null : new THREE.IcosahedronGeometry(1, 32);
+      const bubbleMaterial = new THREE.ShaderMaterial({ uniforms: b, vertexShader: BUBBLE_VERTEX, fragmentShader: BUBBLE_FRAGMENT });
+      const bubbles = new THREE.Scene();
+      const bubble = sphere ? new THREE.Mesh(sphere, bubbleMaterial) : null;
+      if (bubble) bubbles.add(bubble);
+      let halfW = 1, halfH = 1;
+      let drawnAt = -1, drawnP = -1;
       const ease = (dt: number, k: number) => 1 - Math.exp(-dt * k);
 
       return {
-        resize() {},
+        resize(w, h) {
+          camera.aspect = w / Math.max(h, 1);
+          camera.updateProjectionMatrix();
+          halfH = Math.tan((camera.fov * Math.PI) / 360) * camera.position.z;
+          halfW = halfH * camera.aspect;
+        },
         frame(t, dt, renderer) {
-          renderer.getDrawingBufferSize(size);
           const p = progress();
           const r = host.getBoundingClientRect();
           const tx = pointer.inside ? (pointer.x / Math.max(r.width, 1)) * 2 - 1 : Math.sin(t * 0.3) * 0.35;
           const ty = pointer.inside ? -((pointer.y / Math.max(r.height, 1)) * 2 - 1) : Math.sin(t * 0.22) * 0.2;
           look.x += (tx - look.x) * ease(dt, 3);
           look.y += (ty - look.y) * ease(dt, 3);
+          u.uMouseK.value += ((pointer.inside ? 1 : 0) - u.uMouseK.value) * (isStill() ? 1 : ease(dt, 4));
+          // Skip this frame when nothing scrolled and the last one is recent.
+          const now = performance.now();
+          if (!isStill() && p === drawnP && now - drawnAt < 32) return;
+          drawnAt = now;
+          drawnP = p;
+
+          renderer.getDrawingBufferSize(size);
           u.uRes.value.copy(size);
+          const cw = Math.max(1, Math.round(size.x * 0.4)), ch = Math.max(1, Math.round(size.y * 0.4));
+          if (clouds.width !== cw || clouds.height !== ch) clouds.setSize(cw, ch);
+          c.uRes.value.set(cw, ch);
           u.uTime.value = t;
           u.uScale.value = renderer.getPixelRatio();
           u.uPageTop.value = r.top + window.scrollY;
           u.uView.value = window.innerWidth;
           u.uMouse.value.set(r.left + pointer.x, r.top + pointer.y + window.scrollY);
-          u.uMouseK.value += ((pointer.inside ? 1 : 0) - u.uMouseK.value) * (still ? 1 : ease(dt, 4));
           u.uP.value = p;
-          const W = size.x, H = size.y;
-          u.uArea.value.set(mirror ? W * 0.06 : W * 0.5, H * 0.1, W * 0.44, H * 0.78);
-          if (target && p < 0.6) {
-            blobMaterial.uniforms.uTime.value = t;
-            renderer.setRenderTarget(target);
-            renderer.render(blobScene, camera);
+          renderer.autoClear = false;
+          if (p < 0.9) {
+            renderer.setRenderTarget(clouds);
+            renderer.render(cloudScene, flat);
             renderer.setRenderTarget(null);
           }
-          renderer.render(scene, camera);
+          renderer.clear();
+          renderer.render(sky, flat);
+          // The bubble floats right of the title (left in Arabic) and rises
+          // out of view as the dive starts.
+          if (bubble && p < 0.5) {
+            b.uTime.value = t;
+            bubble.position.set((mirror ? -1 : 1) * 0.5 * halfW, 0.04 * halfH + p * 3 * halfH + Math.sin(t * 0.8) * 0.06, 0);
+            bubble.scale.setScalar(Math.min(1.25, halfW * 0.34));
+            bubble.rotation.set(-look.y * 0.3, t * 0.15 + look.x * 0.4, 0);
+            renderer.render(bubbles, camera);
+          }
         },
         dispose() {
-          geometry.dispose();
-          blobMaterial.dispose();
+          quad.dispose();
+          sphere?.dispose();
           skyMaterial.dispose();
-          target?.dispose();
+          cloudMaterial.dispose();
+          clouds.dispose();
+          bubbleMaterial.dispose();
         },
       };
     });

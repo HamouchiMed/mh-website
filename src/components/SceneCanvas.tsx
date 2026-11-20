@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ease, isSmallScreen, prefersReducedMotion, runThreeStage, SNOISE } from "./motion/stage";
+import { BUBBLE_FRAGMENT, BUBBLE_VERTEX } from "./motion/bubble";
+import { ease, isSmallScreen, prefersReducedMotion, runThreeStage } from "./motion/stage";
 
 // The iridescent liquid bubble that follows the home page. It sits fixed
 // behind the content; each section can carry data-scene="…" and the bubble
@@ -34,49 +35,6 @@ const PRESETS: Record<string, Preset> = {
   cta: { x: 0.42, y: 0.62, scale: 0.3, amp: 0.3, color: BLUE, alpha: 0, pull: 0 },
 };
 
-const VERTEX = `${SNOISE}
-uniform float uTime; uniform vec2 uMouse; uniform float uAmp;
-varying vec3 vNormalW; varying vec3 vPosW; varying float vN;
-float field(vec3 q) {
-  return snoise(q * 0.85 + vec3(uMouse * 0.7, uTime * 0.22)) + snoise(q * 2.3 + vec3(0.0, uTime * 0.45, 0.0)) * 0.22;
-}
-vec3 displaced(vec3 dir) { return dir + dir * field(dir) * uAmp; }
-void main() {
-  // Smooth normals: displace this vertex and two close neighbours on the
-  // sphere, and take the normal of the triangle they form.
-  vec3 dir = normalize(position);
-  vec3 helper = abs(dir.y) > 0.99 ? vec3(1.0, 0.0, 0.0) : vec3(0.0, 1.0, 0.0);
-  vec3 t1 = normalize(cross(dir, helper));
-  vec3 t2 = cross(dir, t1);
-  vec3 p0 = displaced(dir);
-  vec3 p1 = displaced(normalize(dir + t1 * 0.012));
-  vec3 p2 = displaced(normalize(dir + t2 * 0.012));
-  vec3 nrm = normalize(cross(p1 - p0, p2 - p0));
-  if (dot(nrm, dir) < 0.0) nrm = -nrm;
-  vN = field(dir);
-  vec4 wp = modelMatrix * vec4(p0, 1.0);
-  vPosW = wp.xyz;
-  vNormalW = normalize((modelMatrix * vec4(nrm, 0.0)).xyz);
-  gl_Position = projectionMatrix * viewMatrix * wp;
-}`;
-
-const FRAGMENT = `
-uniform float uTime; uniform vec3 uColor; uniform float uAlpha;
-varying vec3 vNormalW; varying vec3 vPosW; varying float vN;
-void main() {
-  vec3 n = normalize(vNormalW);
-  vec3 v = normalize(cameraPosition - vPosW);
-  float fr = pow(1.0 - max(dot(n, v), 0.0), 2.0);
-  vec3 irid = 0.5 + 0.5 * cos(6.2831 * (fr * 0.8 + vN * 0.3 + vec3(0.0, 0.33, 0.67)) + uTime * 0.4);
-  vec3 L = normalize(vec3(-0.4, 0.8, 0.6));
-  float dif = max(dot(n, L), 0.0);
-  float spec = pow(max(dot(reflect(-L, n), v), 0.0), 60.0);
-  vec3 col = uColor * (0.25 + 0.75 * dif);
-  col = mix(col, irid, fr * 0.8);
-  col += spec * 0.55;
-  gl_FragColor = vec4(col, uAlpha);
-}`;
-
 export default function SceneCanvas({ mirror = false, className = "" }: { mirror?: boolean; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -94,7 +52,7 @@ export default function SceneCanvas({ mirror = false, className = "" }: { mirror
         uColor: { value: new THREE.Color().setRGB(...BLUE) },
         uAlpha: { value: 1 },
       };
-      const material = new THREE.ShaderMaterial({ uniforms, vertexShader: VERTEX, fragmentShader: FRAGMENT, transparent: true });
+      const material = new THREE.ShaderMaterial({ uniforms, vertexShader: BUBBLE_VERTEX, fragmentShader: BUBBLE_FRAGMENT, transparent: true });
       const geometry = new THREE.IcosahedronGeometry(1, 32);
       const blob = new THREE.Mesh(geometry, material);
       scene.add(blob);

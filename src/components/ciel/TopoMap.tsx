@@ -48,7 +48,8 @@ export default function TopoMap({
     const host = hostRef.current;
     if (!host) return;
     const reduced = prefersReducedMotion();
-    return runThreeStage(host, { alpha: false, antialias: false, dprCap: 0.85 }, (THREE, pointer, redraw, isStill) => {
+    // Thin lines at a reduced resolution, redrawn at most 30 times a second.
+    return runThreeStage(host, { alpha: false, antialias: false, dprCap: 0.7 }, (THREE, pointer, redraw, isStill) => {
       redrawRef.current = redraw;
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
       const geometry = new THREE.PlaneGeometry(2, 2);
@@ -70,13 +71,17 @@ export default function TopoMap({
       scene.add(new THREE.Mesh(geometry, material));
       // Still frames (motion off, or no graphics card) jump straight to the target.
       const ease = (dt: number, k: number) => (isStill() ? 1 : 1 - Math.exp(-dt * k));
+      let drawnAt = -1;
       return {
         resize() {},
         frame(t, dt, renderer) {
-          renderer.getDrawingBufferSize(size);
-          const r = host.getBoundingClientRect();
           const h = hill.current;
           h.k += (h.target - h.k) * ease(dt, 5);
+          const now = performance.now();
+          if (!isStill() && now - drawnAt < 32) return;
+          drawnAt = now;
+          renderer.getDrawingBufferSize(size);
+          const r = host.getBoundingClientRect();
           u.uRes.value.copy(size);
           u.uTime.value = reduced ? 8 : t;
           u.uScale.value = renderer.getPixelRatio();

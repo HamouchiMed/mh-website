@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "../motion/stage";
-import { drawLed, fitCanvas, rasterize, type Raster } from "./led";
+import { fitCanvas, ledPainter, rasterize, type Raster } from "./led";
 
 // The services band as an LED panel: the text scrolls on its own, faster
 // (and backwards) with the page scroll, and the dots light up around the
@@ -18,6 +18,7 @@ export default function LedBand({ items, label, rtl = false }: { items: string[]
     if (!ctx) return;
     const still = prefersReducedMotion();
     let raster: Raster | null = null;
+    const paint = ledPainter();
     let raf = 0, visible = false, last = 0, offset = 0, speed = 0, lastY = window.scrollY;
     const pointer = { x: -1e4, y: -1e4 };
 
@@ -31,7 +32,7 @@ export default function LedBand({ items, label, rtl = false }: { items: string[]
       lastY = y;
       speed += (Math.max(-4000, Math.min(4000, v)) * 0.02 - speed) * Math.min(1, dt * 6);
       if (!still) offset += (rtl ? -1 : 1) * (6 + speed) * dt;
-      drawLed(ctx, w, h, raster, {
+      paint(ctx, w, h, raster, {
         pitch: h / (raster.rows + 3),
         offset,
         loop: true,

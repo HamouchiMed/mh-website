@@ -34,45 +34,80 @@ export type LedOptions = {
   t: number;
 };
 
-export function drawLed(ctx: CanvasRenderingContext2D, w: number, h: number, raster: Raster, o: LedOptions) {
-  const { rows, on, w: tw } = raster;
-  ctx.fillStyle = "#050509";
-  ctx.fillRect(0, 0, w, h);
-  const pitch = o.pitch;
-  const cols = Math.ceil(w / pitch) + 1;
-  const top = (h - rows * pitch) / 2;
-  const r = pitch * 0.36;
-  const lit = new Path2D(), dim = new Path2D(), glow = new Path2D(), hot = new Path2D();
-  const reach2 = o.reach * o.reach;
-  const off = Math.floor(o.offset);
-  const tick = Math.floor(o.t * 8);
-  for (let row = 0; row < rows; row++) {
-    const cy = top + (row + 0.5) * pitch;
-    for (let col = 0; col < cols; col++) {
-      const cx = (col + 0.5) * pitch;
-      const sx = o.loop ? (((col + off) % tw) + tw) % tw : col - (o.startCol ?? 0);
-      const isOn = sx >= 0 && sx < tw && on[row * tw + sx] === 1;
-      const near = (cx - o.mx) ** 2 + (cy - o.my) ** 2 < reach2;
-      const sweep = o.sweep != null && Math.abs(col - o.sweep) < 1.5;
-      let p = dim;
-      if (isOn) p = near || sweep ? hot : lit;
-      else if (near && (col * 7 + row * 13 + tick) % 5 === 0) p = lit;
-      p.moveTo(cx + r, cy);
-      p.arc(cx, cy, r, 0, Math.PI * 2);
-      if (p !== dim) {
+// A painter for one canvas. The unlit grid is drawn once per size into a
+// hidden canvas; each frame copies it and adds only the lit dots. A frame
+// identical to the previous one (same text position, sweep column and
+// pointer cell) is skipped. Returns whether it painted.
+export function ledPainter() {
+  let grid: HTMLCanvasElement | null = null;
+  let gridKey = "";
+  let lastKey = "";
+  let lastRaster: Raster | null = null;
+  return (ctx: CanvasRenderingContext2D, w: number, h: number, raster: Raster, o: LedOptions) => {
+    const { rows, on, w: tw } = raster;
+    const pitch = o.pitch;
+    const cols = Math.ceil(w / pitch) + 1;
+    const top = (h - rows * pitch) / 2;
+    const r = pitch * 0.36;
+    const off = Math.floor(o.offset);
+    const tick = Math.floor(o.t * 8);
+    const near = o.mx > -o.reach && o.mx < w + o.reach && o.my > -o.reach && o.my < h + o.reach;
+    const sweepCol = o.sweep == null ? -1 : Math.round(o.sweep);
+    const key = `${w}x${h}|${off}|${sweepCol}|${near ? `${Math.round(o.mx / pitch)},${Math.round(o.my / pitch)},${tick}` : "-"}`;
+    if (key === lastKey && raster === lastRaster) return false;
+    lastKey = key;
+    lastRaster = raster;
+
+    const size = `${w}x${h}|${pitch}|${rows}`;
+    if (size !== gridKey || !grid) {
+      grid = document.createElement("canvas");
+      grid.width = w;
+      grid.height = h;
+      const g = grid.getContext("2d")!;
+      g.fillStyle = "#050509";
+      g.fillRect(0, 0, w, h);
+      const dots = new Path2D();
+      for (let row = 0; row < rows; row++) {
+        const cy = top + (row + 0.5) * pitch;
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * pitch;
+          dots.moveTo(cx + r, cy);
+          dots.arc(cx, cy, r, 0, Math.PI * 2);
+        }
+      }
+      g.fillStyle = "#15172e";
+      g.fill(dots);
+      gridKey = size;
+    }
+    ctx.drawImage(grid, 0, 0);
+
+    const lit = new Path2D(), glow = new Path2D(), hot = new Path2D();
+    const reach2 = o.reach * o.reach;
+    for (let row = 0; row < rows; row++) {
+      const cy = top + (row + 0.5) * pitch;
+      for (let col = 0; col < cols; col++) {
+        const cx = (col + 0.5) * pitch;
+        const sx = o.loop ? (((col + off) % tw) + tw) % tw : col - (o.startCol ?? 0);
+        const isOn = sx >= 0 && sx < tw && on[row * tw + sx] === 1;
+        const close = near && (cx - o.mx) ** 2 + (cy - o.my) ** 2 < reach2;
+        let p: Path2D | null = null;
+        if (isOn) p = close || Math.abs(col - sweepCol) < 1.5 ? hot : lit;
+        else if (close && (col * 7 + row * 13 + tick) % 5 === 0) p = lit;
+        if (!p) continue;
+        p.moveTo(cx + r, cy);
+        p.arc(cx, cy, r, 0, Math.PI * 2);
         glow.moveTo(cx + r * 2.3, cy);
         glow.arc(cx, cy, r * 2.3, 0, Math.PI * 2);
       }
     }
-  }
-  ctx.fillStyle = "#15172e";
-  ctx.fill(dim);
-  ctx.fillStyle = "rgba(104,116,255,0.16)";
-  ctx.fill(glow);
-  ctx.fillStyle = "#8f9bff";
-  ctx.fill(lit);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill(hot);
+    ctx.fillStyle = "rgba(104,116,255,0.16)";
+    ctx.fill(glow);
+    ctx.fillStyle = "#8f9bff";
+    ctx.fill(lit);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill(hot);
+    return true;
+  };
 }
 
 // A canvas sized to its box at the device pixel ratio (capped).

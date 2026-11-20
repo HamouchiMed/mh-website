@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "../motion/stage";
-import { drawLed, fitCanvas, rasterize, type Raster } from "./led";
+import { fitCanvas, ledPainter, rasterize, type Raster } from "./led";
 
 // A large LED sign (the footer's "PARLONS-EN"): a light sweeps across it and
 // the dots light up around the pointer. Still with motion turned off.
@@ -16,6 +16,7 @@ export default function LedSign({ text, className = "" }: { text: string; classN
     if (!ctx) return;
     const still = prefersReducedMotion();
     let raster: Raster | null = null;
+    const paint = ledPainter();
     let raf = 0, visible = false;
     const pointer = { x: -1e4, y: -1e4 };
 
@@ -24,7 +25,7 @@ export default function LedSign({ text, className = "" }: { text: string; classN
       raster ??= rasterize(text, 17);
       const pitch = Math.min(h / (raster.rows + 2), w / (raster.w + 2));
       const cols = Math.ceil(w / pitch);
-      drawLed(ctx, w, h, raster, {
+      paint(ctx, w, h, raster, {
         pitch,
         offset: 0,
         loop: false,
