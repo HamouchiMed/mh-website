@@ -134,11 +134,16 @@ export default function Header({
       >
         {nav.skip}
       </a>
-      <header data-theme={open ? "dark" : undefined} className="theme-follow pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 md:pt-4">
+      {/* On phones the bar sits at the bottom, within reach of the thumb; from
+          tablets up it is at the top. */}
+      <header
+        data-theme={open ? "dark" : undefined}
+        className="theme-follow pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:bottom-auto md:top-0 md:pb-0 md:pt-4"
+      >
         <div
           data-folded={folded || open}
           data-open={open}
-          className="capsule pointer-events-auto flex max-w-full items-center gap-1 rounded-full border border-line bg-paper/80 p-1.5 shadow-[0_18px_40px_-24px_rgb(11_11_18/0.45)] backdrop-blur-xl transition-colors duration-500"
+          className="capsule pointer-events-auto flex max-w-full items-center gap-1 rounded-full border border-line bg-paper/80 p-1.5 shadow-[0_-14px_40px_-24px_rgb(11_11_18/0.45)] backdrop-blur-xl transition-colors duration-500 md:shadow-[0_18px_40px_-24px_rgb(11_11_18/0.45)]"
         >
           <Link href={`/${locale}`} title={nav.home} className="relative z-10 shrink-0 rounded-full pe-2">
             <Logo />
@@ -205,7 +210,7 @@ export default function Header({
         aria-label={nav.menu}
         inert={!open}
         data-theme="dark"
-        className={`site-menu fixed inset-0 z-40 flex flex-col overflow-y-auto pt-20 ${open ? "is-open" : ""}`}
+        className={`site-menu fixed inset-0 z-40 flex flex-col overflow-y-auto pb-24 pt-6 md:pb-0 md:pt-20 ${open ? "is-open" : ""}`}
       >
         <div className="container-x grid flex-1 items-center gap-10 py-8 lg:grid-cols-12">
           <nav aria-label="Menu" className="lg:col-span-6">

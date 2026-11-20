@@ -195,7 +195,7 @@ export default function SkyDive({ children, hint, mirror = false }: { children: 
         <p
           ref={hintRef}
           aria-hidden="true"
-          className="eyebrow absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-white/85"
+          className="eyebrow absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/85 md:flex"
         >
           {hint}
           <span className="h-9 w-px bg-gradient-to-b from-white to-transparent" />

@@ -70,7 +70,7 @@ export default async function CaseStudy({ params }: Props) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <section className="container-x pb-12 pt-32 md:pb-16 md:pt-44">
+      <section className="container-x pb-12 pt-16 md:pb-16 md:pt-44">
         <nav aria-label="Breadcrumb">
           <ol className="eyebrow flex flex-wrap items-center gap-2 text-muted">
             <li>

@@ -12,7 +12,7 @@ export const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties
 
 export function PageHero({ label, title, lead }: { label: string; title: string; lead?: string }) {
   return (
-    <section className="container-x pb-12 pt-32 md:pb-16 md:pt-40">
+    <section className="container-x pb-12 pt-16 md:pb-16 md:pt-40">
       <Label className="text-muted">{label}</Label>
       <SplitHeadline text={title} className="h-page mt-5 max-w-[22ch] [text-wrap:balance]" />
       {lead && (

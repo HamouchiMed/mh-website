@@ -15,7 +15,7 @@ export default function Footer({ locale }: { locale: Locale }) {
   const linkClass = "text-[0.9375rem] text-muted transition-colors hover:text-ink";
 
   return (
-    <footer data-theme="dark" data-scene="cta" data-zone="4" className="relative overflow-hidden">
+    <footer data-theme="dark" data-scene="cta" data-zone="4" className="relative overflow-hidden max-md:pb-[calc(4.5rem+env(safe-area-inset-bottom))]">
       {site.experience === "ciel" ? (
         // "Du ciel au code": the call to action as a big LED sign.
         <div className="relative isolate overflow-hidden border-b border-line bg-[#050509]">

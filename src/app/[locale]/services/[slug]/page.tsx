@@ -81,7 +81,7 @@ export default async function ServicePage({ params }: Props) {
           aria-hidden="true"
           className="absolute -end-[10%] -top-[14%] -z-10 aspect-square w-[38vw] max-w-[35rem] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff_0%,#8fa2ff_18%,#2e3bff_55%,#0b0b12_100%)] opacity-90"
         />
-        <div className="container-x pb-16 pt-32 md:pb-24 md:pt-44">
+        <div className="container-x pb-16 pt-16 md:pb-24 md:pt-44">
           <nav aria-label="Breadcrumb">
             <ol className="eyebrow flex flex-wrap items-center gap-2 text-muted">
               <li>
