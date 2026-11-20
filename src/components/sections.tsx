@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { services } from "@/content/services";
 import { getProjects, localizeProject } from "@/lib/content";
 import { getDictionary, type Locale } from "@/lib/i18n";
+import AsciiMedia from "./ciel/AsciiMedia";
 import DotWave from "./motion/DotWave";
 import Decode from "./motion/Decode";
 import { Arrow, arrowHover, Label, ProjectMedia, SplitHeadline } from "./ui";
@@ -184,7 +185,7 @@ export function FaqSection({ id, label, title, children }: { id: string; label?:
 }
 
 // Cards for the sideways-scrolling work section on the home page.
-export async function WorkRail({ locale }: { locale: Locale }) {
+export async function WorkRail({ locale, ascii = false }: { locale: Locale; ascii?: boolean }) {
   const t = getDictionary(locale);
   const all = await getProjects();
   const list = all.filter((p) => p.featured).map((p) => localizeProject(p, locale));
@@ -193,7 +194,11 @@ export async function WorkRail({ locale }: { locale: Locale }) {
       {list.map((p, i) => (
         <article key={p.slug} className="group w-[min(82vw,35rem)] shrink-0 snap-start motion-reduce:lg:w-auto">
           <Link href={`/${locale}/work/${p.slug}`} className="block" data-cursor-label={t.workDetail.view}>
-            <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} sizes="(min-width: 1024px) 560px, 82vw" />
+            {ascii && p.cover ? (
+              <AsciiMedia src={p.cover} alt={`${p.name} — ${p.category}`} sizes="(min-width: 1024px) 560px, 82vw" />
+            ) : (
+              <ProjectMedia src={p.cover} alt={`${p.name} — ${p.category}`} palette={p.palette} sizes="(min-width: 1024px) 560px, 82vw" />
+            )}
             <div className="mt-5 flex items-start justify-between gap-4">
               <div>
                 <p className="eyebrow text-muted">{String(i + 1).padStart(2, "0")}</p>

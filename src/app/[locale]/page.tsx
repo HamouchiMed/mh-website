@@ -1,4 +1,9 @@
 import { LatestPosts, Trust } from "@/components/blocks";
+import Altimeter from "@/components/ciel/Altimeter";
+import BlueprintPlan from "@/components/ciel/BlueprintPlan";
+import LedBand from "@/components/ciel/LedBand";
+import SkyDive from "@/components/ciel/SkyDive";
+import TopoMap from "@/components/ciel/TopoMap";
 import HorizontalWork from "@/components/HorizontalWork";
 import Decode from "@/components/motion/Decode";
 import ParticleMorph from "@/components/motion/ParticleMorph";
@@ -8,10 +13,12 @@ import Showreel from "@/components/Showreel";
 import { Stats } from "@/components/StudioBlocks";
 import { Faq, JsonLd, Label, Pill, ScrollText, SplitHeadline } from "@/components/ui";
 import VelocityMarquee from "@/components/VelocityMarquee";
+import { cities } from "@/content/cities";
 import { services } from "@/content/services";
 import { getStudio } from "@/lib/content";
-import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { cityFolder, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { faqLd, pageMetadata, samePath } from "@/lib/seo";
+import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -34,96 +41,148 @@ export default async function Home({ params }: Props) {
   const t = getDictionary(locale);
   const studio = await getStudio();
 
+  const ciel = site.experience === "ciel";
+  const rtl = locale === "ar";
+
+  const heroContent = (
+    <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 md:pb-12">
+      <div className="max-w-[40rem]">
+        <Label className="text-muted">{t.hero.eyebrow}</Label>
+        <SplitHeadline text={t.hero.title} className="h-hero mt-5 max-w-[16ch] [text-wrap:balance]" />
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted" data-rise style={delay(150)}>
+          {t.hero.lead}
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-3" data-rise style={delay(250)}>
+          <Pill href={`/${locale}/contact`}>{t.hero.primary}</Pill>
+          <Pill href={`/${locale}/services`} variant="outline">
+            {t.hero.secondary}
+          </Pill>
+        </div>
+        <p className="eyebrow mt-8 flex flex-wrap gap-x-2 text-muted" data-rise style={delay(350)}>
+          <span>{t.hero.specialty}</span>
+          <Decode
+            text={services[0][locale].title}
+            cycle={services.map((s) => s[locale].title)}
+            trigger="none"
+            className={ciel ? "text-white" : "text-accent"}
+          />
+        </p>
+        {studio.showreel && (
+          <div className="mt-8" data-rise style={delay(350)}>
+            <Showreel src={studio.showreel} poster={studio.showreelPoster} labels={{ open: t.studio.showreel, close: t.studio.close }} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  // The intro, as it sits on the topographic map.
+  const introContent = (
+    <>
+      <Label as="h2" id="intro-label" className="text-muted">
+        {t.intro.label}
+      </Label>
+      <ScrollText text={t.intro.text} className="mt-6 max-w-2xl text-[clamp(1.25rem,2vw,1.75rem)] font-medium leading-[1.35] tracking-[-0.02em]" />
+      <div className="mt-10">
+        <Pill href={`/${locale}/about`} variant="ink">
+          {t.intro.link}
+        </Pill>
+      </div>
+    </>
+  );
+
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", ...faqLd(t.faq.items) }} />
 
-      {/* One 3D scene for the whole page: it glides to a new pose for every [data-scene] section. */}
-      <SceneCanvas mirror={locale === "ar"} />
+      {ciel ? (
+        <>
+          {/* "Du ciel au code": a dive from the sky to the code, one zoom level per section. */}
+          <Altimeter labels={t.ciel.hud} locale={locale} />
+          <SkyDive hint={t.ciel.dive} mirror={rtl}>
+            {heroContent}
+          </SkyDive>
+          <TopoMap
+            labels={t.ciel.map}
+            mirror={rtl}
+            cities={cities.map((c) => ({ slug: c.slug, name: c.name[locale], href: `/${locale}/${cityFolder[locale]}/${c.slug}`, geo: c.geo }))}
+          >
+            {introContent}
+          </TopoMap>
+          <LedBand items={services.map((s) => s[locale].title)} label={t.nav.services} rtl={rtl} />
+          <BlueprintPlan
+            labels={t.ciel.plan}
+            viewAll={{ href: `/${locale}/services`, label: t.servicesSection.link }}
+            items={services.map((s) => ({
+              id: s.id,
+              title: s[locale].title,
+              href: `/${locale}/services/${s[locale].slug}`,
+              note: t.ciel.plan.notes[s.id] ?? s[locale].short,
+            }))}
+          />
+        </>
+      ) : (
+        <>
+          {/* One 3D scene for the whole page: it glides to a new pose for every [data-scene] section. */}
+          <SceneCanvas mirror={rtl} />
 
-      {/* Hero */}
-      <section data-scene="hero" className="relative flex min-h-[100svh] flex-col">
-        <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 md:pb-12">
-          <div className="max-w-[40rem]">
-            <Label className="text-muted">{t.hero.eyebrow}</Label>
-            <SplitHeadline text={t.hero.title} className="h-hero mt-5 max-w-[16ch] [text-wrap:balance]" />
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted" data-rise style={delay(150)}>
-              {t.hero.lead}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3" data-rise style={delay(250)}>
-              <Pill href={`/${locale}/contact`}>{t.hero.primary}</Pill>
-              <Pill href={`/${locale}/services`} variant="outline">
-                {t.hero.secondary}
-              </Pill>
+          {/* Hero */}
+          <section data-scene="hero" className="relative flex min-h-[100svh] flex-col">
+            {heroContent}
+            <div aria-hidden="true" className="container-x eyebrow flex items-center justify-between border-t border-line py-4 text-muted">
+              <span>{t.hero.scroll} ↓</span>
+              <span>© {new Date().getFullYear()}</span>
             </div>
-            <p className="eyebrow mt-8 flex flex-wrap gap-x-2 text-muted" data-rise style={delay(350)}>
-              <span>{t.hero.specialty}</span>
-              <Decode
-                text={services[0][locale].title}
-                cycle={services.map((s) => s[locale].title)}
-                trigger="none"
-                className="text-accent"
-              />
-            </p>
-            {studio.showreel && (
-              <div className="mt-8" data-rise style={delay(350)}>
-                <Showreel src={studio.showreel} poster={studio.showreelPoster} labels={{ open: t.studio.showreel, close: t.studio.close }} />
+          </section>
+
+          {/* Marquee: drifts, speeds up and leans with the scroll */}
+          <section aria-label={t.nav.services} className="bg-accent py-4 text-white md:py-5">
+            <VelocityMarquee items={services.map((s) => s[locale].title)} className="text-[clamp(1.4rem,3vw,2.5rem)] font-semibold tracking-[-0.02em]" />
+          </section>
+
+          {/* Intro: words light up while scrolling */}
+          <section aria-labelledby="intro-label" data-scene="intro" className="container-x py-20 md:py-32">
+            <div className="grid gap-6 md:grid-cols-12">
+              <div className="md:col-span-3">
+                <Label as="h2" id="intro-label" className="text-muted">
+                  {t.intro.label}
+                </Label>
               </div>
-            )}
-          </div>
-        </div>
-        <div aria-hidden="true" className="container-x eyebrow flex items-center justify-between border-t border-line py-4 text-muted">
-          <span>{t.hero.scroll} ↓</span>
-          <span>© {new Date().getFullYear()}</span>
-        </div>
-      </section>
-
-      {/* Marquee: drifts, speeds up and leans with the scroll */}
-      <section aria-label={t.nav.services} className="bg-accent py-4 text-white md:py-5">
-        <VelocityMarquee items={services.map((s) => s[locale].title)} className="text-[clamp(1.4rem,3vw,2.5rem)] font-semibold tracking-[-0.02em]" />
-      </section>
-
-      {/* Intro: words light up while scrolling */}
-      <section aria-labelledby="intro-label" data-scene="intro" className="container-x py-20 md:py-32">
-        <div className="grid gap-6 md:grid-cols-12">
-          <div className="md:col-span-3">
-            <Label as="h2" id="intro-label" className="text-muted">
-              {t.intro.label}
-            </Label>
-          </div>
-          <div className="md:col-span-9">
-            <ScrollText text={t.intro.text} className="max-w-4xl text-[clamp(1.4rem,2.6vw,2.25rem)] font-medium leading-[1.3] tracking-[-0.02em]" />
-            <div className="mt-10">
-              <Pill href={`/${locale}/about`} variant="ink">
-                {t.intro.link}
-              </Pill>
+              <div className="md:col-span-9">
+                <ScrollText text={t.intro.text} className="max-w-4xl text-[clamp(1.4rem,2.6vw,2.25rem)] font-medium leading-[1.3] tracking-[-0.02em]" />
+                <div className="mt-10">
+                  <Pill href={`/${locale}/about`} variant="ink">
+                    {t.intro.link}
+                  </Pill>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Services */}
-      {/* Services: the particle cloud takes the shape of the hovered service */}
-      <section aria-labelledby="services-title" data-scene="services" className="container-x pb-20 md:pb-32">
-        <SectionHeader
-          id="services-title"
-          label={t.servicesSection.label}
-          title={t.servicesSection.title}
-          link={{ href: `/${locale}/services`, label: t.servicesSection.link }}
-        />
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
-            <ParticleMorph watch="home-services" className="aspect-[4/3] w-full lg:sticky lg:top-24 lg:aspect-square" />
-          </div>
-          <div className="lg:col-span-7">
-            <ServicesList locale={locale} compact id="home-services" />
-          </div>
-        </div>
-      </section>
+          {/* Services: the particle cloud takes the shape of the hovered service */}
+          <section aria-labelledby="services-title" data-scene="services" className="container-x pb-20 md:pb-32">
+            <SectionHeader
+              id="services-title"
+              label={t.servicesSection.label}
+              title={t.servicesSection.title}
+              link={{ href: `/${locale}/services`, label: t.servicesSection.link }}
+            />
+            <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-5">
+                <ParticleMorph watch="home-services" className="aspect-[4/3] w-full lg:sticky lg:top-24 lg:aspect-square" />
+              </div>
+              <div className="lg:col-span-7">
+                <ServicesList locale={locale} compact id="home-services" />
+              </div>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* Work: pinned, slides sideways while the page scrolls */}
       <HorizontalWork
-        rtl={locale === "ar"}
+        rtl={rtl}
+        zone={ciel ? 3 : undefined}
         header={
           <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
             <div>
@@ -138,7 +197,7 @@ export default async function Home({ params }: Props) {
           </div>
         }
       >
-        <WorkRail locale={locale} />
+        <WorkRail locale={locale} ascii={ciel} />
       </HorizontalWork>
 
       <Trust locale={locale} />

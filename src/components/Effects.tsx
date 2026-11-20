@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { setLenis } from "@/lib/scroll";
 
-const pageColors = { light: "#fafafa", dark: "#0b0b12", accent: "#2e3bff" } as const;
+const pageColors = { light: "#fafafa", dark: "#0b0b12", accent: "#2e3bff", blueprint: "#1a2bb5" } as const;
 type PageTheme = keyof typeof pageColors;
 
 // Global motion layer: smooth scrolling, scroll-triggered reveals, the

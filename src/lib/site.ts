@@ -12,6 +12,10 @@ export const site = {
   phone: "+212708826686",
   whatsapp: "+212708826686",
   country: "MA",
+  // Look of the home page and footer. "ciel" is the "Du ciel au code" design
+  // (sky dive, topographic map, LED panels, blueprint plan, ASCII covers);
+  // "classic" brings back the previous design (3D bubble, marquee, particles).
+  experience: "ciel" as "ciel" | "classic",
   // Shown on the legal notice page. Empty values display "À compléter".
   // TODO: fill in once the company details are final.
   legal: {

@@ -4,8 +4,9 @@ import { services } from "@/content/services";
 import { cityFolder, getDictionary, type Locale } from "@/lib/i18n";
 import { activeSocials, site } from "@/lib/site";
 import { Logo } from "./Header";
+import LedSign from "./ciel/LedSign";
 import Warp from "./motion/Warp";
-import { Arrow, Label } from "./ui";
+import { Arrow, arrowHover, Label } from "./ui";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -14,28 +15,55 @@ export default function Footer({ locale }: { locale: Locale }) {
   const linkClass = "text-[0.9375rem] text-muted transition-colors hover:text-ink";
 
   return (
-    <footer data-theme="dark" data-scene="cta" className="relative overflow-hidden">
-      <div className="relative isolate overflow-hidden border-b border-line">
-        <Warp boost="#footer-cta" className="absolute inset-0 -z-10" />
-        <section aria-labelledby="footer-cta" className="container-x py-16 md:py-24">
-          <Label className="text-muted">{t.cta.label}</Label>
-          <Link href={`/${locale}/contact`} id="footer-cta" className="group mt-5 flex items-center justify-between gap-6" data-reveal>
-            <span className="display text-[clamp(2.6rem,6.5vw,5.25rem)] transition-colors duration-500 group-hover:text-accent">{t.cta.title}</span>
-            <span
-              data-magnetic
-              className="grid aspect-square w-[clamp(3.25rem,6.5vw,5.5rem)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.25rem,2vw,1.8rem)] text-white transition-transform duration-500 group-hover:rotate-45 rtl:group-hover:-rotate-45"
-            >
-              <Arrow />
-            </span>
-          </Link>
-          <p className="mt-6 text-muted">
-            {t.cta.or}{" "}
-            <a href={`mailto:${site.email}`} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-accent">
-              {site.email}
-            </a>
-          </p>
-        </section>
-      </div>
+    <footer data-theme="dark" data-scene="cta" data-zone="4" className="relative overflow-hidden">
+      {site.experience === "ciel" ? (
+        // "Du ciel au code": the call to action as a big LED sign.
+        <div className="relative isolate overflow-hidden border-b border-line bg-[#050509]">
+          <section aria-labelledby="footer-cta" className="container-x py-14 md:py-20">
+            <Label className="text-muted">{t.cta.label}</Label>
+            <Link href={`/${locale}/contact`} id="footer-cta" aria-label={t.cta.title} className="mt-6 block h-[clamp(8.5rem,19vw,18rem)] cursor-pointer">
+              <LedSign text={t.ciel.sign} />
+            </Link>
+            <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <p className="text-muted">
+                {t.cta.or}{" "}
+                <a href={`mailto:${site.email}`} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-accent">
+                  {site.email}
+                </a>
+              </p>
+              <Link
+                href={`/${locale}/contact`}
+                className="group inline-flex items-center gap-2 self-start rounded-full bg-accent px-6 py-3.5 font-medium text-white md:self-auto"
+              >
+                {t.cta.button}
+                <Arrow className={arrowHover} />
+              </Link>
+            </div>
+          </section>
+        </div>
+      ) : (
+        <div className="relative isolate overflow-hidden border-b border-line">
+          <Warp boost="#footer-cta" className="absolute inset-0 -z-10" />
+          <section aria-labelledby="footer-cta" className="container-x py-16 md:py-24">
+            <Label className="text-muted">{t.cta.label}</Label>
+            <Link href={`/${locale}/contact`} id="footer-cta" className="group mt-5 flex items-center justify-between gap-6" data-reveal>
+              <span className="display text-[clamp(2.6rem,6.5vw,5.25rem)] transition-colors duration-500 group-hover:text-accent">{t.cta.title}</span>
+              <span
+                data-magnetic
+                className="grid aspect-square w-[clamp(3.25rem,6.5vw,5.5rem)] shrink-0 place-items-center rounded-full bg-accent text-[clamp(1.25rem,2vw,1.8rem)] text-white transition-transform duration-500 group-hover:rotate-45 rtl:group-hover:-rotate-45"
+              >
+                <Arrow />
+              </span>
+            </Link>
+            <p className="mt-6 text-muted">
+              {t.cta.or}{" "}
+              <a href={`mailto:${site.email}`} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-accent">
+                {site.email}
+              </a>
+            </p>
+          </section>
+        </div>
+      )}
 
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-12">
         <div className="md:col-span-4">

@@ -10,10 +10,12 @@ export default function HorizontalWork({
   header,
   children,
   rtl = false,
+  zone,
 }: {
   header: ReactNode;
   children: ReactNode;
   rtl?: boolean;
+  zone?: number;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -69,7 +71,7 @@ export default function HorizontalWork({
   }, [rtl]);
 
   return (
-    <section ref={sectionRef} aria-labelledby="work-title" data-theme="dark" data-scene="work" className="relative">
+    <section ref={sectionRef} aria-labelledby="work-title" data-theme="dark" data-scene="work" data-zone={zone} className="relative">
       <div className={pinned ? "sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden py-16" : "py-20 md:py-28"}>
         <div className="container-x">{header}</div>
         <div

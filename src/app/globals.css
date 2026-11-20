@@ -70,10 +70,21 @@ html[data-page-theme="accent"] .theme-follow {
   --color-ink: #ffffff;
   --color-paper: #2e3bff;
   --color-paper-2: #2330e6;
-  --color-muted: rgb(255 255 255 / 0.74);
+  --color-muted: rgb(255 255 255 / 0.84);
   --color-line: rgb(255 255 255 / 0.26);
   --color-accent: #0b0b12;
   --color-accent-soft: #ffffff;
+}
+/* Technical drawing blue, with drawing-office yellow for highlights. */
+[data-theme="blueprint"],
+html[data-page-theme="blueprint"] .theme-follow {
+  --color-ink: #ffffff;
+  --color-paper: #1a2bb5;
+  --color-paper-2: #1626a0;
+  --color-muted: rgb(255 255 255 / 0.72);
+  --color-line: rgb(255 255 255 / 0.24);
+  --color-accent: #0b0b12;
+  --color-accent-soft: #ffd84d;
 }
 [data-theme] {
   color: var(--color-ink);
@@ -616,6 +627,94 @@ html.own-scrollbar::-webkit-scrollbar {
   transform: none;
 }
 
+/* ---------- "Du ciel au code" ---------- */
+/* WebGL canvases fade in once drawn, over their host's own background. */
+.gl-fade > canvas {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.gl-fade[data-ready="true"] > canvas {
+  opacity: 1;
+}
+/* The services plan (BlueprintPlan.tsx). */
+.bg-blueprint {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.16) 1px, transparent 1px),
+    linear-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size:
+    6rem 6rem,
+    6rem 6rem,
+    1.5rem 1.5rem,
+    1.5rem 1.5rem;
+  background-position: -1px -1px;
+}
+.plan-svg {
+  color: #ffffff;
+}
+/* The walls draw themselves, then the equipment fades in. */
+.plan-svg .plan-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.4s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.plan-svg.is-drawn .plan-draw {
+  stroke-dashoffset: 0;
+}
+.plan-svg .plan-fade {
+  opacity: 0;
+  transition: opacity 1s ease 1.6s;
+}
+.plan-svg.is-drawn .plan-fade {
+  opacity: 1;
+}
+.plan-svg [data-svc] {
+  transition:
+    opacity 0.35s,
+    color 0.35s;
+}
+.plan-svg.has-focus [data-svc] {
+  opacity: 0.28;
+}
+.plan-svg.has-focus [data-svc].is-hit {
+  opacity: 1;
+  color: #ffd84d;
+}
+.plan-cone {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: plan-sweep 5s ease-in-out infinite alternate;
+}
+.plan-cone.b {
+  animation-duration: 6.5s;
+  animation-direction: alternate-reverse;
+}
+.plan-cone.c {
+  animation-duration: 4.4s;
+}
+.plan-cone.d {
+  animation-duration: 7.2s;
+  animation-direction: alternate-reverse;
+}
+@keyframes plan-sweep {
+  from {
+    transform: rotate(-13deg);
+  }
+  to {
+    transform: rotate(13deg);
+  }
+}
+.plan-cable {
+  stroke-dasharray: 4 3;
+  animation: plan-flow 1.2s linear infinite;
+}
+@keyframes plan-flow {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
 /* Motion turned off on the device: nothing slides, scales, rotates, wipes or
    loops. Fades and colour changes stay, so states still change softly. The
    JS effects (3D scenes, cursor, smooth scroll, marquee, intro) check the
@@ -678,5 +777,16 @@ html.own-scrollbar::-webkit-scrollbar {
   }
   .sound-bars.is-live span:nth-child(even) {
     height: 11px;
+  }
+  /* The services plan is shown already drawn, cameras and cables still. */
+  .plan-svg .plan-draw {
+    stroke-dashoffset: 0;
+  }
+  .plan-svg .plan-fade {
+    opacity: 1;
+  }
+  .plan-cone,
+  .plan-cable {
+    animation: none;
   }
 }

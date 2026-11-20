@@ -463,6 +463,45 @@ export const fr = {
     back: "Retour à l'accueil",
     hint: "Maintenez le clic : saut en hyperespace.",
   },
+  // "Du ciel au code" home page and footer (site.experience = "ciel").
+  ciel: {
+    dive: "Défilez pour descendre",
+    hud: { label: "Altimètre", zone: "Zone", alt: "Alt.", scale: "Éch.", zones: ["Ciel", "Terrain", "Plan", "Code", "Signal"] },
+    map: {
+      label: "Nos villes au Maroc",
+      scale: "Éch. 1:50 000",
+      interval: "Équidistance 20 m",
+      count: "12 villes",
+      agency: "Agence web à {city}",
+      north: "N",
+      lat: "N",
+      lon: "O",
+      decimal: ",",
+    },
+    plan: {
+      label: "Services · Légende",
+      title: "Du site web à la porte d'entrée, tout est sur le plan.",
+      hint: "Survolez la légende : chaque service s'allume sur le plan.",
+      ref: "Réf.",
+      aria: "Plan d'installation type : accueil, open space, salle de réunion, salle serveurs et stock, avec caméras, lecteurs de badge et réseau.",
+      rooms: { reception: "Accueil", open: "Open space", meeting: "Salle de réunion", servers: "Serveurs", storage: "Stock" },
+      tags: { counter: "Comptoir · TPE", screen: "Écran d'accueil", google: "Fiche Google", rack: "Baie · logiciels", turnstile: "Tourniquet", nvr: "NVR · 4 cam" },
+      block: { title: "MH Group · installation type", sheet: "Plan RDC", by: "Dessiné par MH", scale: "Éch. 1:100", format: "Format A3" },
+      width: "18,00 m",
+      depth: "11,50 m",
+      notes: {
+        web: "Votre vitrine, utilisée depuis chaque poste de l'open space.",
+        mobile: "La porte s'ouvre depuis le smartphone (NFC).",
+        ecommerce: "Commandes en ligne, retrait et paiement à l'accueil.",
+        software: "Baie serveur, réseau et logiciel de gestion.",
+        design: "Signalétique, totem et écran d'accueil à votre image.",
+        seo: "Fiche Google, avis et itinéraire jusqu'à votre porte.",
+        "access-control": "3 lecteurs de badge, 1 tourniquet, zones réservées.",
+        cctv: "4 caméras et un enregistreur dans la salle serveurs.",
+      } as Record<string, string>,
+    },
+    sign: "PARLONS-EN",
+  },
 };
 
 export type Dictionary = typeof fr;

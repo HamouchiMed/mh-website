@@ -27,19 +27,55 @@ export const prefersReducedMotion = () =>
 
 export const isSmallScreen = () => typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
 
+// True when WebGL is drawn by the processor instead of a graphics card
+// (SwiftShader, llvmpipe, Microsoft Basic Render Driver…), as in headless
+// browsers and speed tests: every frame would block the page for ~100 ms.
+// Probed once per page with a throwaway context, before three is loaded.
+let softwareGL: boolean | null = null;
+function isSoftwareGL() {
+  if (softwareGL !== null) return softwareGL;
+  softwareGL = false;
+  try {
+    const gl = document.createElement("canvas").getContext("webgl2");
+    if (gl) {
+      const info = gl.getExtension("WEBGL_debug_renderer_info");
+      const name = String(gl.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
+      softwareGL = /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+    }
+  } catch {}
+  return softwareGL;
+}
+
+// Resolves on the visitor's first scroll, pointer move, touch or key press.
+function firstInteraction() {
+  return new Promise<void>((resolve) => {
+    const events = ["pointermove", "pointerdown", "wheel", "touchstart", "keydown", "scroll"] as const;
+    const go = () => {
+      events.forEach((e) => window.removeEventListener(e, go));
+      resolve();
+    };
+    events.forEach((e) => window.addEventListener(e, go, { passive: true }));
+  });
+}
+
 /**
  * Runs a three.js scene inside `host`. three is imported on demand (it never
  * blocks the first paint), the renderer is created once the host comes near
  * the screen, the loop pauses off-screen or in a hidden tab, and with reduced
  * motion a single still frame is drawn (`redraw` draws a new one after a
- * change, such as a hover). Returns a cleanup function.
+ * change, such as a hover; `isStill` lets the scene skip its easing). Without
+ * a graphics card, nothing loads until the visitor first scrolls or moves,
+ * then still frames are drawn on demand at a lower resolution. Returns a
+ * cleanup function.
  */
 export function runThreeStage(
   host: HTMLElement,
   options: Options,
-  build: (THREE: Three, pointer: Pointer, redraw: () => void) => Scene3,
+  build: (THREE: Three, pointer: Pointer, redraw: () => void, isStill: () => boolean) => Scene3,
 ) {
   const reduced = prefersReducedMotion();
+  let still = reduced;
   const pointer: Pointer = { x: 0, y: 0, inside: false, down: false, moved: 0 };
   // A fresh canvas per run, so a lost context is never reused.
   const canvas = document.createElement("canvas");
@@ -71,7 +107,7 @@ export function runThreeStage(
     t += dt;
     scene.frame(t, dt, renderer);
   };
-  const running = () => visible && !document.hidden && !reduced && !!renderer;
+  const running = () => visible && !document.hidden && !still && !!renderer;
   const loop = () => {
     raf = 0;
     if (!running()) {
@@ -86,6 +122,10 @@ export function runThreeStage(
   };
 
   const init = async () => {
+    if (isSoftwareGL()) {
+      still = true;
+      await firstInteraction();
+    }
     const THREE = await import("three");
     if (disposed) return;
     try {
@@ -94,12 +134,17 @@ export function runThreeStage(
       console.warn("WebGL unavailable, decorative animation skipped.", err);
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, options.dprCap ?? 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, options.dprCap ?? 2, isSoftwareGL() ? 0.4 : Infinity));
     renderer.setClearColor(options.clear ?? 0x000000, options.alpha ? 0 : 1);
     measure();
-    scene = build(THREE, pointer, () => {
-      if (reduced) draw();
-    });
+    scene = build(
+      THREE,
+      pointer,
+      () => {
+        if (still) draw();
+      },
+      () => still,
+    );
     renderer.setSize(w, h, false);
     scene.resize(w, h);
     host.dataset.ready = "true";
@@ -138,7 +183,7 @@ export function runThreeStage(
     if (!renderer || !scene) return;
     renderer.setSize(w, h, false);
     scene.resize(w, h);
-    if (reduced) draw();
+    if (still) draw();
   });
   ro.observe(host);
   const io = new IntersectionObserver(
